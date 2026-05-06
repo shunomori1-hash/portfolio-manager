@@ -14,6 +14,7 @@ export function usePortfolio() {
   const [fetchingPrices, setFetchingPrices] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState<string | null>(null);
+  const [isDirty, setIsDirty] = useState(false);
 
   useEffect(() => {
     fetch('/api/portfolio')
@@ -33,6 +34,7 @@ export function usePortfolio() {
       ...prev,
       items: prev.items.map(item => item.id === id ? { ...item, ...updates } : item),
     }));
+    setIsDirty(true);
   }, []);
 
   const updateSummary = useCallback((updates: Partial<Portfolio['summary']>) => {
@@ -40,9 +42,10 @@ export function usePortfolio() {
       ...prev,
       summary: { ...prev.summary, ...updates },
     }));
+    setIsDirty(true);
   }, []);
 
-  const addItem = useCallback(() => {
+  const addItem = useCallback((initial: Partial<PortfolioItem> = {}) => {
     const newItem: PortfolioItem = {
       id: crypto.randomUUID(),
       code: '',
@@ -71,12 +74,15 @@ export function usePortfolio() {
       tag: '',
       priceUpdatedAt: null,
       priceError: null,
+      ...initial,
     };
     setPortfolio(prev => ({ ...prev, items: [...prev.items, newItem] }));
+    setIsDirty(true);
   }, []);
 
   const removeItem = useCallback((id: string) => {
     setPortfolio(prev => ({ ...prev, items: prev.items.filter(item => item.id !== id) }));
+    setIsDirty(true);
   }, []);
 
   const save = useCallback(async (current: Portfolio) => {
@@ -90,6 +96,7 @@ export function usePortfolio() {
       });
       const data = await r.json() as { ok: boolean; lastSaved: string };
       setPortfolio(prev => ({ ...prev, lastSaved: data.lastSaved }));
+      setIsDirty(false);
       setSaveStatus('保存しました');
       setTimeout(() => setSaveStatus(null), 3000);
     } catch (e) {
@@ -121,6 +128,7 @@ export function usePortfolio() {
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const data = await r.json() as { ok: boolean; lastSaved: string };
       setPortfolio(prev => ({ ...prev, lastSaved: data.lastSaved }));
+      setIsDirty(false);
       setSaveStatus('インポート完了');
       setTimeout(() => setSaveStatus(null), 3000);
     } catch (e) {
@@ -168,6 +176,7 @@ export function usePortfolio() {
     fetchingPrices,
     error,
     saveStatus,
+    isDirty,
     updateItem,
     updateSummary,
     addItem,

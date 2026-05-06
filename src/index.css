@@ -500,6 +500,245 @@ body {
   color: #fff;
 }
 
+/* ── Filter bar ──────────────────────────────── */
+.filter-bar {
+  background: #f1f5f9;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 4px 10px;
+  flex-shrink: 0;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.filter-search {
+  height: 22px;
+  border: 1px solid #cbd5e1;
+  border-radius: 3px;
+  padding: 0 6px;
+  font-size: 11px;
+  font-family: inherit;
+  width: 140px;
+  background: #fff;
+}
+
+.filter-search:focus {
+  outline: 2px solid #3b82f6;
+  border-color: transparent;
+}
+
+.filter-select {
+  height: 22px;
+  border: 1px solid #cbd5e1;
+  border-radius: 3px;
+  padding: 0 2px;
+  font-size: 11px;
+  font-family: inherit;
+  background: #fff;
+  cursor: pointer;
+}
+
+.filter-select-sm {
+  width: 56px;
+}
+
+.filter-check {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: #475569;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filter-check input {
+  margin: 0;
+  accent-color: #3b82f6;
+}
+
+.btn-filter-clear {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-filter-clear:hover {
+  background: #fee2e2;
+}
+
+.filter-count {
+  font-size: 11px;
+  color: #64748b;
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
+/* ── Sort header ─────────────────────────────── */
+.sortable-col {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable-col:hover {
+  background: #2d5a8e !important;
+}
+
+.sort-icon {
+  margin-left: 3px;
+  font-size: 9px;
+  opacity: 0.6;
+}
+
+.sort-active .sort-icon {
+  opacity: 1;
+  color: #93c5fd;
+}
+
+/* ── Memo cell textarea ───────────────────────── */
+.cell-memo-edit {
+  width: 100%;
+  min-width: 120px;
+  border: 2px solid #3b82f6;
+  border-radius: 1px;
+  padding: 2px 3px;
+  font-size: 11px;
+  font-family: inherit;
+  resize: vertical;
+  background: #eff6ff;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.memo-cell {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Unsaved indicator ───────────────────────── */
+.unsaved-indicator {
+  font-size: 11px;
+  color: #f59e0b;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ── Long summary ────────────────────────────── */
+.ls-warn {
+  color: #d97706;
+  font-weight: 600;
+}
+
+.ls-good {
+  color: #059669;
+  font-weight: 600;
+}
+
+/* ── Add item form ───────────────────────────── */
+.add-item-modal {
+  max-width: 420px;
+}
+
+.add-item-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  min-width: 72px;
+  flex-shrink: 0;
+}
+
+.form-required {
+  color: #ef4444;
+}
+
+.form-input {
+  flex: 1;
+  height: 28px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 0 8px;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.form-input:focus {
+  outline: 2px solid #3b82f6;
+  border-color: transparent;
+}
+
+.form-hint {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+/* ── Column settings modal ───────────────────── */
+.col-settings-modal {
+  max-width: 500px;
+}
+
+.preset-btns {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.preset-label {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.col-check-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px 8px;
+}
+
+.col-check-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.col-check-item:hover {
+  background: #f1f5f9;
+}
+
+.col-locked {
+  opacity: 0.5;
+  cursor: default;
+}
+
 /* ── Import button ───────────────────────────── */
 .btn-import {
   background: #7c3aed;

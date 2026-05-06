@@ -1,58 +1,77 @@
 import { useState, useRef } from 'react';
 import type { PortfolioItem, TagValue, FxValue, PeriodValue } from '../types';
+import { ALL_COLS, type ColKey, type SortState, type SortKey, COL_SORT_KEY } from '../utils/tableState';
 
 interface Props {
   items: PortfolioItem[];
   onUpdate: (id: string, updates: Partial<PortfolioItem>) => void;
   onRemove: (id: string) => void;
-  compact?: boolean;
+  visibleCols: Set<ColKey>;
+  sortState: SortState;
+  onSort: (key: SortKey) => void;
 }
 
 const TAG_OPTIONS: TagValue[] = ['◎', '○', '△', '×', ''];
 const FX_OPTIONS: FxValue[] = ['円高', '円安', ''];
 const PERIOD_OPTIONS: PeriodValue[] = ['3ヶ月', '半年', '1年', '2年', ''];
 
+// ─── Safe number helper ──────────────────────────────────────────────────────
+function safeN(n: number | null | undefined): number | null {
+  if (n == null || isNaN(n) || !isFinite(n)) return null;
+  return n;
+}
+
+// ─── Calc helpers ────────────────────────────────────────────────────────────
 function calcHolding(item: PortfolioItem) {
-  if (item.price == null || item.shares == null) return null;
-  return item.price * item.shares;
+  const p = safeN(item.price), s = safeN(item.shares);
+  if (p == null || s == null) return null;
+  return p * s;
 }
 
 function calcAfterAmount(item: PortfolioItem) {
-  if (item.price == null) return null;
-  const afterShares = (item.shares ?? 0) + (item.plannedDelta ?? 0);
-  return item.price * afterShares;
+  const p = safeN(item.price);
+  if (p == null) return null;
+  const afterShares = (safeN(item.shares) ?? 0) + (safeN(item.plannedDelta) ?? 0);
+  return p * afterShares;
 }
 
 function calcUpside(item: PortfolioItem) {
-  if (item.targetPrice == null || item.price == null || item.price === 0) return null;
-  return item.targetPrice / item.price - 1;
+  const tp = safeN(item.targetPrice), p = safeN(item.price);
+  if (tp == null || p == null || p === 0) return null;
+  return tp / p - 1;
 }
 
 function calcDivergence(item: PortfolioItem) {
-  if (item.borderPrice == null || item.price == null || item.price === 0) return null;
-  return item.borderPrice / item.price - 1;
+  const bp = safeN(item.borderPrice), p = safeN(item.price);
+  if (bp == null || p == null || p === 0) return null;
+  return bp / p - 1;
 }
 
 function calcDividendYield(item: PortfolioItem) {
-  if (item.dividend == null || item.price == null || item.price === 0) return null;
-  return item.dividend / item.price;
+  const d = safeN(item.dividend), p = safeN(item.price);
+  if (d == null || p == null || p === 0) return null;
+  return d / p;
 }
 
 function calcBenefitYield(item: PortfolioItem) {
-  if (item.benefit == null || item.price == null || item.price === 0) return null;
-  return item.benefit / item.price;
+  const b = safeN(item.benefit), p = safeN(item.price);
+  if (b == null || p == null || p === 0) return null;
+  return b / p;
 }
 
 function calcNetPer(item: PortfolioItem) {
-  if (item.per == null || item.price == null || item.price === 0 || item.netCash == null) return null;
-  return item.per * (item.price - item.netCash) / item.price;
+  const per = safeN(item.per), p = safeN(item.price), nc = safeN(item.netCash);
+  if (per == null || p == null || p === 0 || nc == null) return null;
+  return per * (p - nc) / p;
 }
 
 function calcDividendAmount(item: PortfolioItem) {
-  if (item.dividend == null || item.shares == null) return null;
-  return item.dividend * item.shares;
+  const d = safeN(item.dividend), s = safeN(item.shares);
+  if (d == null || s == null) return null;
+  return d * s;
 }
 
+// ─── Format helpers ──────────────────────────────────────────────────────────
 function fmt(n: number | null, decimals = 0): string {
   if (n == null) return '';
   return n.toLocaleString('ja-JP', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
@@ -63,6 +82,7 @@ function fmtPct(n: number | null): string {
   return (n * 100).toFixed(1) + '%';
 }
 
+// ─── Color helpers ───────────────────────────────────────────────────────────
 function upsideColor(upside: number | null): string {
   if (upside == null) return '';
   if (upside >= 0.5) return 'cell-upside-high';
@@ -88,44 +108,48 @@ function tagColor(tag: TagValue): string {
   }
 }
 
+// ─── Column width map ────────────────────────────────────────────────────────
+const W: Record<ColKey, number> = Object.fromEntries(ALL_COLS.map(c => [c.key, c.width])) as Record<ColKey, number>;
+
 type EditingCell = { id: string; key: string } | null;
 
-// Column widths (compact)
-const W = {
-  code:         52,
-  name:         90,
-  price:        60,
-  shares:       52,
-  holding:      78,
-  ratio:        50,
-  plannedDelta: 54,
-  afterAmount:  76,
-  afterRatio:   54,
-  settlement:   44,
-  tag2:         38, // テク/TOPIX/インフレ/IR/経営者/競争力/ガバ/タグ
-  border:       64,
-  divergence:   54,
-  targetPrice:  66,
-  targetPeriod: 52,
-  upside:       54,
-  fx:           46,
-  per:          46,
-  netCash:      64,
-  netPer:       52,
-  marchDiv:     46,
-  dividend:     46,
-  divAmount:    64,
-  divYield:     58,
-  benefit:      44,
-  benefitYield: 58,
-  memo:        120,
-  del:          30,
-};
+// ─── Sort header cell ────────────────────────────────────────────────────────
+function SortTh({
+  colKey, label, sortState, onSort, style,
+  className = '',
+}: {
+  colKey: ColKey;
+  label: string;
+  sortState: SortState;
+  onSort: (k: SortKey) => void;
+  style?: React.CSSProperties;
+  className?: string;
+}) {
+  const sk = COL_SORT_KEY[colKey];
+  const isActive = sk != null && sortState.key === sk;
+  return (
+    <th
+      className={`${className} ${sk ? 'sortable-col' : ''} ${isActive ? 'sort-active' : ''}`}
+      style={style}
+      onClick={sk ? () => onSort(sk) : undefined}
+    >
+      {label}
+      {sk && (
+        <span className="sort-icon">
+          {isActive ? (sortState.dir === 'asc' ? '↑' : '↓') : '⇅'}
+        </span>
+      )}
+    </th>
+  );
+}
 
-export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
+export function PortfolioTable({ items, onUpdate, onRemove, visibleCols, sortState, onSort }: Props) {
   const [editingCell, setEditingCell] = useState<EditingCell>(null);
   const [editValue, setEditValue] = useState('');
+  const [editingMemo, setEditingMemo] = useState<string | null>(null); // item id
+  const [memoValue, setMemoValue] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const totalBuy = items.reduce((acc, item) => {
     const h = calcHolding(item);
@@ -150,101 +174,95 @@ export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
     ];
     let value: string | number | null = editValue.trim();
     if (numericKeys.includes(key)) {
-      value = value === '' ? null : Number(value.replace(/,/g, ''));
-      if (value !== null && isNaN(value as number)) value = null;
+      const n = Number(value.replace(/,/g, ''));
+      value = value === '' ? null : (isNaN(n) ? null : n);
     }
     onUpdate(id, { [key]: value } as Partial<PortfolioItem>);
     setEditingCell(null);
   }
 
   function handleKeyDown(e: React.KeyboardEvent, id: string, key: keyof PortfolioItem) {
-    if (e.key === 'Enter' || e.key === 'Tab') {
-      e.preventDefault();
-      commitEdit(id, key);
-    }
-    if (e.key === 'Escape') {
-      setEditingCell(null);
-    }
+    if (e.key === 'Enter' || e.key === 'Tab') { e.preventDefault(); commitEdit(id, key); }
+    if (e.key === 'Escape') setEditingCell(null);
   }
 
-  function renderTextCell(item: PortfolioItem, key: keyof PortfolioItem, display: string, width: number) {
+  function startMemoEdit(id: string, value: string) {
+    setEditingMemo(id);
+    setMemoValue(value);
+    setTimeout(() => textareaRef.current?.focus(), 0);
+  }
+
+  function commitMemo(id: string) {
+    onUpdate(id, { memo: memoValue });
+    setEditingMemo(null);
+  }
+
+  const vis = (k: ColKey) => visibleCols.has(k);
+
+  // ─── Render helpers ─────────────────────────────────────────────────────────
+  function renderTextCell(item: PortfolioItem, key: keyof PortfolioItem, display: string, colKey: ColKey) {
+    if (!vis(colKey)) return null;
+    const w = W[colKey];
     const isEditing = editingCell?.id === item.id && editingCell?.key === key;
     if (isEditing) {
       return (
-        <td style={{ minWidth: width, padding: 0 }}>
-          <input
-            ref={inputRef}
-            className="cell-input"
-            value={editValue}
-            onChange={e => setEditValue(e.target.value)}
+        <td style={{ minWidth: w, padding: 0 }}>
+          <input ref={inputRef} className="cell-input"
+            value={editValue} onChange={e => setEditValue(e.target.value)}
             onBlur={() => commitEdit(item.id, key)}
-            onKeyDown={e => handleKeyDown(e, item.id, key)}
-          />
+            onKeyDown={e => handleKeyDown(e, item.id, key)} />
         </td>
       );
     }
     return (
-      <td
-        className="editable"
-        style={{ minWidth: width }}
-        onClick={() => startEdit(item.id, key, display)}
-      >
+      <td className="editable" style={{ minWidth: w }}
+        onClick={() => startEdit(item.id, key, display)}>
         {display || <span className="empty-cell">—</span>}
       </td>
     );
   }
 
-  function renderNumCell(item: PortfolioItem, key: keyof PortfolioItem, value: number | null, width: number) {
+  function renderNumCell(item: PortfolioItem, key: keyof PortfolioItem, value: number | null, colKey: ColKey) {
+    if (!vis(colKey)) return null;
+    const w = W[colKey];
     const isEditing = editingCell?.id === item.id && editingCell?.key === key;
     if (isEditing) {
       return (
-        <td style={{ minWidth: width, padding: 0 }}>
-          <input
-            ref={inputRef}
-            className="cell-input cell-input-num"
-            value={editValue}
-            onChange={e => setEditValue(e.target.value)}
+        <td style={{ minWidth: w, padding: 0 }}>
+          <input ref={inputRef} className="cell-input cell-input-num"
+            value={editValue} onChange={e => setEditValue(e.target.value)}
             onBlur={() => commitEdit(item.id, key)}
-            onKeyDown={e => handleKeyDown(e, item.id, key)}
-          />
+            onKeyDown={e => handleKeyDown(e, item.id, key)} />
         </td>
       );
     }
     return (
-      <td
-        className="editable num"
-        style={{ minWidth: width }}
-        onClick={() => startEdit(item.id, key, value != null ? String(value) : '')}
-      >
+      <td className="editable num" style={{ minWidth: w }}
+        onClick={() => startEdit(item.id, key, value != null ? String(value) : '')}>
         {fmt(value)}
       </td>
     );
   }
 
   function renderSelectCell(
-    item: PortfolioItem,
-    key: keyof PortfolioItem,
-    options: string[],
-    value: string,
-    width: number,
-    extraClass = ''
+    item: PortfolioItem, key: keyof PortfolioItem, options: string[],
+    value: string, colKey: ColKey, extraClass = ''
   ) {
+    if (!vis(colKey)) return null;
     return (
-      <td className={`editable ${extraClass} ${tagColor(value as TagValue)}`} style={{ minWidth: width }}>
-        <select
-          className="cell-select"
-          value={value}
-          onChange={e => onUpdate(item.id, { [key]: e.target.value } as Partial<PortfolioItem>)}
-        >
+      <td className={`editable ${extraClass} ${tagColor(value as TagValue)}`} style={{ minWidth: W[colKey] }}>
+        <select className="cell-select" value={value}
+          onChange={e => onUpdate(item.id, { [key]: e.target.value } as Partial<PortfolioItem>)}>
           {options.map(o => <option key={o} value={o}>{o || '—'}</option>)}
         </select>
       </td>
     );
   }
 
-  function renderCalcCell(display: string, extraClass = '', width: number) {
+  function renderCalcCell(display: string, extraClass: string, colKey: ColKey) {
+    if (!vis(colKey)) return null;
     return (
-      <td className={`calc num ${extraClass}`} style={{ minWidth: width }}>
+      <td className={`calc num ${extraClass}`} style={{ minWidth: W[colKey] }}>
         {display || '—'}
       </td>
     );
@@ -255,101 +273,81 @@ export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
       <table className="portfolio-table">
         <thead>
           <tr>
-            <th className="sticky-col sticky-col-1" style={{ minWidth: W.code }}>コード</th>
-            <th className="sticky-col sticky-col-2" style={{ minWidth: W.name }}>銘柄名</th>
-            <th style={{ minWidth: W.price }}>株価</th>
-            <th style={{ minWidth: W.shares }}>株数</th>
-            <th style={{ minWidth: W.holding }}>保有金額</th>
-            <th style={{ minWidth: W.ratio }}>割合</th>
-            <th style={{ minWidth: W.plannedDelta }}>増減株数</th>
-            <th style={{ minWidth: W.afterAmount }}>増減後額</th>
-            <th style={{ minWidth: W.afterRatio }}>増減後%</th>
-            <th style={{ minWidth: W.settlement }}>決算</th>
-            <th style={{ minWidth: W.tag2 }}>テク</th>
-            <th style={{ minWidth: W.tag2 }}>TOPIX</th>
-            <th style={{ minWidth: W.border }}>ボーダー</th>
-            <th style={{ minWidth: W.divergence }}>乖離率</th>
-            <th style={{ minWidth: W.targetPrice }}>目標株価</th>
-            <th style={{ minWidth: W.targetPeriod }}>目標期間</th>
-            <th style={{ minWidth: W.upside }}>上値余地</th>
-            <th style={{ minWidth: W.fx }}>為替</th>
-            <th style={{ minWidth: W.tag2 }}>インフレ</th>
-            <th style={{ minWidth: W.tag2 }}>IR</th>
-            <th style={{ minWidth: W.per }}>PER</th>
-            <th style={{ minWidth: W.tag2 }}>経営者</th>
-            <th style={{ minWidth: W.tag2 }}>競争力</th>
-            <th style={{ minWidth: W.tag2 }}>ガバ</th>
-            <th style={{ minWidth: W.netCash }}>ネットC</th>
-            <th style={{ minWidth: W.netPer }}>ネットPER</th>
-            <th style={{ minWidth: W.marchDiv }}>3月配当</th>
-            <th style={{ minWidth: W.dividend }}>配当</th>
-            <th style={{ minWidth: W.divAmount }}>配当金</th>
-            <th style={{ minWidth: W.divYield }}>配当利回</th>
-            <th style={{ minWidth: W.benefit }}>優待</th>
-            <th style={{ minWidth: W.benefitYield }}>優待利回</th>
-            <th style={{ minWidth: W.tag2 }}>タグ</th>
-            <th style={{ minWidth: W.memo }}>メモ</th>
-            <th style={{ minWidth: W.del }}></th>
+            {/* always visible sticky columns */}
+            <SortTh colKey="code" label="コード" sortState={sortState} onSort={onSort}
+              style={{ minWidth: W.code }} className="sticky-col sticky-col-1" />
+            <SortTh colKey="name" label="銘柄名" sortState={sortState} onSort={onSort}
+              style={{ minWidth: W.name }} className="sticky-col sticky-col-2" />
+
+            {vis('price')       && <th style={{ minWidth: W.price }}>株価</th>}
+            {vis('shares')      && <th style={{ minWidth: W.shares }}>株数</th>}
+            {vis('holding')     && <SortTh colKey="holding" label="保有金額" sortState={sortState} onSort={onSort} style={{ minWidth: W.holding }} />}
+            {vis('ratio')       && <SortTh colKey="ratio" label="割合" sortState={sortState} onSort={onSort} style={{ minWidth: W.ratio }} />}
+            {vis('plannedDelta')&& <th style={{ minWidth: W.plannedDelta }}>増減株数</th>}
+            {vis('afterAmount') && <th style={{ minWidth: W.afterAmount }}>増減後額</th>}
+            {vis('afterRatio')  && <th style={{ minWidth: W.afterRatio }}>増減後%</th>}
+            {vis('settlement')  && <SortTh colKey="settlement" label="決算" sortState={sortState} onSort={onSort} style={{ minWidth: W.settlement }} />}
+            {vis('tech')        && <th style={{ minWidth: W.tech }}>テク</th>}
+            {vis('topix')       && <th style={{ minWidth: W.topix }}>TOPIX</th>}
+            {vis('border')      && <th style={{ minWidth: W.border }}>ボーダー</th>}
+            {vis('divergence')  && <th style={{ minWidth: W.divergence }}>乖離率</th>}
+            {vis('targetPrice') && <SortTh colKey="targetPrice" label="目標株価" sortState={sortState} onSort={onSort} style={{ minWidth: W.targetPrice }} />}
+            {vis('targetPeriod')&& <th style={{ minWidth: W.targetPeriod }}>目標期間</th>}
+            {vis('upside')      && <SortTh colKey="upside" label="上値余地" sortState={sortState} onSort={onSort} style={{ minWidth: W.upside }} />}
+            {vis('fx')          && <th style={{ minWidth: W.fx }}>為替</th>}
+            {vis('inflation')   && <th style={{ minWidth: W.inflation }}>インフレ</th>}
+            {vis('ir')          && <th style={{ minWidth: W.ir }}>IR</th>}
+            {vis('per')         && <th style={{ minWidth: W.per }}>PER</th>}
+            {vis('management')  && <th style={{ minWidth: W.management }}>経営者</th>}
+            {vis('competitiveness') && <th style={{ minWidth: W.competitiveness }}>競争力</th>}
+            {vis('governance')  && <th style={{ minWidth: W.governance }}>ガバ</th>}
+            {vis('netCash')     && <th style={{ minWidth: W.netCash }}>ネットC</th>}
+            {vis('netPer')      && <th style={{ minWidth: W.netPer }}>ネットPER</th>}
+            {vis('marchDiv')    && <th style={{ minWidth: W.marchDiv }}>3月配当</th>}
+            {vis('dividend')    && <th style={{ minWidth: W.dividend }}>配当</th>}
+            {vis('divAmount')   && <th style={{ minWidth: W.divAmount }}>配当金</th>}
+            {vis('divYield')    && <SortTh colKey="divYield" label="配当利回" sortState={sortState} onSort={onSort} style={{ minWidth: W.divYield }} />}
+            {vis('benefit')     && <th style={{ minWidth: W.benefit }}>優待</th>}
+            {vis('benefitYield')&& <th style={{ minWidth: W.benefitYield }}>優待利回</th>}
+            {vis('tag')         && <th style={{ minWidth: W.tag }}>タグ</th>}
+            {vis('memo')        && <th style={{ minWidth: W.memo }}>メモ</th>}
+            <th style={{ minWidth: 30 }}></th>
           </tr>
         </thead>
         <tbody>
           {items.map(item => {
-            const holding = calcHolding(item);
-            const ratio = totalBuy > 0 && holding != null ? holding / totalBuy : null;
+            const h = calcHolding(item);
+            const ratio = totalBuy > 0 && h != null ? h / totalBuy : null;
             const afterAmount = calcAfterAmount(item);
             const afterRatio = totalAfterBuy > 0 && afterAmount != null ? afterAmount / totalAfterBuy : null;
             const upside = calcUpside(item);
             const divergence = calcDivergence(item);
-            const dividendAmount = calcDividendAmount(item);
-            const dividendYield = calcDividendYield(item);
+            const divAmount = calcDividendAmount(item);
+            const divYield = calcDividendYield(item);
             const benefitYield = calcBenefitYield(item);
             const netPer = calcNetPer(item);
 
             return (
               <tr key={item.id} className={item.priceError ? 'row-error' : ''}>
-                {/* コード: sticky */}
-                <td
-                  className="sticky-col sticky-col-1 editable"
-                  style={{ minWidth: W.code }}
-                  onClick={() => {
-                    if (!(editingCell?.id === item.id && editingCell?.key === 'code')) {
-                      startEdit(item.id, 'code', item.code);
-                    }
-                  }}
-                >
+                {/* コード sticky */}
+                <td className="sticky-col sticky-col-1 editable" style={{ minWidth: W.code }}
+                  onClick={() => { if (!(editingCell?.id === item.id && editingCell?.key === 'code')) startEdit(item.id, 'code', item.code); }}>
                   {editingCell?.id === item.id && editingCell?.key === 'code' ? (
-                    <input
-                      ref={inputRef}
-                      className="cell-input"
-                      value={editValue}
+                    <input ref={inputRef} className="cell-input" value={editValue}
                       onChange={e => setEditValue(e.target.value)}
                       onBlur={() => commitEdit(item.id, 'code')}
-                      onKeyDown={e => handleKeyDown(e, item.id, 'code')}
-                    />
-                  ) : (
-                    item.code || <span className="empty-cell">—</span>
-                  )}
+                      onKeyDown={e => handleKeyDown(e, item.id, 'code')} />
+                  ) : (item.code || <span className="empty-cell">—</span>)}
                 </td>
 
-                {/* 銘柄名: sticky + ellipsis */}
-                <td
-                  className="sticky-col sticky-col-2 editable"
-                  style={{ minWidth: W.name, maxWidth: 140 }}
-                  onClick={() => {
-                    if (!(editingCell?.id === item.id && editingCell?.key === 'name')) {
-                      startEdit(item.id, 'name', item.name);
-                    }
-                  }}
-                >
+                {/* 銘柄名 sticky + ellipsis */}
+                <td className="sticky-col sticky-col-2 editable" style={{ minWidth: W.name, maxWidth: 140 }}
+                  onClick={() => { if (!(editingCell?.id === item.id && editingCell?.key === 'name')) startEdit(item.id, 'name', item.name); }}>
                   {editingCell?.id === item.id && editingCell?.key === 'name' ? (
-                    <input
-                      ref={inputRef}
-                      className="cell-input"
-                      value={editValue}
+                    <input ref={inputRef} className="cell-input" value={editValue}
                       onChange={e => setEditValue(e.target.value)}
                       onBlur={() => commitEdit(item.id, 'name')}
-                      onKeyDown={e => handleKeyDown(e, item.id, 'name')}
-                    />
+                      onKeyDown={e => handleKeyDown(e, item.id, 'name')} />
                   ) : (
                     <span className="cell-name" title={item.name}>
                       {item.name || <span className="empty-cell">—</span>}
@@ -357,76 +355,87 @@ export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
                   )}
                 </td>
 
-                {/* 株価: editable + shows error */}
-                <td
-                  className={`editable num ${item.priceError ? 'price-error' : ''}`}
-                  style={{ minWidth: W.price }}
-                  title={item.priceError ?? (item.priceUpdatedAt ? `更新: ${new Date(item.priceUpdatedAt).toLocaleString('ja-JP')}` : '')}
-                  onClick={() => {
-                    if (!(editingCell?.id === item.id && editingCell?.key === 'price')) {
-                      startEdit(item.id, 'price', item.price != null ? String(item.price) : '');
-                    }
-                  }}
-                >
-                  {editingCell?.id === item.id && editingCell?.key === 'price' ? (
-                    <input
-                      ref={inputRef}
-                      className="cell-input cell-input-num"
-                      value={editValue}
-                      onChange={e => setEditValue(e.target.value)}
-                      onBlur={() => commitEdit(item.id, 'price')}
-                      onKeyDown={e => handleKeyDown(e, item.id, 'price')}
-                    />
-                  ) : (
-                    item.priceError ? (
-                      <span className="error-indicator" title={item.priceError}>⚠ {fmt(item.price)}</span>
-                    ) : fmt(item.price)
-                  )}
-                </td>
+                {/* 株価 */}
+                {vis('price') && (
+                  <td className={`editable num ${item.priceError ? 'price-error' : ''}`} style={{ minWidth: W.price }}
+                    title={item.priceError ?? (item.priceUpdatedAt ? `更新: ${new Date(item.priceUpdatedAt).toLocaleString('ja-JP')}` : '')}
+                    onClick={() => { if (!(editingCell?.id === item.id && editingCell?.key === 'price')) startEdit(item.id, 'price', item.price != null ? String(item.price) : ''); }}>
+                    {editingCell?.id === item.id && editingCell?.key === 'price' ? (
+                      <input ref={inputRef} className="cell-input cell-input-num" value={editValue}
+                        onChange={e => setEditValue(e.target.value)}
+                        onBlur={() => commitEdit(item.id, 'price')}
+                        onKeyDown={e => handleKeyDown(e, item.id, 'price')} />
+                    ) : (item.priceError
+                      ? <span className="error-indicator" title={item.priceError}>⚠ {fmt(item.price)}</span>
+                      : fmt(item.price))}
+                  </td>
+                )}
 
-                {renderNumCell(item, 'shares', item.shares, W.shares)}
-                {renderCalcCell(fmt(holding), '', W.holding)}
-                {renderCalcCell(fmtPct(ratio), '', W.ratio)}
-                {renderNumCell(item, 'plannedDelta', item.plannedDelta, W.plannedDelta)}
-                {renderCalcCell(fmt(afterAmount), '', W.afterAmount)}
-                {renderCalcCell(fmtPct(afterRatio), '', W.afterRatio)}
-                {renderTextCell(item, 'settlementMonth', item.settlementMonth, W.settlement)}
-                {renderSelectCell(item, 'tech', TAG_OPTIONS, item.tech, W.tag2)}
-                {renderSelectCell(item, 'topix', TAG_OPTIONS, item.topix, W.tag2)}
-                {renderNumCell(item, 'borderPrice', item.borderPrice, W.border)}
-                {renderCalcCell(fmtPct(divergence), divergenceColor(divergence), W.divergence)}
-                {renderNumCell(item, 'targetPrice', item.targetPrice, W.targetPrice)}
-                {renderSelectCell(item, 'targetPeriod', PERIOD_OPTIONS, item.targetPeriod, W.targetPeriod)}
-                {renderCalcCell(fmtPct(upside), upsideColor(upside), W.upside)}
-                {renderSelectCell(item, 'fx', FX_OPTIONS, item.fx, W.fx)}
-                {renderSelectCell(item, 'inflation', TAG_OPTIONS, item.inflation, W.tag2)}
-                {renderSelectCell(item, 'ir', TAG_OPTIONS, item.ir, W.tag2)}
-                {renderNumCell(item, 'per', item.per, W.per)}
-                {renderSelectCell(item, 'management', TAG_OPTIONS, item.management, W.tag2)}
-                {renderSelectCell(item, 'competitiveness', TAG_OPTIONS, item.competitiveness, W.tag2)}
-                {renderSelectCell(item, 'governance', TAG_OPTIONS, item.governance, W.tag2)}
-                {renderNumCell(item, 'netCash', item.netCash, W.netCash)}
-                {renderCalcCell(fmt(netPer, 1), '', W.netPer)}
-                {renderNumCell(item, 'marchDividend', item.marchDividend, W.marchDiv)}
-                {renderNumCell(item, 'dividend', item.dividend, W.dividend)}
-                {renderCalcCell(fmt(dividendAmount), '', W.divAmount)}
-                {renderCalcCell(fmtPct(dividendYield), '', W.divYield)}
-                {renderNumCell(item, 'benefit', item.benefit, W.benefit)}
-                {renderCalcCell(fmtPct(benefitYield), '', W.benefitYield)}
-                {renderSelectCell(item, 'tag', TAG_OPTIONS, item.tag, W.tag2)}
-                {renderTextCell(item, 'memo', item.memo, W.memo)}
-                <td style={{ minWidth: W.del, textAlign: 'center' }}>
-                  <button
-                    className="btn-remove"
+                {renderNumCell(item, 'shares', item.shares, 'shares')}
+                {renderCalcCell(fmt(h), '', 'holding')}
+                {renderCalcCell(fmtPct(ratio), '', 'ratio')}
+                {renderNumCell(item, 'plannedDelta', item.plannedDelta, 'plannedDelta')}
+                {renderCalcCell(fmt(afterAmount), '', 'afterAmount')}
+                {renderCalcCell(fmtPct(afterRatio), '', 'afterRatio')}
+                {renderTextCell(item, 'settlementMonth', item.settlementMonth, 'settlement')}
+                {renderSelectCell(item, 'tech', TAG_OPTIONS, item.tech, 'tech')}
+                {renderSelectCell(item, 'topix', TAG_OPTIONS, item.topix, 'topix')}
+                {renderNumCell(item, 'borderPrice', item.borderPrice, 'border')}
+                {renderCalcCell(fmtPct(divergence), divergenceColor(divergence), 'divergence')}
+                {renderNumCell(item, 'targetPrice', item.targetPrice, 'targetPrice')}
+                {renderSelectCell(item, 'targetPeriod', PERIOD_OPTIONS, item.targetPeriod, 'targetPeriod')}
+                {renderCalcCell(fmtPct(upside), upsideColor(upside), 'upside')}
+                {renderSelectCell(item, 'fx', FX_OPTIONS, item.fx, 'fx')}
+                {renderSelectCell(item, 'inflation', TAG_OPTIONS, item.inflation, 'inflation')}
+                {renderSelectCell(item, 'ir', TAG_OPTIONS, item.ir, 'ir')}
+                {renderNumCell(item, 'per', item.per, 'per')}
+                {renderSelectCell(item, 'management', TAG_OPTIONS, item.management, 'management')}
+                {renderSelectCell(item, 'competitiveness', TAG_OPTIONS, item.competitiveness, 'competitiveness')}
+                {renderSelectCell(item, 'governance', TAG_OPTIONS, item.governance, 'governance')}
+                {renderNumCell(item, 'netCash', item.netCash, 'netCash')}
+                {renderCalcCell(fmt(netPer, 1), '', 'netPer')}
+                {renderNumCell(item, 'marchDividend', item.marchDividend, 'marchDiv')}
+                {renderNumCell(item, 'dividend', item.dividend, 'dividend')}
+                {renderCalcCell(fmt(divAmount), '', 'divAmount')}
+                {renderCalcCell(fmtPct(divYield), '', 'divYield')}
+                {renderNumCell(item, 'benefit', item.benefit, 'benefit')}
+                {renderCalcCell(fmtPct(benefitYield), '', 'benefitYield')}
+                {renderSelectCell(item, 'tag', TAG_OPTIONS, item.tag, 'tag')}
+
+                {/* メモ: textarea on edit */}
+                {vis('memo') && (
+                  editingMemo === item.id ? (
+                    <td style={{ minWidth: W.memo, padding: 0 }}>
+                      <textarea
+                        ref={textareaRef}
+                        className="cell-memo-edit"
+                        value={memoValue}
+                        onChange={e => setMemoValue(e.target.value)}
+                        onBlur={() => commitMemo(item.id)}
+                        onKeyDown={e => {
+                          if (e.key === 'Escape') setEditingMemo(null);
+                          if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); commitMemo(item.id); }
+                        }}
+                        rows={3}
+                      />
+                    </td>
+                  ) : (
+                    <td className="editable memo-cell" style={{ minWidth: W.memo }}
+                      onClick={() => startMemoEdit(item.id, item.memo)}
+                      title={item.memo}>
+                      <span className="cell-name">{item.memo || <span className="empty-cell">—</span>}</span>
+                    </td>
+                  )
+                )}
+
+                {/* 削除 */}
+                <td style={{ minWidth: 30, textAlign: 'center' }}>
+                  <button className="btn-remove" title="行を削除"
                     onClick={() => {
-                      if (confirm(`${item.name || item.code} を削除しますか？`)) {
+                      if (confirm(`この銘柄を削除しますか？この操作は保存後に反映されます。\n[${item.code}] ${item.name}`)) {
                         onRemove(item.id);
                       }
-                    }}
-                    title="行を削除"
-                  >
-                    ✕
-                  </button>
+                    }}>✕</button>
                 </td>
               </tr>
             );
