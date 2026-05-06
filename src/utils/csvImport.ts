@@ -296,6 +296,8 @@ export async function parseCsvFile(file: File): Promise<CsvParseResult> {
       tag: '',
       priceUpdatedAt: null,
       priceError: null,
+      priceUpdateStatus: 'unknown',
+      previousPrice: null,
     };
 
     for (let colIdx = 0; colIdx < mappings.length; colIdx++) {

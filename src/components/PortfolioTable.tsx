@@ -5,10 +5,13 @@ import { ALL_COLS, type ColKey, type SortState, type SortKey, COL_SORT_KEY } fro
 interface Props {
   items: PortfolioItem[];
   onUpdate: (id: string, updates: Partial<PortfolioItem>) => void;
+  onUpdatePrice: (id: string, price: number | null) => void;
+  onRefreshPrice: (id: string, code: string) => void;
   onRemove: (id: string) => void;
   visibleCols: Set<ColKey>;
   sortState: SortState;
   onSort: (key: SortKey) => void;
+  fetchingPriceItemId: string | null;
 }
 
 const TAG_OPTIONS: TagValue[] = ['◎', '○', '△', '×', ''];
@@ -143,7 +146,14 @@ function SortTh({
   );
 }
 
-export function PortfolioTable({ items, onUpdate, onRemove, visibleCols, sortState, onSort }: Props) {
+// Price status → CSS class
+function priceStatusClass(item: PortfolioItem): string {
+  if (item.priceUpdateStatus === 'failed') return 'price-error';
+  if (item.priceUpdateStatus === 'manual') return 'price-manual';
+  return '';
+}
+
+export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice, onRemove, visibleCols, sortState, onSort, fetchingPriceItemId }: Props) {
   const [editingCell, setEditingCell] = useState<EditingCell>(null);
   const [editValue, setEditValue] = useState('');
   const [editingMemo, setEditingMemo] = useState<string | null>(null); // item id
@@ -280,6 +290,7 @@ export function PortfolioTable({ items, onUpdate, onRemove, visibleCols, sortSta
               style={{ minWidth: W.name }} className="sticky-col sticky-col-2" />
 
             {vis('price')       && <th style={{ minWidth: W.price }}>株価</th>}
+            <th style={{ minWidth: 24 }} title="個別再取得">↻</th>
             {vis('shares')      && <th style={{ minWidth: W.shares }}>株数</th>}
             {vis('holding')     && <SortTh colKey="holding" label="保有金額" sortState={sortState} onSort={onSort} style={{ minWidth: W.holding }} />}
             {vis('ratio')       && <SortTh colKey="ratio" label="割合" sortState={sortState} onSort={onSort} style={{ minWidth: W.ratio }} />}
@@ -357,19 +368,63 @@ export function PortfolioTable({ items, onUpdate, onRemove, visibleCols, sortSta
 
                 {/* 株価 */}
                 {vis('price') && (
-                  <td className={`editable num ${item.priceError ? 'price-error' : ''}`} style={{ minWidth: W.price }}
-                    title={item.priceError ?? (item.priceUpdatedAt ? `更新: ${new Date(item.priceUpdatedAt).toLocaleString('ja-JP')}` : '')}
-                    onClick={() => { if (!(editingCell?.id === item.id && editingCell?.key === 'price')) startEdit(item.id, 'price', item.price != null ? String(item.price) : ''); }}>
+                  <td
+                    className={`editable num ${priceStatusClass(item)}`}
+                    style={{ minWidth: W.price }}
+                    title={
+                      item.priceError
+                        ? `⚠ ${item.priceError}`
+                        : item.priceUpdatedAt
+                          ? `更新: ${new Date(item.priceUpdatedAt).toLocaleString('ja-JP')}${item.previousPrice != null ? ` (前回: ${item.previousPrice.toLocaleString('ja-JP')})` : ''}`
+                          : ''
+                    }
+                    onClick={() => {
+                      if (!(editingCell?.id === item.id && editingCell?.key === 'price')) {
+                        startEdit(item.id, 'price', item.price != null ? String(item.price) : '');
+                      }
+                    }}
+                  >
                     {editingCell?.id === item.id && editingCell?.key === 'price' ? (
-                      <input ref={inputRef} className="cell-input cell-input-num" value={editValue}
+                      <input
+                        ref={inputRef}
+                        className="cell-input cell-input-num"
+                        value={editValue}
                         onChange={e => setEditValue(e.target.value)}
-                        onBlur={() => commitEdit(item.id, 'price')}
-                        onKeyDown={e => handleKeyDown(e, item.id, 'price')} />
-                    ) : (item.priceError
-                      ? <span className="error-indicator" title={item.priceError}>⚠ {fmt(item.price)}</span>
-                      : fmt(item.price))}
+                        onBlur={() => {
+                          const n = editValue.trim() === '' ? null : Number(editValue.replace(/,/g, ''));
+                          onUpdatePrice(item.id, (n != null && !isNaN(n) && isFinite(n)) ? n : null);
+                          setEditingCell(null);
+                        }}
+                        onKeyDown={e => {
+                          if (e.key === 'Enter' || e.key === 'Tab') {
+                            e.preventDefault();
+                            const n = editValue.trim() === '' ? null : Number(editValue.replace(/,/g, ''));
+                            onUpdatePrice(item.id, (n != null && !isNaN(n) && isFinite(n)) ? n : null);
+                            setEditingCell(null);
+                          }
+                          if (e.key === 'Escape') setEditingCell(null);
+                        }}
+                      />
+                    ) : (
+                      item.priceUpdateStatus === 'failed'
+                        ? <span className="error-indicator" title={item.priceError ?? ''}> ⚠ {fmt(item.price)}</span>
+                        : item.priceUpdateStatus === 'manual'
+                          ? <span title="手動入力">{fmt(item.price)} ✎</span>
+                          : fmt(item.price)
+                    )}
                   </td>
                 )}
+                {/* 個別再取得ボタン */}
+                <td style={{ minWidth: 24, textAlign: 'center', padding: '0 1px' }}>
+                  <button
+                    className="btn-refresh"
+                    title={`${item.code} の株価を再取得`}
+                    disabled={fetchingPriceItemId === item.id || !item.code.trim()}
+                    onClick={() => onRefreshPrice(item.id, item.code)}
+                  >
+                    {fetchingPriceItemId === item.id ? '…' : '↻'}
+                  </button>
+                </td>
 
                 {renderNumCell(item, 'shares', item.shares, 'shares')}
                 {renderCalcCell(fmt(h), '', 'holding')}

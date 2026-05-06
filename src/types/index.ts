@@ -1,6 +1,7 @@
 export type TagValue = '◎' | '○' | '△' | '×' | '';
 export type FxValue = '円高' | '円安' | '';
 export type PeriodValue = '3ヶ月' | '半年' | '1年' | '2年' | '';
+export type PriceUpdateStatus = 'success' | 'failed' | 'skipped' | 'manual' | 'unknown';
 
 export interface PortfolioItem {
   id: string;
@@ -28,8 +29,11 @@ export interface PortfolioItem {
   benefit: number | null;
   memo: string;
   tag: TagValue;
+  // price update tracking
   priceUpdatedAt: string | null;
   priceError: string | null;
+  priceUpdateStatus: PriceUpdateStatus;
+  previousPrice: number | null;
 }
 
 export interface SummaryExtras {
@@ -53,4 +57,22 @@ export interface PriceFetchResponse {
   results: PriceFetchResult[];
   updatedAt: string;
   error?: string;
+}
+
+export interface PriceUpdateLogEntry {
+  timestamp: string;
+  code: string;
+  name: string;
+  prevPrice: number | null;
+  newPrice: number | null;
+  status: 'success' | 'failed' | 'skipped';
+  error: string | null;
+}
+
+export interface PriceUpdateSummary {
+  updatedAt: string;
+  successCount: number;
+  failedCount: number;
+  skippedCount: number;
+  failedItems: { code: string; name: string; error: string }[];
 }

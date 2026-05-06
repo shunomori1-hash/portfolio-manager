@@ -6,6 +6,7 @@ import { FilterBar } from './components/FilterBar';
 import { ColumnSettingsModal } from './components/ColumnSettingsModal';
 import { AddItemModal } from './components/AddItemModal';
 import { CsvImportModal } from './components/CsvImportModal';
+import { PriceLogModal } from './components/PriceLogModal';
 import {
   COL_PRESETS,
   DEFAULT_FILTER,
@@ -21,10 +22,10 @@ import {
 
 export default function App() {
   const {
-    portfolio, loading, saving, fetchingPrices,
-    error, saveStatus, isDirty,
-    updateItem, updateSummary, addItem, removeItem,
-    save, fetchPrices, importItems,
+    portfolio, loading, saving, fetchingPrices, fetchingPriceItemId,
+    error, saveStatus, isDirty, priceUpdateSummary,
+    updateItem, updatePriceManually, updateSummary,
+    addItem, removeItem, save, fetchPrices, fetchSinglePrice, importItems,
   } = usePortfolio();
 
   // ── UI state ─────────────────────────────────────────────────────────────
@@ -32,6 +33,8 @@ export default function App() {
   const [showCsvImport, setShowCsvImport] = useState(false);
   const [showAddItem, setShowAddItem] = useState(false);
   const [showColSettings, setShowColSettings] = useState(false);
+  const [showPriceLog, setShowPriceLog] = useState(false);
+  const [showFailedList, setShowFailedList] = useState(false);
 
   // ── Table state ───────────────────────────────────────────────────────────
   const [sortState, setSortState] = useState<SortState>(DEFAULT_SORT);
@@ -46,12 +49,6 @@ export default function App() {
     );
   };
 
-  const handleFilterChange = (updates: Partial<FilterState>) =>
-    setFilter(prev => ({ ...prev, ...updates }));
-
-  const handleFilterClear = () => setFilter(DEFAULT_FILTER);
-
-  // ── Compute visible items ─────────────────────────────────────────────────
   const totalBuy = useMemo(() =>
     portfolio.items.reduce((acc, item) => {
       if (item.price == null || item.shares == null) return acc;
@@ -68,7 +65,7 @@ export default function App() {
 
   const filterActive = isFilterActive(filter);
 
-  // ── Loading / error screens ──────────────────────────────────────────────
+  // ── Loading / error ──────────────────────────────────────────────────────
   if (loading) return <div className="loading">データを読み込み中...</div>;
   if (error && !portfolio.items.length) {
     return (
@@ -83,11 +80,21 @@ export default function App() {
     ? new Date(portfolio.lastSaved).toLocaleString('ja-JP')
     : '未保存';
 
-  const priceUpdatedAt = (() => {
-    const dates = portfolio.items.map(i => i.priceUpdatedAt).filter(Boolean).sort();
-    if (!dates.length) return null;
-    return new Date(dates[dates.length - 1]!).toLocaleString('ja-JP');
+  // Price update status display
+  const priceStatusText = (() => {
+    if (fetchingPrices) return '株価取得中...';
+    if (!priceUpdateSummary) {
+      // Fall back to item-based last update time
+      const dates = portfolio.items.map(i => i.priceUpdatedAt).filter(Boolean).sort();
+      if (!dates.length) return null;
+      return `株価: ${new Date(dates[dates.length - 1]!).toLocaleString('ja-JP')}`;
+    }
+    const { updatedAt, successCount, failedCount } = priceUpdateSummary;
+    const ts = new Date(updatedAt).toLocaleString('ja-JP');
+    return `株価更新: ${ts} | ✓${successCount}件${failedCount > 0 ? ` | ✗${failedCount}件` : ''}`;
   })();
+
+  const hasFailures = (priceUpdateSummary?.failedCount ?? 0) > 0;
 
   return (
     <div className={`app${density === 'standard' ? ' density-standard' : ''}`}>
@@ -95,8 +102,16 @@ export default function App() {
       <header className="app-header">
         <div className="header-left">
           <h1>ポートフォリオ管理</h1>
-          {priceUpdatedAt && (
-            <span className="price-updated">株価: {priceUpdatedAt}</span>
+          {priceStatusText && (
+            <span
+              className={`price-updated ${hasFailures ? 'price-status-warn' : ''}`}
+              style={{ cursor: hasFailures ? 'pointer' : 'default' }}
+              onClick={() => hasFailures && setShowFailedList(v => !v)}
+              title={hasFailures ? 'クリックで失敗銘柄を表示' : undefined}
+            >
+              {priceStatusText}
+              {hasFailures && <span style={{ marginLeft: 4 }}>▼</span>}
+            </span>
           )}
         </div>
         <div className="header-right">
@@ -115,6 +130,11 @@ export default function App() {
             onClick={() => setShowColSettings(true)}>
             列設定
           </button>
+          <button className="btn btn-secondary"
+            onClick={() => setShowPriceLog(true)}
+            title="株価更新ログを表示">
+            更新ログ
+          </button>
           <button className="btn btn-import"
             onClick={() => setShowCsvImport(true)}>
             CSVインポート
@@ -126,7 +146,7 @@ export default function App() {
           <button className="btn btn-primary"
             onClick={() => fetchPrices(portfolio)}
             disabled={fetchingPrices}>
-            {fetchingPrices ? '取得中...' : '株価更新'}
+            {fetchingPrices ? '取得中...' : '株価一括更新'}
           </button>
           <button className="btn btn-save"
             onClick={() => save(portfolio)}
@@ -136,11 +156,25 @@ export default function App() {
         </div>
       </header>
 
+      {/* ── Failed items list (collapsible) ─────────────────────────────── */}
+      {showFailedList && priceUpdateSummary && priceUpdateSummary.failedItems.length > 0 && (
+        <div className="failed-price-bar">
+          <span className="failed-price-title">取得失敗銘柄:</span>
+          {priceUpdateSummary.failedItems.map((f, i) => (
+            <span key={i} className="failed-price-item">
+              {f.code} {f.name}
+            </span>
+          ))}
+          <button className="btn-filter-clear" style={{ marginLeft: 8 }}
+            onClick={() => setShowFailedList(false)}>閉じる</button>
+        </div>
+      )}
+
       {/* ── Filter bar ──────────────────────────────────────────────────── */}
       <FilterBar
         filter={filter}
-        onChange={handleFilterChange}
-        onClear={handleFilterClear}
+        onChange={u => setFilter(prev => ({ ...prev, ...u }))}
+        onClear={() => setFilter(DEFAULT_FILTER)}
         active={filterActive}
         totalCount={portfolio.items.length}
         filteredCount={displayItems.length}
@@ -151,20 +185,20 @@ export default function App() {
         <PortfolioTable
           items={displayItems}
           onUpdate={updateItem}
+          onUpdatePrice={updatePriceManually}
+          onRefreshPrice={fetchSinglePrice}
           onRemove={removeItem}
           visibleCols={visibleCols}
           sortState={sortState}
           onSort={handleSort}
+          fetchingPriceItemId={fetchingPriceItemId}
         />
         <LongSummary portfolio={portfolio} onUpdateSummary={updateSummary} />
       </main>
 
       {/* ── Modals ──────────────────────────────────────────────────────── */}
       {showAddItem && (
-        <AddItemModal
-          onAdd={initial => addItem(initial)}
-          onClose={() => setShowAddItem(false)}
-        />
+        <AddItemModal onAdd={addItem} onClose={() => setShowAddItem(false)} />
       )}
       {showColSettings && (
         <ColumnSettingsModal
@@ -179,6 +213,9 @@ export default function App() {
           onImport={importItems}
           onClose={() => setShowCsvImport(false)}
         />
+      )}
+      {showPriceLog && (
+        <PriceLogModal onClose={() => setShowPriceLog(false)} />
       )}
     </div>
   );

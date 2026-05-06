@@ -500,6 +500,78 @@ body {
   color: #fff;
 }
 
+/* ── Price status ────────────────────────────── */
+.price-status-warn {
+  color: #f59e0b !important;
+  cursor: pointer;
+}
+
+.price-manual {
+  background: #eff6ff !important;
+}
+
+/* ── Refresh button (per-row) ────────────────── */
+.btn-refresh {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0 2px;
+  border-radius: 2px;
+  line-height: 1;
+}
+
+.btn-refresh:hover:not(:disabled) {
+  color: #2563eb;
+  background: #dbeafe;
+}
+
+.btn-refresh:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Failed price bar ────────────────────────── */
+.failed-price-bar {
+  background: #fef2f2;
+  border-bottom: 1px solid #fecaca;
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.failed-price-title {
+  font-weight: 700;
+  color: #dc2626;
+}
+
+.failed-price-item {
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 1px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* ── Price log modal ─────────────────────────── */
+.price-log-modal {
+  max-width: 900px;
+}
+
+.log-status {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.log-status-success { color: #059669; }
+.log-status-failed  { color: #dc2626; }
+.log-status-skipped { color: #94a3b8; }
+
 /* ── Filter bar ──────────────────────────────── */
 .filter-bar {
   background: #f1f5f9;
