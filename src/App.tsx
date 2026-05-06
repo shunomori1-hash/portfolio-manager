@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { usePortfolio } from './hooks/usePortfolio';
 import { PortfolioTable } from './components/PortfolioTable';
 import { Summary } from './components/Summary';
+import { CsvImportModal } from './components/CsvImportModal';
 
 export default function App() {
   const {
@@ -16,7 +18,10 @@ export default function App() {
     removeItem,
     save,
     fetchPrices,
+    importItems,
   } = usePortfolio();
+
+  const [showCsvImport, setShowCsvImport] = useState(false);
 
   if (loading) {
     return <div className="loading">データを読み込み中...</div>;
@@ -57,6 +62,9 @@ export default function App() {
           {error && <span className="header-error">{error}</span>}
           {saveStatus && <span className="save-status">{saveStatus}</span>}
           <span className="last-saved">保存: {lastSaved}</span>
+          <button className="btn btn-import" onClick={() => setShowCsvImport(true)}>
+            CSVインポート
+          </button>
           <button className="btn btn-secondary" onClick={addItem}>
             ＋ 行追加
           </button>
@@ -85,6 +93,14 @@ export default function App() {
         />
         <Summary portfolio={portfolio} onUpdateSummary={updateSummary} />
       </main>
+
+      {showCsvImport && (
+        <CsvImportModal
+          existingItems={portfolio.items}
+          onImport={importItems}
+          onClose={() => setShowCsvImport(false)}
+        />
+      )}
     </div>
   );
 }

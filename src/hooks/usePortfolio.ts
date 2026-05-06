@@ -99,6 +99,37 @@ export function usePortfolio() {
     }
   }, []);
 
+  const importItems = useCallback(async (items: PortfolioItem[]) => {
+    setSaving(true);
+    setSaveStatus(null);
+    // Read current portfolio state via functional updater to avoid stale closure,
+    // then immediately POST the new version.
+    let newPortfolio: Portfolio | null = null;
+    setPortfolio(prev => {
+      newPortfolio = { ...prev, items };
+      return newPortfolio;
+    });
+    // Wait a tick for the state update to flush, then save
+    await new Promise<void>(resolve => setTimeout(resolve, 0));
+    try {
+      if (!newPortfolio) throw new Error('state error');
+      const r = await fetch('/api/portfolio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newPortfolio),
+      });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const data = await r.json() as { ok: boolean; lastSaved: string };
+      setPortfolio(prev => ({ ...prev, lastSaved: data.lastSaved }));
+      setSaveStatus('インポート完了');
+      setTimeout(() => setSaveStatus(null), 3000);
+    } catch (e) {
+      setSaving(false);
+      throw new Error('JSON保存に失敗しました: ' + (e instanceof Error ? e.message : String(e)));
+    }
+    setSaving(false);
+  }, []);
+
   const fetchPrices = useCallback(async (current: Portfolio) => {
     const codes = current.items.map(i => i.code).filter(Boolean);
     if (!codes.length) return;
@@ -143,5 +174,6 @@ export function usePortfolio() {
     removeItem,
     save,
     fetchPrices,
+    importItems,
   };
 }
