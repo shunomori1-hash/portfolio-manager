@@ -161,8 +161,8 @@ export default function App() {
         <div className="failed-price-bar">
           <span className="failed-price-title">取得失敗銘柄:</span>
           {priceUpdateSummary.failedItems.map((f, i) => (
-            <span key={i} className="failed-price-item">
-              {f.code} {f.name}
+            <span key={i} className="failed-price-item" title={f.error}>
+              {f.code} {f.name}{f.error ? `：${f.error}` : ''}
             </span>
           ))}
           <button className="btn-filter-clear" style={{ marginLeft: 8 }}

@@ -4,7 +4,7 @@
       "id": "1",
       "code": "5038",
       "name": "ewell",
-      "price": 2055,
+      "price": 1998,
       "shares": 51000,
       "plannedDelta": 51000,
       "settlementMonth": "12月",
@@ -26,14 +26,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 1998
     },
     {
       "id": "2",
       "code": "6072",
       "name": "地盤ネット",
-      "price": 1206,
+      "price": 1041,
       "shares": 51000,
       "plannedDelta": 51000,
       "settlementMonth": "3月",
@@ -55,8 +57,10 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 1041
     },
     {
       "id": "3",
@@ -84,14 +88,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 2154
     },
     {
       "id": "4",
       "code": "2780",
       "name": "コメ兵",
-      "price": 5130,
+      "price": 5280,
       "shares": 10000,
       "plannedDelta": 10000,
       "settlementMonth": "3月",
@@ -113,14 +119,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 5280
     },
     {
       "id": "5",
       "code": "6134",
       "name": "FUJI",
-      "price": 5942,
+      "price": 6024,
       "shares": 9000,
       "plannedDelta": 13000,
       "settlementMonth": "",
@@ -142,14 +150,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 6024
     },
     {
       "id": "6",
       "code": "3180",
       "name": "Bガレ",
-      "price": 1543,
+      "price": 1556,
       "shares": 27000,
       "plannedDelta": 27000,
       "settlementMonth": "12月",
@@ -171,14 +181,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 1556
     },
     {
       "id": "7",
       "code": "5830",
       "name": "いよぎん",
-      "price": 3112,
+      "price": 3015,
       "shares": 13000,
       "plannedDelta": null,
       "settlementMonth": "",
@@ -200,14 +212,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 3015
     },
     {
       "id": "8",
       "code": "6779",
       "name": "日本電波",
-      "price": 1815,
+      "price": 1895,
       "shares": 21400,
       "plannedDelta": 21400,
       "settlementMonth": "3月",
@@ -229,14 +243,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 1895
     },
     {
       "id": "9",
       "code": "9880",
       "name": "イノテック",
-      "price": 2749,
+      "price": 2823,
       "shares": 11000,
       "plannedDelta": 18000,
       "settlementMonth": "",
@@ -258,14 +274,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 2823
     },
     {
       "id": "10",
       "code": "6742",
       "name": "京三製作所",
-      "price": 699,
+      "price": 716,
       "shares": 39000,
       "plannedDelta": 39000,
       "settlementMonth": "3月",
@@ -287,14 +305,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 716
     },
     {
       "id": "11",
       "code": "3415",
       "name": "トウキョウベース",
-      "price": 418,
+      "price": 407,
       "shares": 45000,
       "plannedDelta": 45000,
       "settlementMonth": "1",
@@ -316,14 +336,16 @@
       "benefit": 20,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 407
     },
     {
       "id": "12",
       "code": "7717",
       "name": "Vテク",
-      "price": 4920,
+      "price": 4130,
       "shares": 1000,
       "plannedDelta": null,
       "settlementMonth": "3月",
@@ -345,14 +367,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 4130
     },
     {
       "id": "13",
       "code": "8411",
       "name": "みずほ",
-      "price": 6936,
+      "price": 6704,
       "shares": 3000,
       "plannedDelta": 3000,
       "settlementMonth": "",
@@ -374,14 +398,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 6704
     },
     {
       "id": "14",
       "code": "5870",
       "name": "ナルネット",
-      "price": 981,
+      "price": 986,
       "shares": 18000,
       "plannedDelta": 18000,
       "settlementMonth": "3月",
@@ -403,14 +429,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 986
     },
     {
       "id": "15",
       "code": "9029",
       "name": "ヒガシ",
-      "price": 1797,
+      "price": 1756,
       "shares": 7900,
       "plannedDelta": 7900,
       "settlementMonth": "3月",
@@ -432,14 +460,16 @@
       "benefit": 2,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 1756
     },
     {
       "id": "16",
       "code": "4691",
       "name": "ワシントンホテル",
-      "price": 2096,
+      "price": 2351,
       "shares": 5000,
       "plannedDelta": null,
       "settlementMonth": "",
@@ -461,14 +491,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 2351
     },
     {
       "id": "17",
       "code": "4914",
       "name": "高砂香料工業",
-      "price": 1147,
+      "price": 1187,
       "shares": 10100,
       "plannedDelta": null,
       "settlementMonth": "",
@@ -490,14 +522,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 1187
     },
     {
       "id": "18",
       "code": "3315",
       "name": "日本コークス",
-      "price": 106,
+      "price": 104,
       "shares": 80000,
       "plannedDelta": 80000,
       "settlementMonth": "3月",
@@ -519,14 +553,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 104
     },
     {
       "id": "19",
       "code": "3529",
       "name": "アツギ",
-      "price": 1018,
+      "price": 1141,
       "shares": 9500,
       "plannedDelta": 9500,
       "settlementMonth": "3月",
@@ -548,14 +584,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 1141
     },
     {
       "id": "20",
       "code": "2805",
       "name": "エスビー",
-      "price": 4565,
+      "price": 4550,
       "shares": 2700,
       "plannedDelta": null,
       "settlementMonth": "",
@@ -577,14 +615,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 4550
     },
     {
       "id": "21",
       "code": "5537",
       "name": "アルバリンク",
-      "price": 2222,
+      "price": 2159,
       "shares": 1300,
       "plannedDelta": 1300,
       "settlementMonth": "12月",
@@ -606,14 +646,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 2159
     },
     {
       "id": "22",
       "code": "6083",
       "name": "ERI",
-      "price": 4270,
+      "price": 4155,
       "shares": 100,
       "plannedDelta": 100,
       "settlementMonth": "5月",
@@ -635,14 +677,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 4155
     },
     {
       "id": "23",
       "code": "4461",
       "name": "第一工業",
-      "price": 8060,
+      "price": 8320,
       "shares": 100,
       "plannedDelta": 100,
       "settlementMonth": "3月",
@@ -664,14 +708,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 8320
     },
     {
       "id": "24",
       "code": "4228",
       "name": "積水化成品",
-      "price": 423,
+      "price": 449,
       "shares": 100,
       "plannedDelta": 100,
       "settlementMonth": "3月",
@@ -693,14 +739,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 449
     },
     {
       "id": "25",
       "code": "5201",
       "name": "AGC",
-      "price": 5629,
+      "price": 5574,
       "shares": 100,
       "plannedDelta": 100,
       "settlementMonth": "12月",
@@ -722,14 +770,16 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 5574
     },
     {
       "id": "26",
       "code": "6565",
       "name": "ABホテル",
-      "price": 1412,
+      "price": 1388,
       "shares": 1600,
       "plannedDelta": 1600,
       "settlementMonth": "3月",
@@ -751,13 +801,46 @@
       "benefit": null,
       "memo": "",
       "tag": "",
-      "priceUpdatedAt": null,
-      "priceError": null
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": 1388
+    },
+    {
+      "id": "22ab480b-e14f-463d-b936-47282bf78321",
+      "code": "6627",
+      "name": "テラプロープ",
+      "price": 10230,
+      "shares": null,
+      "plannedDelta": null,
+      "settlementMonth": "",
+      "tech": "",
+      "topix": "",
+      "borderPrice": null,
+      "targetPrice": null,
+      "targetPeriod": "",
+      "fx": "",
+      "inflation": "",
+      "ir": "",
+      "per": null,
+      "management": "",
+      "competitiveness": "",
+      "governance": "",
+      "netCash": null,
+      "marchDividend": null,
+      "dividend": null,
+      "benefit": null,
+      "memo": "",
+      "tag": "",
+      "priceUpdatedAt": "2026-05-06T14:00:58.571Z",
+      "priceError": null,
+      "priceUpdateStatus": "success",
+      "previousPrice": null
     }
   ],
   "summary": {
     "nikkeiFutures": null,
     "topixFutures": null
   },
-  "lastSaved": "2026-05-06T12:58:40.165Z"
+  "lastSaved": "2026-05-06T14:02:14.502Z"
 }
