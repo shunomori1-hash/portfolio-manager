@@ -201,6 +201,7 @@ export default function App() {
           sortState={sortState}
           onSort={handleSort}
           fetchingPriceItemId={fetchingPriceItemId}
+          totalAssets={portfolio.summary.totalAssets ?? null}
         />
         <LongSummary portfolio={portfolio} onUpdateSummary={updateSummary} />
       </main>

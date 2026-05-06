@@ -12,6 +12,7 @@ interface Props {
   sortState: SortState;
   onSort: (key: SortKey) => void;
   fetchingPriceItemId: string | null;
+  totalAssets: number | null;  // user's total asset value for ratio columns
 }
 
 const TAG_OPTIONS: TagValue[] = ['◎', '○', '△', '×', ''];
@@ -159,7 +160,7 @@ function priceStatusClass(item: PortfolioItem): string {
   return '';
 }
 
-export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice, onRemove, visibleCols, sortState, onSort, fetchingPriceItemId }: Props) {
+export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice, onRemove, visibleCols, sortState, onSort, fetchingPriceItemId, totalAssets }: Props) {
   const [editingCell, setEditingCell] = useState<EditingCell>(null);
   const [editValue, setEditValue] = useState('');
   const [editingMemo, setEditingMemo] = useState<string | null>(null); // item id
@@ -167,21 +168,14 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice,
   const inputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const totalBuy = items.reduce((acc, item) => {
-    const h = calcHolding(item);
-    return acc + (h != null && h > 0 ? h : 0);
-  }, 0);
-
+  // totalAfterBuy: used for legacy afterRatio column
   const totalAfterBuy = items.reduce((acc, item) => {
     const a = calcAfterAmount(item);
     return acc + (a != null && a > 0 ? a : 0);
   }, 0);
 
-  // total of planned positions (only items where plannedShares is explicitly set)
-  const totalPlannedLong = items.reduce((acc, item) => {
-    const v = calcPlannedMarketValue(item);
-    return acc + (v != null && v > 0 ? v : 0);
-  }, 0);
+  // ratio and plannedWeight now use totalAssets (user-defined) instead of portfolio total
+  const assetBase = totalAssets != null && totalAssets > 0 ? totalAssets : null;
 
   function startEdit(id: string, key: string, currentValue: string) {
     setEditingCell({ id, key });
@@ -305,10 +299,10 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice,
             <th style={{ minWidth: 24 }} title="個別再取得">↻</th>
             {vis('shares')      && <th style={{ minWidth: W.shares }}>株数</th>}
             {vis('holding')     && <SortTh colKey="holding" label="保有金額" sortState={sortState} onSort={onSort} style={{ minWidth: W.holding }} />}
-            {vis('ratio')       && <SortTh colKey="ratio" label="割合" sortState={sortState} onSort={onSort} style={{ minWidth: W.ratio }} />}
+            {vis('ratio')       && <SortTh colKey="ratio" label="資産比率" sortState={sortState} onSort={onSort} style={{ minWidth: W.ratio }} />}
             {vis('plannedShares')      && <th style={{ minWidth: W.plannedShares }}>予定株数</th>}
             {vis('plannedMarketValue') && <th style={{ minWidth: W.plannedMarketValue }}>予定後金額</th>}
-            {vis('plannedWeight')      && <th style={{ minWidth: W.plannedWeight }}>予定後割合</th>}
+            {vis('plannedWeight')      && <th style={{ minWidth: W.plannedWeight }}>予定後資産比率</th>}
             {vis('plannedDelta')&& <th style={{ minWidth: W.plannedDelta }}>増減株数</th>}
             {vis('afterAmount') && <th style={{ minWidth: W.afterAmount }}>増減後額</th>}
             {vis('afterRatio')  && <th style={{ minWidth: W.afterRatio }}>増減後%</th>}
@@ -343,11 +337,11 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice,
         <tbody>
           {items.map(item => {
             const h = calcHolding(item);
-            const ratio = totalBuy > 0 && h != null ? h / totalBuy : null;
+            const ratio = assetBase != null && h != null ? h / assetBase : null;
             const afterAmount = calcAfterAmount(item);
             const afterRatio = totalAfterBuy > 0 && afterAmount != null ? afterAmount / totalAfterBuy : null;
             const plannedMV = calcPlannedMarketValue(item);
-            const plannedW = totalPlannedLong > 0 && plannedMV != null ? plannedMV / totalPlannedLong : null;
+            const plannedW = assetBase != null && plannedMV != null ? plannedMV / assetBase : null;
             const upside = calcUpside(item);
             const divergence = calcDivergence(item);
             const divAmount = calcDividendAmount(item);

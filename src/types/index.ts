@@ -40,6 +40,7 @@ export interface PortfolioItem {
 export interface SummaryExtras {
   nikkeiFutures: number | null;
   topixFutures: number | null;
+  totalAssets: number | null;   // user's total asset value for ratio calculations
 }
 
 export interface Portfolio {

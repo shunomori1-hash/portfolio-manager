@@ -1,0 +1,20 @@
+[
+  {
+    "timestamp": "2026-05-06T14:40:08.582Z",
+    "code": "6072",
+    "name": "地盤ネット",
+    "prevPrice": 1041,
+    "newPrice": 1041,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-06T14:40:08.582Z",
+    "code": "6072",
+    "name": "地盤ネット",
+    "prevPrice": 1041,
+    "newPrice": 1041,
+    "status": "success",
+    "error": null
+  }
+]

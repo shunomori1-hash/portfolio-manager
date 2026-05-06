@@ -26,11 +26,11 @@ export const ALL_COLS: ColDef[] = [
   { key: 'price',             label: '株価',        width: 60 },
   { key: 'shares',            label: '株数',        width: 52 },
   { key: 'holding',           label: '保有金額',    width: 78 },
-  { key: 'ratio',             label: '割合',        width: 50 },
+  { key: 'ratio',             label: '資産比率',    width: 56 },
   // rebalance plan columns
   { key: 'plannedShares',     label: '予定株数',    width: 54 },
   { key: 'plannedMarketValue',label: '予定後金額',  width: 78 },
-  { key: 'plannedWeight',     label: '予定後割合',  width: 56 },
+  { key: 'plannedWeight',     label: '予定後資産比率', width: 68 },
   // legacy delta columns
   { key: 'plannedDelta',      label: '増減株数',    width: 54 },
   { key: 'afterAmount',       label: '増減後額',    width: 76 },

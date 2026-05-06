@@ -337,6 +337,57 @@ body {
   font-size: 11px;
 }
 
+/* ── Total Assets bar ───────────────────────── */
+.total-assets-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0 10px;
+  flex-wrap: wrap;
+}
+
+.total-assets-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e3a5f;
+  white-space: nowrap;
+}
+
+.total-assets-input {
+  width: 140px;
+  height: 24px;
+  border: 1px solid #94a3b8;
+  border-radius: 3px;
+  padding: 0 6px;
+  font-size: 12px;
+  font-family: inherit;
+  text-align: right;
+  background: #f8fafc;
+}
+
+.total-assets-input:focus {
+  outline: 2px solid #3b82f6;
+  border-color: transparent;
+  background: #eff6ff;
+}
+
+.total-assets-display {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e3a5f;
+  white-space: nowrap;
+}
+
+.total-assets-hint {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.summary-highlight-cell {
+  font-weight: 700;
+  color: #1e3a5f;
+}
+
 /* ── Summary Section ─────────────────────────── */
 .summary-section {
   padding: 8px 16px;

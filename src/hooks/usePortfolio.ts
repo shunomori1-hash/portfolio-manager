@@ -6,7 +6,7 @@ import type {
 
 const DEFAULT_PORTFOLIO: Portfolio = {
   items: [],
-  summary: { nikkeiFutures: null, topixFutures: null },
+  summary: { nikkeiFutures: null, topixFutures: null, totalAssets: null },
   lastSaved: null,
 };
 
@@ -50,7 +50,11 @@ function normalizeItem(raw: Partial<PortfolioItem>): PortfolioItem {
 function normalizePortfolio(raw: Partial<Portfolio>): Portfolio {
   return {
     items: (raw.items ?? []).map(normalizeItem),
-    summary: raw.summary ?? { nikkeiFutures: null, topixFutures: null },
+    summary: {
+      nikkeiFutures: raw.summary?.nikkeiFutures ?? null,
+      topixFutures:  raw.summary?.topixFutures  ?? null,
+      totalAssets:   raw.summary?.totalAssets   ?? null,
+    },
     lastSaved: raw.lastSaved ?? null,
   };
 }
