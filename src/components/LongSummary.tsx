@@ -19,8 +19,20 @@ function fmtPct(n: number | null, dec = 1): string {
   return (n * 100).toFixed(dec) + '%';
 }
 
+function fmtDiff(n: number): string {
+  if (n === 0) return '0';
+  const s = n > 0 ? '+' : '';
+  return s + n.toLocaleString('ja-JP');
+}
+
 function holding(item: PortfolioItem): number {
   return safeN(item.price) * safeN(item.shares);
+}
+
+// Use plannedShares if set; fall back to current shares for "no change" assumption
+function plannedHolding(item: PortfolioItem): number {
+  const ps = item.plannedShares != null ? item.plannedShares : item.shares;
+  return safeN(item.price) * safeN(ps);
 }
 
 export function LongSummary({ portfolio, onUpdateSummary }: Props) {
@@ -55,8 +67,28 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
   // 目標未設定
   const noTargetCount = longItems.filter(i => i.targetPrice == null).length;
 
-  // 上位5銘柄
-  const ranked = [...longItems]
+  // ─── リバランス計画 ──────────────────────────────────────────────────────────
+  const hasPlan = items.some(i => i.plannedShares != null);
+
+  // For planned total: use plannedShares if set, else current shares (no change assumed)
+  const plannedLongItems = items.filter(i => {
+    const ps = i.plannedShares != null ? i.plannedShares : i.shares;
+    return safeN(ps) > 0;
+  });
+  const plannedTotal = plannedLongItems.reduce((acc, i) => acc + plannedHolding(i), 0);
+  const additionalFunds = hasPlan ? plannedTotal - longTotal : null;
+
+  // 予定後上位5銘柄
+  const plannedRanked = [...items]
+    .filter(i => {
+      const ps = i.plannedShares != null ? i.plannedShares : i.shares;
+      return safeN(ps) > 0 && i.price != null;
+    })
+    .sort((a, b) => plannedHolding(b) - plannedHolding(a))
+    .slice(0, 5);
+
+  // 現在上位5銘柄 (for summary)
+  const currentRanked = [...longItems]
     .sort((a, b) => holding(b) - holding(a))
     .slice(0, 5);
 
@@ -91,6 +123,33 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
               <tr>
                 <td>ネット比率</td>
                 <td className="num">{fmtPct(netBuyRatio)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* リバランス計画 */}
+        <div className="summary-group">
+          <h3>リバランス計画</h3>
+          <table className="summary-table">
+            <tbody>
+              <tr>
+                <td>現在ロング合計</td>
+                <td className="num">{fmt(longTotal)}</td>
+              </tr>
+              <tr>
+                <td>予定後ロング合計</td>
+                <td className="num">{hasPlan ? fmt(plannedTotal) : '—'}</td>
+              </tr>
+              <tr>
+                <td>追加必要資金</td>
+                <td className={`num ${additionalFunds == null ? '' : additionalFunds > 0 ? 'ls-warn' : additionalFunds < 0 ? 'ls-good' : ''}`}>
+                  {additionalFunds != null
+                    ? <span title={additionalFunds > 0 ? '追加買い越し' : additionalFunds < 0 ? '売り越し（資金回収）' : '変化なし'}>
+                        {fmtDiff(additionalFunds)}
+                      </span>
+                    : '予定株数未入力'}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -148,9 +207,7 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
               <tr>
                 <td>日経先物</td>
                 <td className="num">
-                  <input
-                    type="number"
-                    className="summary-input"
+                  <input type="number" className="summary-input"
                     value={summary.nikkeiFutures ?? ''}
                     placeholder="—"
                     onChange={e => onUpdateSummary({ nikkeiFutures: e.target.value === '' ? null : Number(e.target.value) })}
@@ -160,9 +217,7 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
               <tr>
                 <td>TOPIX先物</td>
                 <td className="num">
-                  <input
-                    type="number"
-                    className="summary-input"
+                  <input type="number" className="summary-input"
                     value={summary.topixFutures ?? ''}
                     placeholder="—"
                     onChange={e => onUpdateSummary({ topixFutures: e.target.value === '' ? null : Number(e.target.value) })}
@@ -173,10 +228,10 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
           </table>
         </div>
 
-        {/* 上位保有 */}
-        {ranked.length > 0 && (
+        {/* 現在の上位保有 */}
+        {currentRanked.length > 0 && (
           <div className="summary-group">
-            <h3>上位保有</h3>
+            <h3>現在 上位保有</h3>
             <table className="summary-table">
               <thead>
                 <tr>
@@ -186,12 +241,39 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
                 </tr>
               </thead>
               <tbody>
-                {ranked.map((item, i) => (
+                {currentRanked.map((item, i) => (
                   <tr key={item.id}>
                     <td style={{ color: '#64748b', fontSize: 10 }}>{i + 1}</td>
                     <td>{item.name || item.code}</td>
                     <td className="num">
                       {longTotal > 0 ? fmtPct(holding(item) / longTotal) : '—'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {/* 予定後の上位保有 */}
+        {hasPlan && plannedRanked.length > 0 && (
+          <div className="summary-group">
+            <h3>予定後 上位保有</h3>
+            <table className="summary-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>銘柄</th>
+                  <th className="num">予定比率</th>
+                </tr>
+              </thead>
+              <tbody>
+                {plannedRanked.map((item, i) => (
+                  <tr key={item.id}>
+                    <td style={{ color: '#64748b', fontSize: 10 }}>{i + 1}</td>
+                    <td>{item.name || item.code}</td>
+                    <td className="num">
+                      {plannedTotal > 0 ? fmtPct(plannedHolding(item) / plannedTotal) : '—'}
                     </td>
                   </tr>
                 ))}

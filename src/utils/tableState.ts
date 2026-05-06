@@ -3,6 +3,7 @@ import type { PortfolioItem } from '../types';
 // ─── Column Keys ────────────────────────────────────────────────────────────
 export type ColKey =
   | 'code' | 'name' | 'price' | 'shares' | 'holding' | 'ratio'
+  | 'plannedShares' | 'plannedMarketValue' | 'plannedWeight'
   | 'plannedDelta' | 'afterAmount' | 'afterRatio'
   | 'settlement' | 'tech' | 'topix'
   | 'border' | 'divergence' | 'targetPrice' | 'targetPeriod' | 'upside'
@@ -20,56 +21,70 @@ export interface ColDef {
 }
 
 export const ALL_COLS: ColDef[] = [
-  { key: 'code',            label: 'コード',    width: 52 },
-  { key: 'name',            label: '銘柄名',    width: 90 },
-  { key: 'price',           label: '株価',      width: 60 },
-  { key: 'shares',          label: '株数',      width: 52 },
-  { key: 'holding',         label: '保有金額',  width: 78 },
-  { key: 'ratio',           label: '割合',      width: 50 },
-  { key: 'plannedDelta',    label: '増減株数',  width: 54 },
-  { key: 'afterAmount',     label: '増減後額',  width: 76 },
-  { key: 'afterRatio',      label: '増減後%',   width: 54 },
-  { key: 'settlement',      label: '決算',      width: 44 },
-  { key: 'tech',            label: 'テク',      width: 38 },
-  { key: 'topix',           label: 'TOPIX',     width: 38 },
-  { key: 'border',          label: 'ボーダー',  width: 64 },
-  { key: 'divergence',      label: '乖離率',    width: 54 },
-  { key: 'targetPrice',     label: '目標株価',  width: 66 },
-  { key: 'targetPeriod',    label: '目標期間',  width: 52 },
-  { key: 'upside',          label: '上値余地',  width: 54 },
-  { key: 'fx',              label: '為替',      width: 46 },
-  { key: 'inflation',       label: 'インフレ',  width: 38 },
-  { key: 'ir',              label: 'IR',        width: 38 },
-  { key: 'per',             label: 'PER',       width: 46 },
-  { key: 'management',      label: '経営者',    width: 38 },
-  { key: 'competitiveness', label: '競争力',    width: 38 },
-  { key: 'governance',      label: 'ガバ',      width: 38 },
-  { key: 'netCash',         label: 'ネットC',   width: 64 },
-  { key: 'netPer',          label: 'ネットPER', width: 52 },
-  { key: 'marchDiv',        label: '3月配当',   width: 46 },
-  { key: 'dividend',        label: '配当',      width: 46 },
-  { key: 'divAmount',       label: '配当金',    width: 64 },
-  { key: 'divYield',        label: '配当利回',  width: 58 },
-  { key: 'benefit',         label: '優待',      width: 44 },
-  { key: 'benefitYield',    label: '優待利回',  width: 58 },
-  { key: 'tag',             label: 'タグ',      width: 38 },
-  { key: 'memo',            label: 'メモ',      width: 120 },
+  { key: 'code',              label: 'コード',      width: 52 },
+  { key: 'name',              label: '銘柄名',      width: 90 },
+  { key: 'price',             label: '株価',        width: 60 },
+  { key: 'shares',            label: '株数',        width: 52 },
+  { key: 'holding',           label: '保有金額',    width: 78 },
+  { key: 'ratio',             label: '割合',        width: 50 },
+  // rebalance plan columns
+  { key: 'plannedShares',     label: '予定株数',    width: 54 },
+  { key: 'plannedMarketValue',label: '予定後金額',  width: 78 },
+  { key: 'plannedWeight',     label: '予定後割合',  width: 56 },
+  // legacy delta columns
+  { key: 'plannedDelta',      label: '増減株数',    width: 54 },
+  { key: 'afterAmount',       label: '増減後額',    width: 76 },
+  { key: 'afterRatio',        label: '増減後%',     width: 54 },
+  { key: 'settlement',        label: '決算',        width: 44 },
+  { key: 'tech',              label: 'テク',        width: 38 },
+  { key: 'topix',             label: 'TOPIX',       width: 38 },
+  { key: 'border',            label: 'ボーダー',    width: 64 },
+  { key: 'divergence',        label: '乖離率',      width: 54 },
+  { key: 'targetPrice',       label: '目標株価',    width: 66 },
+  { key: 'targetPeriod',      label: '目標期間',    width: 52 },
+  { key: 'upside',            label: '上値余地',    width: 54 },
+  { key: 'fx',                label: '為替',        width: 46 },
+  { key: 'inflation',         label: 'インフレ',    width: 38 },
+  { key: 'ir',                label: 'IR',          width: 38 },
+  { key: 'per',               label: 'PER',         width: 46 },
+  { key: 'management',        label: '経営者',      width: 38 },
+  { key: 'competitiveness',   label: '競争力',      width: 38 },
+  { key: 'governance',        label: 'ガバ',        width: 38 },
+  { key: 'netCash',           label: 'ネットC',     width: 64 },
+  { key: 'netPer',            label: 'ネットPER',   width: 52 },
+  { key: 'marchDiv',          label: '3月配当',     width: 46 },
+  { key: 'dividend',          label: '配当',        width: 46 },
+  { key: 'divAmount',         label: '配当金',      width: 64 },
+  { key: 'divYield',          label: '配当利回',    width: 58 },
+  { key: 'benefit',           label: '優待',        width: 44 },
+  { key: 'benefitYield',      label: '優待利回',    width: 58 },
+  { key: 'tag',               label: 'タグ',        width: 38 },
+  { key: 'memo',              label: 'メモ',        width: 120 },
 ];
 
 // ─── Column Presets ──────────────────────────────────────────────────────────
 export type PresetName = 'basic' | 'investment' | 'dividend' | 'all';
 
 export const COL_PRESETS: Record<PresetName, Set<ColKey>> = {
-  basic: new Set<ColKey>(['code', 'name', 'price', 'shares', 'holding', 'ratio', 'targetPrice', 'upside', 'memo']),
+  basic: new Set<ColKey>([
+    'code', 'name', 'price', 'shares', 'holding', 'ratio',
+    'plannedShares', 'plannedMarketValue', 'plannedWeight',
+    'targetPrice', 'upside', 'memo',
+  ]),
   investment: new Set<ColKey>([
-    'code', 'name', 'price', 'holding', 'ratio',
+    'code', 'name', 'price', 'shares', 'holding', 'ratio',
+    'plannedShares', 'plannedMarketValue', 'plannedWeight',
     'settlement', 'tech', 'topix',
     'border', 'divergence', 'targetPrice', 'targetPeriod', 'upside',
     'fx', 'inflation', 'ir', 'per',
     'management', 'competitiveness', 'governance',
     'memo',
   ]),
-  dividend: new Set<ColKey>(['code', 'name', 'price', 'shares', 'holding', 'dividend', 'divAmount', 'divYield', 'benefit', 'benefitYield']),
+  dividend: new Set<ColKey>([
+    'code', 'name', 'price', 'shares', 'holding', 'ratio',
+    'plannedShares', 'plannedMarketValue', 'plannedWeight',
+    'dividend', 'divAmount', 'divYield', 'benefit', 'benefitYield',
+  ]),
   all: new Set<ColKey>(ALL_COLS.map(c => c.key)),
 };
 
@@ -79,7 +94,6 @@ export type SortDir = 'asc' | 'desc';
 export interface SortState { key: SortKey; dir: SortDir; }
 export const DEFAULT_SORT: SortState = { key: 'holding', dir: 'desc' };
 
-// Column key → sort key mapping
 export const COL_SORT_KEY: Partial<Record<ColKey, SortKey>> = {
   code: 'code',
   name: 'name',
@@ -116,17 +130,17 @@ export function sortItems(items: PortfolioItem[], sort: SortState, totalBuy: num
     let bv: number | string = 0;
 
     switch (sort.key) {
-      case 'code':          av = a.code;          bv = b.code;          break;
-      case 'name':          av = a.name;          bv = b.name;          break;
-      case 'holding':       av = calcHoldingN(a); bv = calcHoldingN(b); break;
+      case 'code':            av = a.code;           bv = b.code;           break;
+      case 'name':            av = a.name;           bv = b.name;           break;
+      case 'holding':         av = calcHoldingN(a);  bv = calcHoldingN(b);  break;
       case 'ratio': {
         av = totalBuy > 0 ? calcHoldingN(a) / totalBuy : calcHoldingN(a);
         bv = totalBuy > 0 ? calcHoldingN(b) / totalBuy : calcHoldingN(b);
         break;
       }
-      case 'targetPrice':   av = a.targetPrice ?? -Infinity; bv = b.targetPrice ?? -Infinity; break;
-      case 'upside':        av = calcUpsideN(a);  bv = calcUpsideN(b);  break;
-      case 'dividendYield': av = calcDivYieldN(a); bv = calcDivYieldN(b); break;
+      case 'targetPrice':     av = a.targetPrice ?? -Infinity; bv = b.targetPrice ?? -Infinity; break;
+      case 'upside':          av = calcUpsideN(a);   bv = calcUpsideN(b);   break;
+      case 'dividendYield':   av = calcDivYieldN(a); bv = calcDivYieldN(b); break;
       case 'settlementMonth': av = a.settlementMonth; bv = b.settlementMonth; break;
     }
 
@@ -155,12 +169,13 @@ export interface FilterState {
   governance: string;
   upsideOnly: boolean;
   dividendOnly: boolean;
+  plannedChangeOnly: boolean; // show only items where plannedShares ≠ shares
 }
 
 export const DEFAULT_FILTER: FilterState = {
   search: '', settlementMonth: '', tech: '', topix: '', fx: '',
   inflation: '', ir: '', management: '', competitiveness: '', governance: '',
-  upsideOnly: false, dividendOnly: false,
+  upsideOnly: false, dividendOnly: false, plannedChangeOnly: false,
 };
 
 export function filterItems(items: PortfolioItem[], f: FilterState): PortfolioItem[] {
@@ -188,6 +203,11 @@ export function filterItems(items: PortfolioItem[], f: FilterState): PortfolioIt
         ? item.dividend / item.price : null;
       if (y == null || y <= 0) return false;
     }
+    if (f.plannedChangeOnly) {
+      // Show only items where plannedShares is set AND differs from current shares
+      if (item.plannedShares == null) return false;
+      if (item.plannedShares === item.shares) return false;
+    }
     return true;
   });
 }
@@ -195,5 +215,6 @@ export function filterItems(items: PortfolioItem[], f: FilterState): PortfolioIt
 export function isFilterActive(f: FilterState): boolean {
   return f.search !== '' || f.settlementMonth !== '' || f.tech !== '' || f.topix !== ''
     || f.fx !== '' || f.inflation !== '' || f.ir !== '' || f.management !== ''
-    || f.competitiveness !== '' || f.governance !== '' || f.upsideOnly || f.dividendOnly;
+    || f.competitiveness !== '' || f.governance !== '' || f.upsideOnly || f.dividendOnly
+    || f.plannedChangeOnly;
 }

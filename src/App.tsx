@@ -24,7 +24,7 @@ export default function App() {
   const {
     portfolio, loading, saving, fetchingPrices, fetchingPriceItemId,
     error, saveStatus, isDirty, priceUpdateSummary,
-    updateItem, updatePriceManually, updateSummary,
+    updateItem, updatePriceManually, resetPlannedShares, updateSummary,
     addItem, removeItem, save, fetchPrices, fetchSinglePrice, importItems,
   } = usePortfolio();
 
@@ -142,6 +142,15 @@ export default function App() {
           <button className="btn btn-secondary"
             onClick={() => setShowAddItem(true)}>
             ＋ 銘柄追加
+          </button>
+          <button className="btn btn-secondary"
+            title="全銘柄の予定株数を現在株数にリセット"
+            onClick={() => {
+              if (confirm('全銘柄の予定株数を現在株数にリセットしますか？')) {
+                resetPlannedShares();
+              }
+            }}>
+            予定リセット
           </button>
           <button className="btn btn-primary"
             onClick={() => fetchPrices(portfolio)}

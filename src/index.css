@@ -422,6 +422,15 @@ body {
   border-color: transparent;
 }
 
+/* ── Planned (rebalance) cell ────────────────── */
+.cell-planned {
+  background: #fefce8 !important; /* very light yellow — "plan" input */
+}
+
+.cell-planned:hover {
+  background: #fef9c3 !important;
+}
+
 /* ── Name cell ellipsis ──────────────────────── */
 .cell-name {
   display: block;

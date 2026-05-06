@@ -74,6 +74,12 @@ function calcDividendAmount(item: PortfolioItem) {
   return d * s;
 }
 
+function calcPlannedMarketValue(item: PortfolioItem) {
+  const p = safeN(item.price), ps = safeN(item.plannedShares);
+  if (p == null || ps == null || item.plannedShares == null) return null;
+  return p * ps;
+}
+
 // ─── Format helpers ──────────────────────────────────────────────────────────
 function fmt(n: number | null, decimals = 0): string {
   if (n == null) return '';
@@ -171,6 +177,12 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice,
     return acc + (a != null && a > 0 ? a : 0);
   }, 0);
 
+  // total of planned positions (only items where plannedShares is explicitly set)
+  const totalPlannedLong = items.reduce((acc, item) => {
+    const v = calcPlannedMarketValue(item);
+    return acc + (v != null && v > 0 ? v : 0);
+  }, 0);
+
   function startEdit(id: string, key: string, currentValue: string) {
     setEditingCell({ id, key });
     setEditValue(currentValue);
@@ -179,7 +191,7 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice,
 
   function commitEdit(id: string, key: keyof PortfolioItem) {
     const numericKeys = [
-      'price', 'shares', 'plannedDelta', 'borderPrice', 'targetPrice',
+      'price', 'shares', 'plannedShares', 'plannedDelta', 'borderPrice', 'targetPrice',
       'per', 'netCash', 'marchDividend', 'dividend', 'benefit',
     ];
     let value: string | number | null = editValue.trim();
@@ -232,7 +244,7 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice,
     );
   }
 
-  function renderNumCell(item: PortfolioItem, key: keyof PortfolioItem, value: number | null, colKey: ColKey) {
+  function renderNumCell(item: PortfolioItem, key: keyof PortfolioItem, value: number | null, colKey: ColKey, extraClass = '') {
     if (!vis(colKey)) return null;
     const w = W[colKey];
     const isEditing = editingCell?.id === item.id && editingCell?.key === key;
@@ -247,7 +259,7 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice,
       );
     }
     return (
-      <td className="editable num" style={{ minWidth: w }}
+      <td className={`editable num ${extraClass}`} style={{ minWidth: w }}
         onClick={() => startEdit(item.id, key, value != null ? String(value) : '')}>
         {fmt(value)}
       </td>
@@ -294,6 +306,9 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice,
             {vis('shares')      && <th style={{ minWidth: W.shares }}>株数</th>}
             {vis('holding')     && <SortTh colKey="holding" label="保有金額" sortState={sortState} onSort={onSort} style={{ minWidth: W.holding }} />}
             {vis('ratio')       && <SortTh colKey="ratio" label="割合" sortState={sortState} onSort={onSort} style={{ minWidth: W.ratio }} />}
+            {vis('plannedShares')      && <th style={{ minWidth: W.plannedShares }}>予定株数</th>}
+            {vis('plannedMarketValue') && <th style={{ minWidth: W.plannedMarketValue }}>予定後金額</th>}
+            {vis('plannedWeight')      && <th style={{ minWidth: W.plannedWeight }}>予定後割合</th>}
             {vis('plannedDelta')&& <th style={{ minWidth: W.plannedDelta }}>増減株数</th>}
             {vis('afterAmount') && <th style={{ minWidth: W.afterAmount }}>増減後額</th>}
             {vis('afterRatio')  && <th style={{ minWidth: W.afterRatio }}>増減後%</th>}
@@ -331,6 +346,8 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice,
             const ratio = totalBuy > 0 && h != null ? h / totalBuy : null;
             const afterAmount = calcAfterAmount(item);
             const afterRatio = totalAfterBuy > 0 && afterAmount != null ? afterAmount / totalAfterBuy : null;
+            const plannedMV = calcPlannedMarketValue(item);
+            const plannedW = totalPlannedLong > 0 && plannedMV != null ? plannedMV / totalPlannedLong : null;
             const upside = calcUpside(item);
             const divergence = calcDivergence(item);
             const divAmount = calcDividendAmount(item);
@@ -429,6 +446,9 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice,
                 {renderNumCell(item, 'shares', item.shares, 'shares')}
                 {renderCalcCell(fmt(h), '', 'holding')}
                 {renderCalcCell(fmtPct(ratio), '', 'ratio')}
+                {renderNumCell(item, 'plannedShares', item.plannedShares, 'plannedShares', 'cell-planned')}
+                {renderCalcCell(fmt(plannedMV), '', 'plannedMarketValue')}
+                {renderCalcCell(fmtPct(plannedW), '', 'plannedWeight')}
                 {renderNumCell(item, 'plannedDelta', item.plannedDelta, 'plannedDelta')}
                 {renderCalcCell(fmt(afterAmount), '', 'afterAmount')}
                 {renderCalcCell(fmtPct(afterRatio), '', 'afterRatio')}

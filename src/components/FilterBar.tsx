@@ -73,6 +73,12 @@ export function FilterBar({ filter, onChange, onClear, active, totalCount, filte
           配当あり
         </label>
 
+        <label className="filter-check" title="予定株数が現在株数と異なる銘柄のみ表示">
+          <input type="checkbox" checked={filter.plannedChangeOnly}
+            onChange={e => onChange({ plannedChangeOnly: e.target.checked })} />
+          予定変更あり
+        </label>
+
         {active && (
           <button className="btn btn-filter-clear" onClick={onClear}>
             解除

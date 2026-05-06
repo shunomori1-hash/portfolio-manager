@@ -34,10 +34,13 @@ const HEADER_MAP: Record<string, keyof PortfolioItem | 'skip' | 'calc'> = {
   '時価': 'calc',
   '割合': 'calc',
   '比率': 'calc',
-  '増減予定株数': 'plannedDelta',
+  '予定株数': 'plannedShares',
+  '増減予定株数': 'plannedShares',  // mapped to plannedShares (final target count)
   '増減後金額': 'calc',
   '増減後割合': 'calc',
   '増減後比率': 'calc',
+  '予定後金額': 'calc',
+  '予定後割合': 'calc',
   '決算': 'settlementMonth',
   '決算月': 'settlementMonth',
   'テク': 'tech',
@@ -92,7 +95,7 @@ const FX_FIELDS = new Set<keyof PortfolioItem>(['fx']);
 const PERIOD_FIELDS = new Set<keyof PortfolioItem>(['targetPeriod']);
 const PERIOD_VALUES = new Set(['3ヶ月', '半年', '1年', '2年', '']);
 const NUMERIC_FIELDS = new Set<keyof PortfolioItem>([
-  'price', 'shares', 'plannedDelta', 'borderPrice', 'targetPrice',
+  'price', 'shares', 'plannedShares', 'plannedDelta', 'borderPrice', 'targetPrice',
   'per', 'netCash', 'marchDividend', 'dividend', 'benefit',
 ]);
 
@@ -274,6 +277,7 @@ export async function parseCsvFile(file: File): Promise<CsvParseResult> {
       name,
       price: null,
       shares: null,
+      plannedShares: null,
       plannedDelta: null,
       settlementMonth: '',
       tech: '',
@@ -376,6 +380,7 @@ export const APP_FIELD_LABELS: Record<string, string> = {
   name: '銘柄名',
   price: '株価',
   shares: '株数',
+  plannedShares: '予定株数',
   plannedDelta: '増減予定株数',
   settlementMonth: '決算月',
   tech: 'テク',

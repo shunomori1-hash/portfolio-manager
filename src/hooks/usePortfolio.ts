@@ -18,6 +18,8 @@ function normalizeItem(raw: Partial<PortfolioItem>): PortfolioItem {
     name: raw.name ?? '',
     price: raw.price ?? null,
     shares: raw.shares ?? null,
+    // plannedShares defaults to current shares when not present in saved data
+    plannedShares: 'plannedShares' in raw ? (raw.plannedShares ?? null) : (raw.shares ?? null),
     plannedDelta: raw.plannedDelta ?? null,
     settlementMonth: raw.settlementMonth ?? '',
     tech: raw.tech ?? '',
@@ -119,6 +121,14 @@ export function usePortfolio() {
 
   const updateSummary = useCallback((updates: Partial<Portfolio['summary']>) => {
     setPortfolio(prev => ({ ...prev, summary: { ...prev.summary, ...updates } }));
+    setIsDirty(true);
+  }, []);
+
+  const resetPlannedShares = useCallback(() => {
+    setPortfolio(prev => ({
+      ...prev,
+      items: prev.items.map(item => ({ ...item, plannedShares: item.shares })),
+    }));
     setIsDirty(true);
   }, []);
 
@@ -415,6 +425,7 @@ export function usePortfolio() {
     priceUpdateSummary,
     updateItem,
     updatePriceManually,
+    resetPlannedShares,
     updateSummary,
     addItem,
     removeItem,

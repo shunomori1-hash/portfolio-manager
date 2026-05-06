@@ -9,7 +9,8 @@ export interface PortfolioItem {
   name: string;
   price: number | null;
   shares: number | null;
-  plannedDelta: number | null;
+  plannedShares: number | null;   // rebalance plan: target share count (not a delta)
+  plannedDelta: number | null;    // legacy field kept for compat
   settlementMonth: string;
   tech: TagValue;
   topix: TagValue;
