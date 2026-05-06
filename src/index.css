@@ -390,7 +390,34 @@ body {
 
 /* ── Futures hedge table ─────────────────────── */
 .futures-group {
-  min-width: 340px;
+  min-width: 380px;
+}
+
+.futures-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.futures-header h3 {
+  margin: 0;
+}
+
+.futures-errors {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.futures-error-item {
+  font-size: 10px;
+  color: #dc2626;
+  background: #fef2f2;
+  padding: 1px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
 }
 
 .futures-table td,

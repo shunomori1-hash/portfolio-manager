@@ -16,7 +16,8 @@
     "express": "^5.2.1",
     "node-fetch": "^2.7.0",
     "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "react-dom": "^19.2.5",
+    "yahoo-finance2": "^3.14.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

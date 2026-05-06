@@ -25,7 +25,7 @@ export default function App() {
     portfolio, loading, saving, fetchingPrices, fetchingPriceItemId,
     error, saveStatus, isDirty, priceUpdateSummary,
     updateItem, updatePriceManually, resetPlannedShares, updateSummary,
-    addItem, removeItem, save, fetchPrices, fetchSinglePrice, importItems,
+    addItem, removeItem, save, fetchPrices, fetchSinglePrice, fetchFuturesPrices, fetchingFutures, importItems,
   } = usePortfolio();
 
   // ── UI state ─────────────────────────────────────────────────────────────
@@ -203,7 +203,12 @@ export default function App() {
           fetchingPriceItemId={fetchingPriceItemId}
           totalAssets={portfolio.summary.totalAssets ?? null}
         />
-        <LongSummary portfolio={portfolio} onUpdateSummary={updateSummary} />
+        <LongSummary
+          portfolio={portfolio}
+          onUpdateSummary={updateSummary}
+          onFetchFuturesPrices={fetchFuturesPrices}
+          fetchingFutures={fetchingFutures}
+        />
       </main>
 
       {/* ── Modals ──────────────────────────────────────────────────────── */}

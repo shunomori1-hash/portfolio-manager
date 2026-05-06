@@ -2,13 +2,13 @@ import { useState, useCallback, useEffect } from 'react';
 import type {
   Portfolio, PortfolioItem, PriceFetchResponse,
   PriceUpdateLogEntry, PriceUpdateSummary,
-  HedgeFutures,
+  HedgeFutures, FuturesPosition,
 } from '../types';
 
 export const DEFAULT_HEDGE_FUTURES: HedgeFutures = {
-  grossNikkei: { price: null, lots: null, multiplier: 100 },
-  nikkei:      { price: null, lots: null, multiplier: 1000 },
-  topix:       { price: null, lots: null, multiplier: 10000 },
+  grossNikkei: { price: null, lots: null, multiplier: 100,   source: 'nikkei225jp',  symbol: 'c=138', lastUpdatedAt: null, updateStatus: 'unknown', updateError: null },
+  nikkei:      { price: null, lots: null, multiplier: 1000,  source: 'yahoo-finance', symbol: 'NIY=F', lastUpdatedAt: null, updateStatus: 'unknown', updateError: null },
+  topix:       { price: null, lots: null, multiplier: 10000, source: 'yahoo-finance', symbol: 'TPY=F', lastUpdatedAt: null, updateStatus: 'unknown', updateError: null },
 };
 
 const DEFAULT_PORTFOLIO: Portfolio = {
@@ -59,24 +59,26 @@ function normalizeItem(raw: Partial<PortfolioItem>): PortfolioItem {
   };
 }
 
+function normalizeFuturesPos(raw?: Partial<FuturesPosition> | null, def?: FuturesPosition): FuturesPosition {
+  const d = def ?? DEFAULT_HEDGE_FUTURES.grossNikkei;
+  return {
+    price:         raw?.price         ?? null,
+    lots:          raw?.lots          ?? null,
+    multiplier:    raw?.multiplier    ?? d.multiplier,
+    source:        raw?.source        ?? d.source,
+    symbol:        raw?.symbol        ?? d.symbol,
+    lastUpdatedAt: raw?.lastUpdatedAt ?? null,
+    updateStatus:  raw?.updateStatus  ?? 'unknown',
+    updateError:   raw?.updateError   ?? null,
+  };
+}
+
 function normalizeHedgeFutures(raw?: Partial<HedgeFutures> | null): HedgeFutures {
   const def = DEFAULT_HEDGE_FUTURES;
   return {
-    grossNikkei: {
-      price:      raw?.grossNikkei?.price      ?? null,
-      lots:       raw?.grossNikkei?.lots       ?? null,
-      multiplier: raw?.grossNikkei?.multiplier ?? def.grossNikkei.multiplier,
-    },
-    nikkei: {
-      price:      raw?.nikkei?.price      ?? null,
-      lots:       raw?.nikkei?.lots       ?? null,
-      multiplier: raw?.nikkei?.multiplier ?? def.nikkei.multiplier,
-    },
-    topix: {
-      price:      raw?.topix?.price      ?? null,
-      lots:       raw?.topix?.lots       ?? null,
-      multiplier: raw?.topix?.multiplier ?? def.topix.multiplier,
-    },
+    grossNikkei: normalizeFuturesPos(raw?.grossNikkei, def.grossNikkei),
+    nikkei:      normalizeFuturesPos(raw?.nikkei,      def.nikkei),
+    topix:       normalizeFuturesPos(raw?.topix,       def.topix),
   };
 }
 
@@ -103,11 +105,29 @@ function postPriceLog(entries: PriceUpdateLogEntry[]) {
   }).catch(() => { /* best-effort */ });
 }
 
+interface FuturesUpdateResult {
+  key: keyof HedgeFutures;
+  name: string;
+  source: string;
+  symbol: string;
+  price: number | null;
+  status: 'success' | 'failed';
+  error: string | null;
+}
+
+interface FuturesUpdateResponse {
+  results: FuturesUpdateResult[];
+  updatedAt: string;
+  successCount: number;
+  failedCount: number;
+}
+
 export function usePortfolio() {
   const [portfolio, setPortfolio] = useState<Portfolio>(DEFAULT_PORTFOLIO);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [fetchingPrices, setFetchingPrices] = useState(false);
+  const [fetchingFutures, setFetchingFutures] = useState(false);
   const [fetchingPriceItemId, setFetchingPriceItemId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState<string | null>(null);
@@ -451,11 +471,51 @@ export function usePortfolio() {
     }
   }, []);
 
+  // ── Fetch futures prices ──────────────────────────────────────────────────
+  const fetchFuturesPrices = useCallback(async () => {
+    setFetchingFutures(true);
+    const now = new Date().toISOString();
+    try {
+      const r = await fetch('/api/futures-prices/update', { method: 'POST' });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const data = await r.json() as FuturesUpdateResponse;
+
+      setPortfolio(prev => {
+        const hf = { ...prev.summary.hedgeFutures };
+        for (const result of data.results) {
+          const k = result.key;
+          const pos = hf[k];
+          if (result.status === 'success' && result.price != null && isFinite(result.price)) {
+            hf[k] = { ...pos, price: result.price, updateStatus: 'success', updateError: null, lastUpdatedAt: data.updatedAt };
+          } else {
+            hf[k] = { ...pos, updateStatus: 'failed', updateError: result.error ?? '取得失敗', lastUpdatedAt: now };
+            // price NOT changed on failure
+          }
+        }
+        return { ...prev, summary: { ...prev.summary, hedgeFutures: hf } };
+      });
+      setIsDirty(true);
+    } catch (e) {
+      // If the whole request failed, mark all as failed but keep prices
+      setPortfolio(prev => {
+        const hf = { ...prev.summary.hedgeFutures };
+        const errMsg = e instanceof Error ? e.message : String(e);
+        for (const k of Object.keys(hf) as (keyof HedgeFutures)[]) {
+          hf[k] = { ...hf[k], updateStatus: 'failed', updateError: errMsg, lastUpdatedAt: now };
+        }
+        return { ...prev, summary: { ...prev.summary, hedgeFutures: hf } };
+      });
+    } finally {
+      setFetchingFutures(false);
+    }
+  }, []);
+
   return {
     portfolio,
     loading,
     saving,
     fetchingPrices,
+    fetchingFutures,
     fetchingPriceItemId,
     error,
     saveStatus,
@@ -470,6 +530,7 @@ export function usePortfolio() {
     save,
     fetchPrices,
     fetchSinglePrice,
+    fetchFuturesPrices,
     importItems,
   };
 }

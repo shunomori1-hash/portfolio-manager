@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
+import YahooFinance from 'yahoo-finance2';
 import type { PriceUpdateLogEntry } from '../src/types/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -13,6 +14,11 @@ const DATA_FILE = path.join(ROOT, 'data', 'portfolio.json');
 const BACKUPS_DIR = path.join(ROOT, 'data', 'backups');
 const LOG_FILE = path.join(ROOT, 'data', 'price-update-log.json');
 const LOG_MAX = 500;
+const FUTURES_LOG_FILE = path.join(ROOT, 'data', 'futures-price-update-log.json');
+const FUTURES_LOG_MAX = 300;
+
+// yahoo-finance2 instance (suppress survey notice)
+const yf = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 
@@ -359,6 +365,306 @@ app.post('/api/prices/log', (req, res) => {
     res.json({ ok: true });
   } catch (e) {
     res.json({ ok: false, error: String(e) });
+  }
+});
+
+// ── Futures price helpers ──────────────────────────────────────────────────
+
+function appendFuturesLog(entries: Array<{
+  updatedAt: string; name: string; source: string; symbol: string;
+  previousPrice: number | null; newPrice: number | null;
+  status: 'success' | 'failed'; error: string | null;
+}>) {
+  let existing: unknown[] = [];
+  if (fs.existsSync(FUTURES_LOG_FILE)) {
+    try { existing = JSON.parse(fs.readFileSync(FUTURES_LOG_FILE, 'utf-8')); } catch { existing = []; }
+  }
+  const merged = [...entries, ...existing].slice(0, FUTURES_LOG_MAX);
+  fs.writeFileSync(FUTURES_LOG_FILE, JSON.stringify(merged, null, 2), 'utf-8');
+}
+
+// Fetch グロース250先物 price from nikkei225jp.com HTML
+async function fetchGrowthFuturesPrice(): Promise<{ price: number | null; error: string | null; rawSnippet: string }> {
+  const url = 'https://nikkei225jp.com/_ssi/if/?c=138';
+  const CODE = '138';
+
+  const response = await fetch(url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+      'Accept': 'text/html,*/*;q=0.8',
+      'Accept-Language': 'ja,en;q=0.9',
+    },
+  });
+  if (!response.ok) throw new Error(`nikkei225jp HTTP ${response.status}`);
+  const html = await response.text() as string;
+
+  // Primary: A[138]="price_change_..." pattern
+  const aMatch = html.match(new RegExp(`A\\[${CODE}\\]="([^"]+)"`));
+  if (aMatch) {
+    const parsed = parseFloat(aMatch[1].split('_')[0].replace(',', ''));
+    if (isFinite(parsed) && parsed > 0) {
+      return { price: parsed, error: null, rawSnippet: aMatch[0] };
+    }
+  }
+
+  // Fallback: Ldata="price"
+  const ldataMatch = html.match(/[,;]\s*Ldata="([^"]+)"/);
+  if (ldataMatch) {
+    const parsed = parseFloat(ldataMatch[1].replace(',', ''));
+    if (isFinite(parsed) && parsed > 0) {
+      return { price: parsed, error: null, rawSnippet: ldataMatch[0] };
+    }
+  }
+
+  return { price: null, error: `Price pattern not found in HTML (len=${html.length})`, rawSnippet: '' };
+}
+
+// Fetch futures price via yahoo-finance2
+async function fetchYahooFuturesPrice(symbol: string): Promise<{ price: number | null; error: string | null; raw?: unknown }> {
+  const quote = await yf.quote(symbol);
+  const candidates = [
+    (quote as Record<string, unknown>)['regularMarketPrice'],
+    (quote as Record<string, unknown>)['currentPrice'],
+    (quote as Record<string, unknown>)['postMarketPrice'],
+    (quote as Record<string, unknown>)['regularMarketPreviousClose'],
+  ];
+  for (const c of candidates) {
+    if (typeof c === 'number' && isFinite(c) && c > 0) {
+      return { price: c, error: null, raw: { regularMarketPrice: (quote as Record<string, unknown>)['regularMarketPrice'], shortName: (quote as Record<string, unknown>)['shortName'] } };
+    }
+  }
+  return { price: null, error: 'No valid price field found', raw: quote };
+}
+
+// Configuration for each futures contract
+const FUTURES_CONFIG = [
+  { key: 'grossNikkei' as const, name: 'グロ先',     source: 'nikkei225jp',   symbol: 'c=138'  },
+  { key: 'nikkei'      as const, name: '日経先物',   source: 'yahoo-finance', symbol: 'NIY=F'  },
+  { key: 'topix'       as const, name: 'TOPIX先物', source: 'yahoo-finance', symbol: 'TPY=F'  },
+];
+
+// ── Futures prices: bulk update API ───────────────────────────────────────
+
+app.post('/api/futures-prices/update', async (_req, res) => {
+  const updatedAt = new Date().toISOString();
+  console.log('[futures-prices/update] Starting bulk update...');
+
+  const settled = await Promise.allSettled(
+    FUTURES_CONFIG.map(async cfg => {
+      let price: number | null = null;
+      let error: string | null = null;
+      let rawSnippet = '';
+
+      try {
+        if (cfg.source === 'nikkei225jp') {
+          const r = await fetchGrowthFuturesPrice();
+          price = r.price;
+          error = r.error;
+          rawSnippet = r.rawSnippet;
+        } else {
+          const r = await fetchYahooFuturesPrice(cfg.symbol);
+          price = r.price;
+          error = r.error;
+        }
+      } catch (e) {
+        error = e instanceof Error ? e.message : String(e);
+      }
+
+      const status = price != null ? 'success' : 'failed';
+      console.log(`[futures-prices/update] ${cfg.name} (${cfg.symbol}): ${status} price=${price} ${error ? `error=${error}` : ''}`);
+
+      return { ...cfg, price, status, error, rawSnippet };
+    })
+  );
+
+  const results = settled.map((r, i) => {
+    if (r.status === 'fulfilled') return r.value;
+    const cfg = FUTURES_CONFIG[i];
+    return { ...cfg, price: null, status: 'failed' as const, error: r.reason?.message ?? String(r.reason), rawSnippet: '' };
+  });
+
+  const successCount = results.filter(r => r.status === 'success').length;
+  const failedCount  = results.filter(r => r.status === 'failed').length;
+
+  // Log to file
+  try {
+    appendFuturesLog(results.map(r => ({
+      updatedAt,
+      name: r.name,
+      source: r.source,
+      symbol: r.symbol,
+      previousPrice: null,  // client has this info; server doesn't know current price
+      newPrice: r.price,
+      status: r.status,
+      error: r.error,
+    })));
+  } catch (e) {
+    console.error('[futures-prices/update] Log write failed:', e);
+  }
+
+  res.json({ results, updatedAt, successCount, failedCount });
+});
+
+// ── Futures prices: test endpoints ────────────────────────────────────────
+
+app.get('/api/futures-price/test/growth', async (_req, res) => {
+  try {
+    const { price, error, rawSnippet } = await fetchGrowthFuturesPrice();
+    res.json({
+      source: 'nikkei225jp',
+      symbol: 'c=138',
+      success: price != null,
+      price,
+      rawSnippet: rawSnippet.slice(0, 200),
+      error,
+    });
+  } catch (e) {
+    const errMsg = e instanceof Error ? e.message : String(e);
+    res.json({ source: 'nikkei225jp', symbol: 'c=138', success: false, price: null, rawSnippet: '', error: errMsg, stack: (e instanceof Error ? e.stack : undefined) });
+  }
+});
+
+app.get('/api/futures-price/test/yahoo/:symbol', async (req, res) => {
+  const symbol = req.params.symbol;
+  try {
+    const { price, error, raw } = await fetchYahooFuturesPrice(symbol);
+    res.json({
+      source: 'yahoo-finance',
+      symbol,
+      success: price != null,
+      price,
+      raw,
+      error,
+    });
+  } catch (e) {
+    const errMsg = e instanceof Error ? e.message : String(e);
+    res.json({ source: 'yahoo-finance', symbol, success: false, price: null, raw: null, error: errMsg, stack: (e instanceof Error ? e.stack : undefined) });
+  }
+});
+
+// ── Debug: グロース250先物 price investigation ─────────────────────────────
+//
+// nikkei225jp.com/_ssi/if/?c=138 contains price data embedded directly in HTML:
+//   A[138]="price_change_changePct_time_?_high_low"
+//   var Bdata="...",Ldata="lastPrice",...
+//
+// The page uses WebSocket (wss://wss.nikkei225jp.com:8124) for real-time updates,
+// but the initial HTML snapshot already contains the latest known price.
+//
+// Note: tick2.json (/_data/_nfsWEB/hs_data/hs_tick2.json) does NOT include code 138.
+// HTML scraping is the only confirmed method for this symbol.
+
+app.get('/api/futures-price/test-growth', async (_req, res) => {
+  const sourceUrl = 'https://nikkei225jp.com/_ssi/if/?c=138';
+  const CODE = '138';
+
+  try {
+    console.log(`[futures-price/test-growth] Fetching ${sourceUrl}`);
+
+    const response = await fetch(sourceUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,*/*;q=0.8',
+        'Accept-Language': 'ja,en;q=0.9',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} ${response.statusText}`);
+    }
+
+    const html = await response.text() as string;
+    console.log(`[futures-price/test-growth] HTML length: ${html.length}`);
+
+    // ── Method 1: A[138]="price_..." pattern ────────────────────────────────
+    const aPattern = new RegExp(`A\\[${CODE}\\]="([^"]+)"`);
+    const aMatch = html.match(aPattern);
+
+    let detectedPrice: number | null = null;
+    let detectedMethod = '';
+    let rawSnippet = '';
+
+    if (aMatch) {
+      const fields = aMatch[1].split('_');
+      const priceStr = fields[0].replace(',', '');
+      const parsed = parseFloat(priceStr);
+      if (isFinite(parsed) && parsed > 0) {
+        detectedPrice = parsed;
+        detectedMethod = `HTML regex: A[${CODE}]="${aMatch[1].slice(0, 60)}..."`;
+        rawSnippet = aMatch[0];
+      }
+    }
+
+    // ── Method 2: Ldata="..." fallback ─────────────────────────────────────
+    const ldataMatch = html.match(/[,;]\s*Ldata="([^"]+)"/);
+    let ldataPrice: number | null = null;
+    if (ldataMatch) {
+      const parsed = parseFloat(ldataMatch[1].replace(',', ''));
+      if (isFinite(parsed) && parsed > 0) {
+        ldataPrice = parsed;
+      }
+    }
+
+    // ── Method 3: Bdata (base/prev close) ──────────────────────────────────
+    const bdataMatch = html.match(/var\s+Bdata="([^"]+)"/);
+    let bdataPrice: number | null = null;
+    if (bdataMatch) {
+      const parsed = parseFloat(bdataMatch[1].replace(',', ''));
+      if (isFinite(parsed) && parsed > 0) {
+        bdataPrice = parsed;
+      }
+    }
+
+    // ── Extra context: title, time, change ─────────────────────────────────
+    const timeMatch = html.match(/[,;]\s*Time="([^"]+)"/);
+    const perMatch  = html.match(/[,;]\s*Per="([^"]+)"/);
+    const maxMatch  = html.match(/[,;]\s*Max="([^"]+)"/);
+    const minMatch  = html.match(/[,;]\s*Min="([^"]+)"/);
+
+    // Use Method 1 as primary, Method 2 as fallback
+    if (detectedPrice == null && ldataPrice != null) {
+      detectedPrice = ldataPrice;
+      detectedMethod = `HTML regex: Ldata="${ldataPrice}"`;
+      rawSnippet = ldataMatch?.[0] ?? '';
+    }
+
+    const result = {
+      success:         detectedPrice != null,
+      sourceUrl,
+      detectedPrice,
+      detectedMethod:  detectedPrice != null ? detectedMethod : 'none — price not found',
+      rawSnippet:      rawSnippet.slice(0, 200),
+      extra: {
+        ldataPrice,
+        bdataPrice,
+        time:    timeMatch?.[1] ?? null,
+        change:  perMatch?.[1]  ?? null,
+        high:    maxMatch?.[1]  ?? null,
+        low:     minMatch?.[1]  ?? null,
+        htmlLen: html.length,
+        websocketUrl: 'wss://wss.nikkei225jp.com:8124?node=ch225',
+        note: 'Code 138 is NOT in tick2.json. HTML scraping is the only method.',
+      },
+      error: detectedPrice == null ? 'Price pattern not found in HTML' : null,
+    };
+
+    console.log(`[futures-price/test-growth] price=${detectedPrice} method=${detectedMethod}`);
+    res.json(result);
+
+  } catch (e) {
+    const errMsg = e instanceof Error ? e.message : String(e);
+    const stack  = e instanceof Error ? e.stack : undefined;
+    console.error('[futures-price/test-growth] error:', errMsg);
+    res.json({
+      success: false,
+      sourceUrl,
+      detectedPrice: null,
+      detectedMethod: 'error',
+      rawSnippet: '',
+      extra: null,
+      error: errMsg,
+      stack,
+    });
   }
 });
 

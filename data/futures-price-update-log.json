@@ -1,0 +1,92 @@
+[
+  {
+    "updatedAt": "2026-05-06T16:45:49.508Z",
+    "name": "グロ先",
+    "source": "nikkei225jp",
+    "symbol": "c=138",
+    "previousPrice": null,
+    "newPrice": 770,
+    "status": "success",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-06T16:45:49.508Z",
+    "name": "日経先物",
+    "source": "yahoo-finance",
+    "symbol": "NIY=F",
+    "previousPrice": null,
+    "newPrice": 61810,
+    "status": "success",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-06T16:45:49.508Z",
+    "name": "TOPIX先物",
+    "source": "yahoo-finance",
+    "symbol": "TPY=F",
+    "previousPrice": null,
+    "newPrice": 3809.5,
+    "status": "success",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-06T16:18:54.298Z",
+    "name": "グロ先",
+    "source": "nikkei225jp",
+    "symbol": "c=138",
+    "previousPrice": null,
+    "newPrice": 770,
+    "status": "success",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-06T16:18:54.298Z",
+    "name": "日経先物",
+    "source": "yahoo-finance",
+    "symbol": "NIY=F",
+    "previousPrice": null,
+    "newPrice": 61775,
+    "status": "success",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-06T16:18:54.298Z",
+    "name": "TOPIX先物",
+    "source": "yahoo-finance",
+    "symbol": "TPY=F",
+    "previousPrice": null,
+    "newPrice": 3809.5,
+    "status": "success",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-06T16:17:38.093Z",
+    "name": "グロ先",
+    "source": "nikkei225jp",
+    "symbol": "c=138",
+    "previousPrice": null,
+    "newPrice": 770,
+    "status": "success",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-06T16:17:38.093Z",
+    "name": "日経先物",
+    "source": "yahoo-finance",
+    "symbol": "NIY=F",
+    "previousPrice": null,
+    "newPrice": 61785,
+    "status": "success",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-06T16:17:38.093Z",
+    "name": "TOPIX先物",
+    "source": "yahoo-finance",
+    "symbol": "TPY=F",
+    "previousPrice": null,
+    "newPrice": 3809.5,
+    "status": "success",
+    "error": null
+  }
+]

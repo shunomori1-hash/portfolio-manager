@@ -39,10 +39,18 @@ export interface PortfolioItem {
 
 // ─── Futures hedge data ──────────────────────────────────────────────────────
 
+export type FuturesUpdateStatus = 'success' | 'failed' | 'manual' | 'unknown';
+
 export interface FuturesPosition {
-  price: number | null;       // 先物価格（手入力）
-  lots: number | null;        // 枚数（売りヘッジはプラス）
-  multiplier: number;         // 乗数（変更可能、デフォルト: グロ先100 / 日経1000 / TOPIX10000）
+  price: number | null;               // 先物価格
+  lots: number | null;                // 枚数（売りヘッジはプラス）
+  multiplier: number;                 // 乗数（変更可能）
+  // fetch metadata
+  source: string;                     // 'nikkei225jp' | 'yahoo-finance' | 'manual'
+  symbol: string;                     // 'c=138' | 'NIY=F' | 'TPY=F' など
+  lastUpdatedAt: string | null;       // ISO timestamp
+  updateStatus: FuturesUpdateStatus;
+  updateError: string | null;
 }
 
 export interface HedgeFutures {

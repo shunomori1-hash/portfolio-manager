@@ -3,6 +3,8 @@ import type { Portfolio, PortfolioItem, FuturesPosition, HedgeFutures } from '..
 interface Props {
   portfolio: Portfolio;
   onUpdateSummary: (updates: Partial<Portfolio['summary']>) => void;
+  onFetchFuturesPrices: () => Promise<void>;
+  fetchingFutures: boolean;
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -64,7 +66,15 @@ function NumInput({
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export function LongSummary({ portfolio, onUpdateSummary }: Props) {
+function fmtShortTs(iso: string | null): string {
+  if (!iso) return '';
+  try {
+    const d = new Date(iso);
+    return d.toLocaleString('ja-JP', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  } catch { return ''; }
+}
+
+export function LongSummary({ portfolio, onUpdateSummary, onFetchFuturesPrices, fetchingFutures }: Props) {
   const { items, summary } = portfolio;
   const hedgeFutures = summary.hedgeFutures;
 
@@ -102,16 +112,29 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
   // ── Top 5 ──────────────────────────────────────────────────────────────────
   const currentRanked = [...longItems].sort((a, b) => holding(b) - holding(a)).slice(0, 5);
 
-  // ── Futures update helper ─────────────────────────────────────────────────
-  function setFutures<K extends keyof FuturesPosition>(
+  // ── Futures update helpers ────────────────────────────────────────────────
+  function setFuturesField<K extends keyof FuturesPosition>(
     key: keyof HedgeFutures,
     field: K,
     value: FuturesPosition[K],
   ) {
     onUpdateSummary({
+      hedgeFutures: { ...hedgeFutures, [key]: { ...hedgeFutures[key], [field]: value } },
+    });
+  }
+
+  // Manual price change: sets updateStatus='manual' and clears error
+  function setFuturesPrice(key: keyof HedgeFutures, value: number | null) {
+    onUpdateSummary({
       hedgeFutures: {
         ...hedgeFutures,
-        [key]: { ...hedgeFutures[key], [field]: value },
+        [key]: {
+          ...hedgeFutures[key],
+          price: value,
+          updateStatus: 'manual' as const,
+          updateError: null,
+          lastUpdatedAt: new Date().toISOString(),
+        },
       },
     });
   }
@@ -236,7 +259,19 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
 
         {/* ── C. 先物ヘッジ ──────────────────────────────────────── */}
         <div className="summary-group futures-group">
-          <h3>先物ヘッジ</h3>
+          <div className="futures-header">
+            <h3>先物ヘッジ</h3>
+            <button
+              className="btn btn-primary"
+              style={{ fontSize: 10, padding: '2px 8px' }}
+              onClick={onFetchFuturesPrices}
+              disabled={fetchingFutures}
+              title="グロ先・日経先物・TOPIX先物の価格を自動取得"
+            >
+              {fetchingFutures ? '取得中...' : '価格更新'}
+            </button>
+          </div>
+
           <table className="summary-table futures-table">
             <thead>
               <tr>
@@ -245,20 +280,28 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
                 <th className="num">枚数</th>
                 <th className="num" style={{ fontSize: 10, color: '#94a3b8' }}>乗数</th>
                 <th className="num">ヘッジ総額</th>
+                <th style={{ fontSize: 10, color: '#94a3b8', minWidth: 50 }}>状態</th>
               </tr>
             </thead>
             <tbody>
               {FUTURES_ROWS.map(({ key, label }) => {
                 const pos = hedgeFutures[key];
                 const amt = hedgeAmounts[key];
+                const statusIcon = pos.updateStatus === 'success' ? '✓'
+                  : pos.updateStatus === 'failed'  ? '✗'
+                  : pos.updateStatus === 'manual'  ? '✎' : '';
+                const statusColor = pos.updateStatus === 'success' ? '#059669'
+                  : pos.updateStatus === 'failed'  ? '#dc2626'
+                  : pos.updateStatus === 'manual'  ? '#2563eb' : '#94a3b8';
                 return (
                   <tr key={key}>
                     <td style={{ whiteSpace: 'nowrap', fontWeight: 600 }}>{label}</td>
-                    <td className="num" style={{ padding: '1px 2px' }}>
+                    <td className="num" style={{ padding: '1px 2px' }}
+                      title={pos.updateError ?? (pos.lastUpdatedAt ? `更新: ${fmtShortTs(pos.lastUpdatedAt)}` : '')}>
                       <NumInput
                         value={pos.price}
                         placeholder="価格"
-                        onChange={v => setFutures(key, 'price', v)}
+                        onChange={v => setFuturesPrice(key, v)}
                         width={70}
                       />
                     </td>
@@ -266,7 +309,7 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
                       <NumInput
                         value={pos.lots}
                         placeholder="枚数"
-                        onChange={v => setFutures(key, 'lots', v)}
+                        onChange={v => setFuturesField(key, 'lots', v)}
                         width={44}
                       />
                     </td>
@@ -274,12 +317,21 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
                       <NumInput
                         value={pos.multiplier}
                         placeholder="乗数"
-                        onChange={v => setFutures(key, 'multiplier', v ?? 1)}
+                        onChange={v => setFuturesField(key, 'multiplier', v ?? 1)}
                         width={46}
                       />
                     </td>
                     <td className="num" style={{ fontWeight: amt > 0 ? 600 : undefined }}>
                       {amt > 0 ? fmt(amt) : '—'}
+                    </td>
+                    <td style={{ fontSize: 10, color: statusColor, textAlign: 'center' }}
+                      title={pos.updateError ?? (pos.lastUpdatedAt ? `更新: ${fmtShortTs(pos.lastUpdatedAt)}` : '')}>
+                      {statusIcon}
+                      {pos.lastUpdatedAt && (
+                        <div style={{ color: '#94a3b8', fontSize: 9, lineHeight: 1.2 }}>
+                          {fmtShortTs(pos.lastUpdatedAt)}
+                        </div>
+                      )}
                     </td>
                   </tr>
                 );
@@ -290,9 +342,21 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
                 <td></td>
                 <td></td>
                 <td className="num">{totalHedge > 0 ? fmt(totalHedge) : '—'}</td>
+                <td></td>
               </tr>
             </tbody>
           </table>
+
+          {/* 取得失敗メッセージ */}
+          {FUTURES_ROWS.some(({ key }) => hedgeFutures[key].updateStatus === 'failed') && (
+            <div className="futures-errors">
+              {FUTURES_ROWS.filter(({ key }) => hedgeFutures[key].updateStatus === 'failed').map(({ key, label }) => (
+                <div key={key} className="futures-error-item">
+                  {label}：{hedgeFutures[key].updateError ?? '取得失敗'}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* ── D. 現在 上位保有 ──────────────────────────────────── */}
