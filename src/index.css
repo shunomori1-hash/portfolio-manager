@@ -5,7 +5,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', system-ui, sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   background: #f5f6f8;
   color: #1a1a2e;
 }
@@ -28,11 +28,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 16px;
+  padding: 5px 12px;
   background: #1e3a5f;
   color: #fff;
   flex-shrink: 0;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -44,7 +44,7 @@ body {
 
 .header-left h1 {
   margin: 0;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
   color: #fff;
 }
@@ -86,10 +86,10 @@ body {
 
 /* ── Buttons ─────────────────────────────────── */
 .btn {
-  padding: 6px 14px;
+  padding: 4px 10px;
   border: none;
-  border-radius: 4px;
-  font-size: 12px;
+  border-radius: 3px;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   transition: opacity 0.15s;
@@ -165,7 +165,8 @@ body {
   background: #1e3a5f;
   color: #e2e8f0;
   font-weight: 600;
-  padding: 6px 6px;
+  padding: 2px 4px;
+  font-size: 11px;
   text-align: center;
   border: 1px solid #2d5a8e;
   white-space: nowrap;
@@ -189,10 +190,11 @@ body {
 }
 
 .portfolio-table td {
-  padding: 4px 6px;
+  padding: 1px 3px;
   border: 1px solid #e2e8f0;
   white-space: nowrap;
   vertical-align: middle;
+  line-height: 1.35;
 }
 
 /* ── Sticky Columns ──────────────────────────── */
@@ -247,13 +249,15 @@ body {
 /* ── Inline Inputs ───────────────────────────── */
 .cell-input {
   width: 100%;
+  height: 20px;
   border: 2px solid #3b82f6;
-  border-radius: 2px;
-  padding: 2px 4px;
+  border-radius: 1px;
+  padding: 0 3px;
   font-size: 12px;
   font-family: inherit;
   outline: none;
   background: #eff6ff;
+  box-sizing: border-box;
 }
 
 .cell-input-num {
@@ -262,14 +266,16 @@ body {
 
 .cell-select {
   width: 100%;
+  height: 20px;
   border: 1px solid #cbd5e1;
-  border-radius: 2px;
-  padding: 2px;
-  font-size: 12px;
+  border-radius: 1px;
+  padding: 0 1px;
+  font-size: 11px;
   font-family: inherit;
   background: transparent;
   cursor: pointer;
   text-align: center;
+  box-sizing: border-box;
 }
 
 .cell-select:focus {
@@ -333,17 +339,17 @@ body {
 
 /* ── Summary Section ─────────────────────────── */
 .summary-section {
-  padding: 16px;
+  padding: 8px 16px;
   background: #fff;
   border-top: 2px solid #e2e8f0;
   flex-shrink: 0;
 }
 
 .summary-title {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: #1e3a5f;
-  margin: 0 0 12px;
+  margin: 0 0 6px;
 }
 
 .summary-grid {
@@ -357,13 +363,13 @@ body {
 }
 
 .summary-group h3 {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #64748b;
-  margin: 0 0 6px;
-  padding-bottom: 4px;
+  margin: 0 0 4px;
+  padding-bottom: 2px;
   border-bottom: 1px solid #e2e8f0;
 }
 
@@ -375,7 +381,7 @@ body {
 
 .summary-table td,
 .summary-table th {
-  padding: 3px 8px;
+  padding: 2px 5px;
   border: 1px solid #e2e8f0;
   white-space: nowrap;
 }
@@ -414,6 +420,84 @@ body {
 .summary-input:focus {
   outline: 2px solid #3b82f6;
   border-color: transparent;
+}
+
+/* ── Name cell ellipsis ──────────────────────── */
+.cell-name {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 130px;
+}
+
+/* ── Density: standard override ──────────────── */
+.density-standard .app-header {
+  padding: 8px 16px;
+}
+
+.density-standard .header-left h1 {
+  font-size: 18px;
+}
+
+.density-standard .btn {
+  padding: 6px 14px;
+  font-size: 12px;
+}
+
+.density-standard .portfolio-table thead th {
+  padding: 6px 6px;
+  font-size: 12px;
+}
+
+.density-standard .portfolio-table td {
+  padding: 4px 6px;
+  line-height: normal;
+}
+
+.density-standard .cell-input {
+  height: auto;
+  padding: 2px 4px;
+}
+
+.density-standard .cell-select {
+  height: auto;
+  padding: 2px;
+  font-size: 12px;
+}
+
+.density-standard .summary-section {
+  padding: 16px;
+}
+
+.density-standard .summary-title {
+  font-size: 15px;
+  margin: 0 0 12px;
+}
+
+.density-standard .summary-group h3 {
+  font-size: 12px;
+  margin: 0 0 6px;
+  padding-bottom: 4px;
+}
+
+.density-standard .summary-table td,
+.density-standard .summary-table th {
+  padding: 3px 8px;
+}
+
+/* ── Density toggle button ───────────────────── */
+.btn-density {
+  background: rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 11px;
+  padding: 3px 8px;
+}
+
+.btn-density:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
 }
 
 /* ── Import button ───────────────────────────── */

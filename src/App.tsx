@@ -22,6 +22,7 @@ export default function App() {
   } = usePortfolio();
 
   const [showCsvImport, setShowCsvImport] = useState(false);
+  const [density, setDensity] = useState<'compact' | 'standard'>('compact');
 
   if (loading) {
     return <div className="loading">データを読み込み中...</div>;
@@ -50,7 +51,7 @@ export default function App() {
   })();
 
   return (
-    <div className="app">
+    <div className={`app${density === 'standard' ? ' density-standard' : ''}`}>
       <header className="app-header">
         <div className="header-left">
           <h1>ポートフォリオ管理</h1>
@@ -62,6 +63,13 @@ export default function App() {
           {error && <span className="header-error">{error}</span>}
           {saveStatus && <span className="save-status">{saveStatus}</span>}
           <span className="last-saved">保存: {lastSaved}</span>
+          <button
+            className="btn btn-density"
+            onClick={() => setDensity(d => d === 'compact' ? 'standard' : 'compact')}
+            title="表示密度切り替え"
+          >
+            {density === 'compact' ? '標準表示' : 'コンパクト'}
+          </button>
           <button className="btn btn-import" onClick={() => setShowCsvImport(true)}>
             CSVインポート
           </button>

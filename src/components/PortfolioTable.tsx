@@ -5,6 +5,7 @@ interface Props {
   items: PortfolioItem[];
   onUpdate: (id: string, updates: Partial<PortfolioItem>) => void;
   onRemove: (id: string) => void;
+  compact?: boolean;
 }
 
 const TAG_OPTIONS: TagValue[] = ['◎', '○', '△', '×', ''];
@@ -89,6 +90,38 @@ function tagColor(tag: TagValue): string {
 
 type EditingCell = { id: string; key: string } | null;
 
+// Column widths (compact)
+const W = {
+  code:         52,
+  name:         90,
+  price:        60,
+  shares:       52,
+  holding:      78,
+  ratio:        50,
+  plannedDelta: 54,
+  afterAmount:  76,
+  afterRatio:   54,
+  settlement:   44,
+  tag2:         38, // テク/TOPIX/インフレ/IR/経営者/競争力/ガバ/タグ
+  border:       64,
+  divergence:   54,
+  targetPrice:  66,
+  targetPeriod: 52,
+  upside:       54,
+  fx:           46,
+  per:          46,
+  netCash:      64,
+  netPer:       52,
+  marchDiv:     46,
+  dividend:     46,
+  divAmount:    64,
+  divYield:     58,
+  benefit:      44,
+  benefitYield: 58,
+  memo:        120,
+  del:          30,
+};
+
 export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
   const [editingCell, setEditingCell] = useState<EditingCell>(null);
   const [editValue, setEditValue] = useState('');
@@ -134,7 +167,7 @@ export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
     }
   }
 
-  function renderTextCell(item: PortfolioItem, key: keyof PortfolioItem, display: string, width = 80) {
+  function renderTextCell(item: PortfolioItem, key: keyof PortfolioItem, display: string, width: number) {
     const isEditing = editingCell?.id === item.id && editingCell?.key === key;
     if (isEditing) {
       return (
@@ -161,7 +194,7 @@ export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
     );
   }
 
-  function renderNumCell(item: PortfolioItem, key: keyof PortfolioItem, value: number | null, width = 72) {
+  function renderNumCell(item: PortfolioItem, key: keyof PortfolioItem, value: number | null, width: number) {
     const isEditing = editingCell?.id === item.id && editingCell?.key === key;
     if (isEditing) {
       return (
@@ -193,7 +226,7 @@ export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
     key: keyof PortfolioItem,
     options: string[],
     value: string,
-    width = 60,
+    width: number,
     extraClass = ''
   ) {
     return (
@@ -209,7 +242,7 @@ export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
     );
   }
 
-  function renderCalcCell(display: string, extraClass = '', width = 80) {
+  function renderCalcCell(display: string, extraClass = '', width: number) {
     return (
       <td className={`calc num ${extraClass}`} style={{ minWidth: width }}>
         {display || '—'}
@@ -222,41 +255,41 @@ export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
       <table className="portfolio-table">
         <thead>
           <tr>
-            <th className="sticky-col sticky-col-1" style={{ minWidth: 60 }}>コード</th>
-            <th className="sticky-col sticky-col-2" style={{ minWidth: 120 }}>銘柄名</th>
-            <th style={{ minWidth: 72 }}>株価</th>
-            <th style={{ minWidth: 60 }}>株数</th>
-            <th style={{ minWidth: 90 }}>保有金額</th>
-            <th style={{ minWidth: 64 }}>割合</th>
-            <th style={{ minWidth: 80 }}>増減予定株数</th>
-            <th style={{ minWidth: 90 }}>増減後金額</th>
-            <th style={{ minWidth: 72 }}>増減後割合</th>
-            <th style={{ minWidth: 60 }}>決算月</th>
-            <th style={{ minWidth: 52 }}>テク</th>
-            <th style={{ minWidth: 52 }}>TOPIX</th>
-            <th style={{ minWidth: 80 }}>ボーダー株価</th>
-            <th style={{ minWidth: 70 }}>乖離率</th>
-            <th style={{ minWidth: 80 }}>目標株価</th>
-            <th style={{ minWidth: 72 }}>目標期間</th>
-            <th style={{ minWidth: 72 }}>上値余地</th>
-            <th style={{ minWidth: 60 }}>為替</th>
-            <th style={{ minWidth: 60 }}>インフレ</th>
-            <th style={{ minWidth: 52 }}>IR</th>
-            <th style={{ minWidth: 60 }}>PER</th>
-            <th style={{ minWidth: 52 }}>経営者</th>
-            <th style={{ minWidth: 52 }}>競争力</th>
-            <th style={{ minWidth: 72 }}>ガバナンス</th>
-            <th style={{ minWidth: 80 }}>ネットキャッシュ</th>
-            <th style={{ minWidth: 64 }}>ネットPER</th>
-            <th style={{ minWidth: 60 }}>3月配当</th>
-            <th style={{ minWidth: 60 }}>配当</th>
-            <th style={{ minWidth: 80 }}>配当金</th>
-            <th style={{ minWidth: 72 }}>配当利回り</th>
-            <th style={{ minWidth: 60 }}>優待</th>
-            <th style={{ minWidth: 72 }}>優待利回り</th>
-            <th style={{ minWidth: 52 }}>タグ</th>
-            <th style={{ minWidth: 160 }}>メモ</th>
-            <th style={{ minWidth: 44 }}></th>
+            <th className="sticky-col sticky-col-1" style={{ minWidth: W.code }}>コード</th>
+            <th className="sticky-col sticky-col-2" style={{ minWidth: W.name }}>銘柄名</th>
+            <th style={{ minWidth: W.price }}>株価</th>
+            <th style={{ minWidth: W.shares }}>株数</th>
+            <th style={{ minWidth: W.holding }}>保有金額</th>
+            <th style={{ minWidth: W.ratio }}>割合</th>
+            <th style={{ minWidth: W.plannedDelta }}>増減株数</th>
+            <th style={{ minWidth: W.afterAmount }}>増減後額</th>
+            <th style={{ minWidth: W.afterRatio }}>増減後%</th>
+            <th style={{ minWidth: W.settlement }}>決算</th>
+            <th style={{ minWidth: W.tag2 }}>テク</th>
+            <th style={{ minWidth: W.tag2 }}>TOPIX</th>
+            <th style={{ minWidth: W.border }}>ボーダー</th>
+            <th style={{ minWidth: W.divergence }}>乖離率</th>
+            <th style={{ minWidth: W.targetPrice }}>目標株価</th>
+            <th style={{ minWidth: W.targetPeriod }}>目標期間</th>
+            <th style={{ minWidth: W.upside }}>上値余地</th>
+            <th style={{ minWidth: W.fx }}>為替</th>
+            <th style={{ minWidth: W.tag2 }}>インフレ</th>
+            <th style={{ minWidth: W.tag2 }}>IR</th>
+            <th style={{ minWidth: W.per }}>PER</th>
+            <th style={{ minWidth: W.tag2 }}>経営者</th>
+            <th style={{ minWidth: W.tag2 }}>競争力</th>
+            <th style={{ minWidth: W.tag2 }}>ガバ</th>
+            <th style={{ minWidth: W.netCash }}>ネットC</th>
+            <th style={{ minWidth: W.netPer }}>ネットPER</th>
+            <th style={{ minWidth: W.marchDiv }}>3月配当</th>
+            <th style={{ minWidth: W.dividend }}>配当</th>
+            <th style={{ minWidth: W.divAmount }}>配当金</th>
+            <th style={{ minWidth: W.divYield }}>配当利回</th>
+            <th style={{ minWidth: W.benefit }}>優待</th>
+            <th style={{ minWidth: W.benefitYield }}>優待利回</th>
+            <th style={{ minWidth: W.tag2 }}>タグ</th>
+            <th style={{ minWidth: W.memo }}>メモ</th>
+            <th style={{ minWidth: W.del }}></th>
           </tr>
         </thead>
         <tbody>
@@ -276,8 +309,8 @@ export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
               <tr key={item.id} className={item.priceError ? 'row-error' : ''}>
                 {/* コード: sticky */}
                 <td
-                  className={`sticky-col sticky-col-1 editable`}
-                  style={{ minWidth: 60 }}
+                  className="sticky-col sticky-col-1 editable"
+                  style={{ minWidth: W.code }}
                   onClick={() => {
                     if (!(editingCell?.id === item.id && editingCell?.key === 'code')) {
                       startEdit(item.id, 'code', item.code);
@@ -297,10 +330,11 @@ export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
                     item.code || <span className="empty-cell">—</span>
                   )}
                 </td>
-                {/* 銘柄名: sticky */}
+
+                {/* 銘柄名: sticky + ellipsis */}
                 <td
-                  className={`sticky-col sticky-col-2 editable`}
-                  style={{ minWidth: 120 }}
+                  className="sticky-col sticky-col-2 editable"
+                  style={{ minWidth: W.name, maxWidth: 140 }}
                   onClick={() => {
                     if (!(editingCell?.id === item.id && editingCell?.key === 'name')) {
                       startEdit(item.id, 'name', item.name);
@@ -317,14 +351,16 @@ export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
                       onKeyDown={e => handleKeyDown(e, item.id, 'name')}
                     />
                   ) : (
-                    item.name || <span className="empty-cell">—</span>
+                    <span className="cell-name" title={item.name}>
+                      {item.name || <span className="empty-cell">—</span>}
+                    </span>
                   )}
                 </td>
 
                 {/* 株価: editable + shows error */}
                 <td
                   className={`editable num ${item.priceError ? 'price-error' : ''}`}
-                  style={{ minWidth: 72 }}
+                  style={{ minWidth: W.price }}
                   title={item.priceError ?? (item.priceUpdatedAt ? `更新: ${new Date(item.priceUpdatedAt).toLocaleString('ja-JP')}` : '')}
                   onClick={() => {
                     if (!(editingCell?.id === item.id && editingCell?.key === 'price')) {
@@ -348,38 +384,38 @@ export function PortfolioTable({ items, onUpdate, onRemove }: Props) {
                   )}
                 </td>
 
-                {renderNumCell(item, 'shares', item.shares, 60)}
-                {renderCalcCell(fmt(holding), '', 90)}
-                {renderCalcCell(fmtPct(ratio), '', 64)}
-                {renderNumCell(item, 'plannedDelta', item.plannedDelta, 80)}
-                {renderCalcCell(fmt(afterAmount), '', 90)}
-                {renderCalcCell(fmtPct(afterRatio), '', 72)}
-                {renderTextCell(item, 'settlementMonth', item.settlementMonth, 60)}
-                {renderSelectCell(item, 'tech', TAG_OPTIONS, item.tech, 52)}
-                {renderSelectCell(item, 'topix', TAG_OPTIONS, item.topix, 52)}
-                {renderNumCell(item, 'borderPrice', item.borderPrice, 80)}
-                {renderCalcCell(fmtPct(divergence), divergenceColor(divergence), 70)}
-                {renderNumCell(item, 'targetPrice', item.targetPrice, 80)}
-                {renderSelectCell(item, 'targetPeriod', PERIOD_OPTIONS, item.targetPeriod, 72)}
-                {renderCalcCell(fmtPct(upside), upsideColor(upside), 72)}
-                {renderSelectCell(item, 'fx', FX_OPTIONS, item.fx, 60)}
-                {renderSelectCell(item, 'inflation', TAG_OPTIONS, item.inflation, 60)}
-                {renderSelectCell(item, 'ir', TAG_OPTIONS, item.ir, 52)}
-                {renderNumCell(item, 'per', item.per, 60)}
-                {renderSelectCell(item, 'management', TAG_OPTIONS, item.management, 52)}
-                {renderSelectCell(item, 'competitiveness', TAG_OPTIONS, item.competitiveness, 52)}
-                {renderSelectCell(item, 'governance', TAG_OPTIONS, item.governance, 72)}
-                {renderNumCell(item, 'netCash', item.netCash, 80)}
-                {renderCalcCell(fmt(netPer, 1), '', 64)}
-                {renderNumCell(item, 'marchDividend', item.marchDividend, 60)}
-                {renderNumCell(item, 'dividend', item.dividend, 60)}
-                {renderCalcCell(fmt(dividendAmount), '', 80)}
-                {renderCalcCell(fmtPct(dividendYield), '', 72)}
-                {renderNumCell(item, 'benefit', item.benefit, 60)}
-                {renderCalcCell(fmtPct(benefitYield), '', 72)}
-                {renderSelectCell(item, 'tag', TAG_OPTIONS, item.tag, 52)}
-                {renderTextCell(item, 'memo', item.memo, 160)}
-                <td style={{ minWidth: 44, textAlign: 'center' }}>
+                {renderNumCell(item, 'shares', item.shares, W.shares)}
+                {renderCalcCell(fmt(holding), '', W.holding)}
+                {renderCalcCell(fmtPct(ratio), '', W.ratio)}
+                {renderNumCell(item, 'plannedDelta', item.plannedDelta, W.plannedDelta)}
+                {renderCalcCell(fmt(afterAmount), '', W.afterAmount)}
+                {renderCalcCell(fmtPct(afterRatio), '', W.afterRatio)}
+                {renderTextCell(item, 'settlementMonth', item.settlementMonth, W.settlement)}
+                {renderSelectCell(item, 'tech', TAG_OPTIONS, item.tech, W.tag2)}
+                {renderSelectCell(item, 'topix', TAG_OPTIONS, item.topix, W.tag2)}
+                {renderNumCell(item, 'borderPrice', item.borderPrice, W.border)}
+                {renderCalcCell(fmtPct(divergence), divergenceColor(divergence), W.divergence)}
+                {renderNumCell(item, 'targetPrice', item.targetPrice, W.targetPrice)}
+                {renderSelectCell(item, 'targetPeriod', PERIOD_OPTIONS, item.targetPeriod, W.targetPeriod)}
+                {renderCalcCell(fmtPct(upside), upsideColor(upside), W.upside)}
+                {renderSelectCell(item, 'fx', FX_OPTIONS, item.fx, W.fx)}
+                {renderSelectCell(item, 'inflation', TAG_OPTIONS, item.inflation, W.tag2)}
+                {renderSelectCell(item, 'ir', TAG_OPTIONS, item.ir, W.tag2)}
+                {renderNumCell(item, 'per', item.per, W.per)}
+                {renderSelectCell(item, 'management', TAG_OPTIONS, item.management, W.tag2)}
+                {renderSelectCell(item, 'competitiveness', TAG_OPTIONS, item.competitiveness, W.tag2)}
+                {renderSelectCell(item, 'governance', TAG_OPTIONS, item.governance, W.tag2)}
+                {renderNumCell(item, 'netCash', item.netCash, W.netCash)}
+                {renderCalcCell(fmt(netPer, 1), '', W.netPer)}
+                {renderNumCell(item, 'marchDividend', item.marchDividend, W.marchDiv)}
+                {renderNumCell(item, 'dividend', item.dividend, W.dividend)}
+                {renderCalcCell(fmt(dividendAmount), '', W.divAmount)}
+                {renderCalcCell(fmtPct(dividendYield), '', W.divYield)}
+                {renderNumCell(item, 'benefit', item.benefit, W.benefit)}
+                {renderCalcCell(fmtPct(benefitYield), '', W.benefitYield)}
+                {renderSelectCell(item, 'tag', TAG_OPTIONS, item.tag, W.tag2)}
+                {renderTextCell(item, 'memo', item.memo, W.memo)}
+                <td style={{ minWidth: W.del, textAlign: 'center' }}>
                   <button
                     className="btn-remove"
                     onClick={() => {
