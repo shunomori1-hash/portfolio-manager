@@ -160,7 +160,7 @@ function priceStatusClass(item: PortfolioItem): string {
   return '';
 }
 
-export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice, onRemove, visibleCols, sortState, onSort, fetchingPriceItemId, totalAssets }: Props) {
+export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRemove, visibleCols, sortState, onSort, totalAssets }: Props) {
   const [editingCell, setEditingCell] = useState<EditingCell>(null);
   const [editValue, setEditValue] = useState('');
   const [editingMemo, setEditingMemo] = useState<string | null>(null); // item id
@@ -296,13 +296,12 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice,
               style={{ minWidth: W.name }} className="sticky-col sticky-col-2" />
 
             {vis('price')       && <th style={{ minWidth: W.price }}>株価</th>}
-            <th style={{ minWidth: 24 }} title="個別再取得">↻</th>
             {vis('shares')      && <th style={{ minWidth: W.shares }}>株数</th>}
             {vis('holding')     && <SortTh colKey="holding" label="保有金額" sortState={sortState} onSort={onSort} style={{ minWidth: W.holding }} />}
-            {vis('ratio')       && <SortTh colKey="ratio" label="資産比率" sortState={sortState} onSort={onSort} style={{ minWidth: W.ratio }} />}
+            {vis('ratio')       && <SortTh colKey="ratio" label="割合" sortState={sortState} onSort={onSort} style={{ minWidth: W.ratio }} />}
             {vis('plannedShares')      && <th style={{ minWidth: W.plannedShares }}>予定株数</th>}
             {vis('plannedMarketValue') && <th style={{ minWidth: W.plannedMarketValue }}>予定後金額</th>}
-            {vis('plannedWeight')      && <th style={{ minWidth: W.plannedWeight }}>予定後資産比率</th>}
+            {vis('plannedWeight')      && <th style={{ minWidth: W.plannedWeight }}>予定後割合</th>}
             {vis('plannedDelta')&& <th style={{ minWidth: W.plannedDelta }}>増減株数</th>}
             {vis('afterAmount') && <th style={{ minWidth: W.afterAmount }}>増減後額</th>}
             {vis('afterRatio')  && <th style={{ minWidth: W.afterRatio }}>増減後%</th>}
@@ -425,18 +424,6 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRefreshPrice,
                     )}
                   </td>
                 )}
-                {/* 個別再取得ボタン */}
-                <td style={{ minWidth: 24, textAlign: 'center', padding: '0 1px' }}>
-                  <button
-                    className="btn-refresh"
-                    title={`${item.code} の株価を再取得`}
-                    disabled={fetchingPriceItemId === item.id || !item.code.trim()}
-                    onClick={() => onRefreshPrice(item.id, item.code)}
-                  >
-                    {fetchingPriceItemId === item.id ? '…' : '↻'}
-                  </button>
-                </td>
-
                 {renderNumCell(item, 'shares', item.shares, 'shares')}
                 {renderCalcCell(fmt(h), '', 'holding')}
                 {renderCalcCell(fmtPct(ratio), '', 'ratio')}

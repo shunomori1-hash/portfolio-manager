@@ -1,9 +1,11 @@
-import type { Portfolio, PortfolioItem } from '../types';
+import type { Portfolio, PortfolioItem, FuturesPosition, HedgeFutures } from '../types';
 
 interface Props {
   portfolio: Portfolio;
   onUpdateSummary: (updates: Partial<Portfolio['summary']>) => void;
 }
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function safeN(n: number | null | undefined): number {
   if (n == null || isNaN(n) || !isFinite(n)) return 0;
@@ -21,8 +23,7 @@ function fmtPct(n: number | null, dec = 1): string {
 
 function fmtDiff(n: number): string {
   if (n === 0) return '0';
-  const s = n > 0 ? '+' : '';
-  return s + n.toLocaleString('ja-JP');
+  return (n > 0 ? '+' : '') + n.toLocaleString('ja-JP');
 }
 
 function holding(item: PortfolioItem): number {
@@ -34,68 +35,104 @@ function plannedHolding(item: PortfolioItem): number {
   return safeN(item.price) * safeN(ps);
 }
 
+function calcHedgeAmount(pos: FuturesPosition): number {
+  if (pos.price == null || pos.lots == null) return 0;
+  return safeN(pos.price) * safeN(pos.lots) * pos.multiplier;
+}
+
+// ─── NumInput ─────────────────────────────────────────────────────────────────
+// Small numeric input for the futures table
+function NumInput({
+  value, placeholder, onChange, width = 72,
+}: {
+  value: number | null;
+  placeholder?: string;
+  onChange: (v: number | null) => void;
+  width?: number;
+}) {
+  return (
+    <input
+      type="number"
+      className="summary-input"
+      style={{ width }}
+      value={value ?? ''}
+      placeholder={placeholder ?? '—'}
+      onChange={e => onChange(e.target.value === '' ? null : Number(e.target.value))}
+    />
+  );
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
 export function LongSummary({ portfolio, onUpdateSummary }: Props) {
   const { items, summary } = portfolio;
+  const hedgeFutures = summary.hedgeFutures;
 
   const totalAssets = summary.totalAssets ?? null;
   const assetBase = totalAssets != null && totalAssets > 0 ? totalAssets : null;
 
+  // ── Long positions ───────────────────────────────────────────────────────────
   const longItems = items.filter(i => safeN(i.shares) > 0);
-  const sellItems = items.filter(i => safeN(i.shares) < 0);
-
   const longTotal = longItems.reduce((acc, i) => acc + holding(i), 0);
-  const sellTotal = Math.abs(sellItems.reduce((acc, i) => acc + holding(i), 0));
 
-  const nikkei = safeN(summary.nikkeiFutures);
-  const topix  = safeN(summary.topixFutures);
-  const netBuy = longTotal - sellTotal + nikkei + topix;
-  const netBuyRatio = assetBase != null ? netBuy / assetBase : null;
-  const longRatio   = assetBase != null ? longTotal / assetBase : null;
-
-  // 目標ベース
-  const expectedTotal = longItems.reduce((acc, i) => {
-    if (i.targetPrice == null || i.shares == null) return acc;
-    return acc + i.targetPrice * safeN(i.shares);
-  }, 0);
-  const expectedUpside = expectedTotal > 0 ? expectedTotal - longTotal : 0;
-  const weightedUpside = longTotal > 0 && expectedUpside > 0 ? expectedUpside / longTotal : null;
-
-  // 配当
-  const dividendTotal = longItems.reduce((acc, i) => {
-    if (i.dividend == null || i.shares == null) return acc;
-    return acc + i.dividend * safeN(i.shares);
-  }, 0);
-  const wDivYield = longTotal > 0 && dividendTotal > 0 ? dividendTotal / longTotal : null;
-
-  // 目標未設定
   const noTargetCount = longItems.filter(i => i.targetPrice == null).length;
 
-  // リバランス計画
+  // ── Futures hedge ─────────────────────────────────────────────────────────────
+  const grossHedge  = calcHedgeAmount(hedgeFutures.grossNikkei);
+  const nikkeiHedge = calcHedgeAmount(hedgeFutures.nikkei);
+  const topixHedge  = calcHedgeAmount(hedgeFutures.topix);
+  const totalHedge  = grossHedge + nikkeiHedge + topixHedge;
+
+  // ── Net position ─────────────────────────────────────────────────────────────
+  const netBuy = longTotal - totalHedge;
+  const longRatio = assetBase != null ? longTotal / assetBase : null;
+  const netRatio  = assetBase != null ? netBuy  / assetBase : null;
+
+  // ── Rebalance plan ────────────────────────────────────────────────────────────
   const hasPlan = items.some(i => i.plannedShares != null);
-
-  const plannedLongItems = items.filter(i => {
-    const ps = i.plannedShares != null ? i.plannedShares : i.shares;
-    return safeN(ps) > 0;
-  });
+  const plannedLongItems = items.filter(i => safeN(
+    i.plannedShares != null ? i.plannedShares : i.shares
+  ) > 0);
   const plannedTotal = plannedLongItems.reduce((acc, i) => acc + plannedHolding(i), 0);
-  const plannedRatio = assetBase != null && hasPlan ? plannedTotal / assetBase : null;
   const additionalFunds = hasPlan ? plannedTotal - longTotal : null;
+  const plannedNetBuy = hasPlan ? plannedTotal - totalHedge : null;
+  const plannedRatio    = assetBase != null && hasPlan ? plannedTotal / assetBase : null;
+  const plannedNetRatio = assetBase != null && hasPlan ? (plannedTotal - totalHedge) / assetBase : null;
 
-  // 上位5銘柄
+  // ── Top 5 ──────────────────────────────────────────────────────────────────
   const currentRanked = [...longItems].sort((a, b) => holding(b) - holding(a)).slice(0, 5);
-  const plannedRanked = [...items]
-    .filter(i => {
-      const ps = i.plannedShares != null ? i.plannedShares : i.shares;
-      return safeN(ps) > 0 && i.price != null;
-    })
-    .sort((a, b) => plannedHolding(b) - plannedHolding(a))
-    .slice(0, 5);
+
+  // ── Futures update helper ─────────────────────────────────────────────────
+  function setFutures<K extends keyof FuturesPosition>(
+    key: keyof HedgeFutures,
+    field: K,
+    value: FuturesPosition[K],
+  ) {
+    onUpdateSummary({
+      hedgeFutures: {
+        ...hedgeFutures,
+        [key]: { ...hedgeFutures[key], [field]: value },
+      },
+    });
+  }
+
+  const FUTURES_ROWS: { key: keyof HedgeFutures; label: string }[] = [
+    { key: 'grossNikkei', label: 'グロ先' },
+    { key: 'nikkei',      label: '日経先物' },
+    { key: 'topix',       label: 'TOPIX先物' },
+  ];
+
+  const hedgeAmounts = {
+    grossNikkei: grossHedge,
+    nikkei:      nikkeiHedge,
+    topix:       topixHedge,
+  };
 
   return (
     <div className="summary-section">
       <h2 className="summary-title">サマリー</h2>
 
-      {/* ── 総資産額入力 ──────────────────────────────────────── */}
+      {/* ── 総資産額 ────────────────────────────────────────────── */}
       <div className="total-assets-bar">
         <span className="total-assets-label">総資産額</span>
         <input
@@ -108,18 +145,16 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
           })}
         />
         {totalAssets != null && totalAssets > 0 && (
-          <span className="total-assets-display">
-            ¥{fmt(totalAssets)}
-          </span>
+          <span className="total-assets-display">¥{fmt(totalAssets)}</span>
         )}
-        {totalAssets == null || totalAssets === 0 ? (
+        {(totalAssets == null || totalAssets === 0) && (
           <span className="total-assets-hint">※ 入力すると資産比率を計算します</span>
-        ) : null}
+        )}
       </div>
 
       <div className="summary-grid">
 
-        {/* ── ポジション概要 ─────────────────────────────────── */}
+        {/* ── A. ポジション ──────────────────────────────────────── */}
         <div className="summary-group">
           <h3>ポジション</h3>
           <table className="summary-table">
@@ -130,16 +165,26 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
                   <td className="num summary-highlight-cell">{fmt(assetBase)}</td>
                 </tr>
               )}
-              <tr className="summary-highlight">
-                <td>ロング保有合計</td>
+              <tr>
+                <td>買いポジ</td>
                 <td className="num">{fmt(longTotal)}</td>
               </tr>
-              {assetBase != null && (
-                <tr>
-                  <td>ロング比率</td>
-                  <td className="num">{fmtPct(longRatio)}</td>
-                </tr>
-              )}
+              <tr>
+                <td>買いポジ比率</td>
+                <td className="num">{assetBase != null ? fmtPct(longRatio) : '—'}</td>
+              </tr>
+              <tr>
+                <td>先物ヘッジ</td>
+                <td className="num">{totalHedge > 0 ? fmt(totalHedge) : '—'}</td>
+              </tr>
+              <tr className="summary-highlight">
+                <td>ネット買いポジ</td>
+                <td className="num">{fmt(netBuy)}</td>
+              </tr>
+              <tr>
+                <td>ネット比率</td>
+                <td className="num">{assetBase != null ? fmtPct(netRatio) : '—'}</td>
+              </tr>
               <tr>
                 <td>銘柄数</td>
                 <td className="num">{longItems.length}</td>
@@ -150,123 +195,107 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
                   <td className="num ls-warn">{noTargetCount} 銘柄</td>
                 </tr>
               )}
-              <tr>
-                <td>ネット買いポジ</td>
-                <td className="num">{fmt(netBuy)}</td>
-              </tr>
-              <tr>
-                <td>ネット比率</td>
-                <td className="num">{assetBase != null ? fmtPct(netBuyRatio) : '—'}</td>
-              </tr>
             </tbody>
           </table>
         </div>
 
-        {/* ── リバランス計画 ──────────────────────────────────── */}
+        {/* ── B. リバランス計画 ────────────────────────────────────── */}
         <div className="summary-group">
           <h3>リバランス計画</h3>
           <table className="summary-table">
             <tbody>
               <tr>
-                <td>現在ロング合計</td>
-                <td className="num">{fmt(longTotal)}</td>
-              </tr>
-              <tr>
-                <td>予定後ロング合計</td>
+                <td>予定後買いポジ</td>
                 <td className="num">{hasPlan ? fmt(plannedTotal) : '—'}</td>
               </tr>
-              {assetBase != null && (
-                <tr>
-                  <td>予定後ロング比率</td>
-                  <td className="num">{fmtPct(plannedRatio)}</td>
-                </tr>
-              )}
+              <tr>
+                <td>予定後買いポジ比率</td>
+                <td className="num">{assetBase != null ? fmtPct(plannedRatio) : '—'}</td>
+              </tr>
               <tr>
                 <td>追加必要資金</td>
-                <td className={`num ${additionalFunds == null ? '' : additionalFunds > 0 ? 'ls-warn' : additionalFunds < 0 ? 'ls-good' : ''}`}>
+                <td className={`num ${additionalFunds == null ? '' : additionalFunds > 0 ? 'ls-warn' : 'ls-good'}`}>
                   {additionalFunds != null
-                    ? <span title={additionalFunds > 0 ? '追加買い越し' : additionalFunds < 0 ? '売り越し' : '変化なし'}>
+                    ? <span title={additionalFunds > 0 ? '追加買い越し' : '売り越し'}>
                         {fmtDiff(additionalFunds)}
                       </span>
                     : '予定株数未入力'}
                 </td>
               </tr>
+              <tr>
+                <td>予定後ネット買いポジ</td>
+                <td className="num">{plannedNetBuy != null ? fmt(plannedNetBuy) : '—'}</td>
+              </tr>
+              <tr>
+                <td>予定後ネット比率</td>
+                <td className="num">{assetBase != null ? fmtPct(plannedNetRatio) : '—'}</td>
+              </tr>
             </tbody>
           </table>
         </div>
 
-        {/* ── 目標ベース ─────────────────────────────────────── */}
-        <div className="summary-group">
-          <h3>目標ベース</h3>
-          <table className="summary-table">
+        {/* ── C. 先物ヘッジ ──────────────────────────────────────── */}
+        <div className="summary-group futures-group">
+          <h3>先物ヘッジ</h3>
+          <table className="summary-table futures-table">
+            <thead>
+              <tr>
+                <th>種類</th>
+                <th className="num">価格</th>
+                <th className="num">枚数</th>
+                <th className="num" style={{ fontSize: 10, color: '#94a3b8' }}>乗数</th>
+                <th className="num">ヘッジ総額</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr>
-                <td>期待評価額</td>
-                <td className="num">{expectedTotal > 0 ? fmt(expectedTotal) : '—'}</td>
-              </tr>
-              <tr>
-                <td>期待上値額</td>
-                <td className="num">{expectedUpside > 0 ? fmt(expectedUpside) : '—'}</td>
-              </tr>
-              <tr>
-                <td>加重平均上値余地</td>
-                <td className={`num ${weightedUpside != null && weightedUpside >= 0.2 ? 'ls-good' : ''}`}>
-                  {fmtPct(weightedUpside)}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        {/* ── 配当 ───────────────────────────────────────────── */}
-        <div className="summary-group">
-          <h3>配当</h3>
-          <table className="summary-table">
-            <tbody>
-              <tr>
-                <td>年間配当金</td>
-                <td className="num">{dividendTotal > 0 ? fmt(dividendTotal) : '—'}</td>
-              </tr>
-              <tr>
-                <td>加重平均利回り</td>
-                <td className="num">{fmtPct(wDivYield)}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        {/* ── 先物 ───────────────────────────────────────────── */}
-        <div className="summary-group">
-          <h3>先物</h3>
-          <table className="summary-table">
-            <tbody>
-              <tr>
-                <td>グロ先合計</td>
-                <td className="num">{fmt(Math.abs(nikkei) + Math.abs(topix))}</td>
-              </tr>
-              <tr>
-                <td>日経先物</td>
-                <td className="num">
-                  <input type="number" className="summary-input"
-                    value={summary.nikkeiFutures ?? ''} placeholder="—"
-                    onChange={e => onUpdateSummary({ nikkeiFutures: e.target.value === '' ? null : Number(e.target.value) })}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>TOPIX先物</td>
-                <td className="num">
-                  <input type="number" className="summary-input"
-                    value={summary.topixFutures ?? ''} placeholder="—"
-                    onChange={e => onUpdateSummary({ topixFutures: e.target.value === '' ? null : Number(e.target.value) })}
-                  />
-                </td>
+              {FUTURES_ROWS.map(({ key, label }) => {
+                const pos = hedgeFutures[key];
+                const amt = hedgeAmounts[key];
+                return (
+                  <tr key={key}>
+                    <td style={{ whiteSpace: 'nowrap', fontWeight: 600 }}>{label}</td>
+                    <td className="num" style={{ padding: '1px 2px' }}>
+                      <NumInput
+                        value={pos.price}
+                        placeholder="価格"
+                        onChange={v => setFutures(key, 'price', v)}
+                        width={70}
+                      />
+                    </td>
+                    <td className="num" style={{ padding: '1px 2px' }}>
+                      <NumInput
+                        value={pos.lots}
+                        placeholder="枚数"
+                        onChange={v => setFutures(key, 'lots', v)}
+                        width={44}
+                      />
+                    </td>
+                    <td className="num" style={{ padding: '1px 2px' }}>
+                      <NumInput
+                        value={pos.multiplier}
+                        placeholder="乗数"
+                        onChange={v => setFutures(key, 'multiplier', v ?? 1)}
+                        width={46}
+                      />
+                    </td>
+                    <td className="num" style={{ fontWeight: amt > 0 ? 600 : undefined }}>
+                      {amt > 0 ? fmt(amt) : '—'}
+                    </td>
+                  </tr>
+                );
+              })}
+              <tr className="summary-highlight">
+                <td>合計</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td className="num">{totalHedge > 0 ? fmt(totalHedge) : '—'}</td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        {/* ── 現在の上位保有 ─────────────────────────────────── */}
+        {/* ── D. 現在 上位保有 ──────────────────────────────────── */}
         {currentRanked.length > 0 && (
           <div className="summary-group">
             <h3>現在 上位保有</h3>
@@ -275,7 +304,7 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
                 <tr>
                   <th>#</th>
                   <th>銘柄</th>
-                  <th className="num">{assetBase != null ? '資産比率' : 'PF比率'}</th>
+                  <th className="num">{assetBase != null ? '割合' : 'PF比率'}</th>
                 </tr>
               </thead>
               <tbody>
@@ -295,34 +324,6 @@ export function LongSummary({ portfolio, onUpdateSummary }: Props) {
           </div>
         )}
 
-        {/* ── 予定後の上位保有 ───────────────────────────────── */}
-        {hasPlan && plannedRanked.length > 0 && (
-          <div className="summary-group">
-            <h3>予定後 上位保有</h3>
-            <table className="summary-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>銘柄</th>
-                  <th className="num">{assetBase != null ? '予定資産比率' : '予定PF比率'}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {plannedRanked.map((item, i) => (
-                  <tr key={item.id}>
-                    <td style={{ color: '#64748b', fontSize: 10 }}>{i + 1}</td>
-                    <td>{item.name || item.code}</td>
-                    <td className="num">
-                      {assetBase != null
-                        ? fmtPct(plannedHolding(item) / assetBase)
-                        : plannedTotal > 0 ? fmtPct(plannedHolding(item) / plannedTotal) : '—'}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
       </div>
     </div>
   );

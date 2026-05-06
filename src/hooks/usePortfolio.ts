@@ -2,11 +2,23 @@ import { useState, useCallback, useEffect } from 'react';
 import type {
   Portfolio, PortfolioItem, PriceFetchResponse,
   PriceUpdateLogEntry, PriceUpdateSummary,
+  HedgeFutures,
 } from '../types';
+
+export const DEFAULT_HEDGE_FUTURES: HedgeFutures = {
+  grossNikkei: { price: null, lots: null, multiplier: 100 },
+  nikkei:      { price: null, lots: null, multiplier: 1000 },
+  topix:       { price: null, lots: null, multiplier: 10000 },
+};
 
 const DEFAULT_PORTFOLIO: Portfolio = {
   items: [],
-  summary: { nikkeiFutures: null, topixFutures: null, totalAssets: null },
+  summary: {
+    nikkeiFutures: null,
+    topixFutures: null,
+    totalAssets: null,
+    hedgeFutures: DEFAULT_HEDGE_FUTURES,
+  },
   lastSaved: null,
 };
 
@@ -47,13 +59,35 @@ function normalizeItem(raw: Partial<PortfolioItem>): PortfolioItem {
   };
 }
 
+function normalizeHedgeFutures(raw?: Partial<HedgeFutures> | null): HedgeFutures {
+  const def = DEFAULT_HEDGE_FUTURES;
+  return {
+    grossNikkei: {
+      price:      raw?.grossNikkei?.price      ?? null,
+      lots:       raw?.grossNikkei?.lots       ?? null,
+      multiplier: raw?.grossNikkei?.multiplier ?? def.grossNikkei.multiplier,
+    },
+    nikkei: {
+      price:      raw?.nikkei?.price      ?? null,
+      lots:       raw?.nikkei?.lots       ?? null,
+      multiplier: raw?.nikkei?.multiplier ?? def.nikkei.multiplier,
+    },
+    topix: {
+      price:      raw?.topix?.price      ?? null,
+      lots:       raw?.topix?.lots       ?? null,
+      multiplier: raw?.topix?.multiplier ?? def.topix.multiplier,
+    },
+  };
+}
+
 function normalizePortfolio(raw: Partial<Portfolio>): Portfolio {
   return {
     items: (raw.items ?? []).map(normalizeItem),
     summary: {
-      nikkeiFutures: raw.summary?.nikkeiFutures ?? null,
-      topixFutures:  raw.summary?.topixFutures  ?? null,
-      totalAssets:   raw.summary?.totalAssets   ?? null,
+      nikkeiFutures:  raw.summary?.nikkeiFutures  ?? null,
+      topixFutures:   raw.summary?.topixFutures   ?? null,
+      totalAssets:    raw.summary?.totalAssets    ?? null,
+      hedgeFutures:   normalizeHedgeFutures(raw.summary?.hedgeFutures),
     },
     lastSaved: raw.lastSaved ?? null,
   };

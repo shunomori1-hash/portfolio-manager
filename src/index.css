@@ -388,6 +388,23 @@ body {
   color: #1e3a5f;
 }
 
+/* ── Futures hedge table ─────────────────────── */
+.futures-group {
+  min-width: 340px;
+}
+
+.futures-table td,
+.futures-table th {
+  padding: 2px 3px;
+}
+
+.futures-table .summary-input {
+  font-size: 11px;
+  height: 20px;
+  padding: 0 3px;
+  text-align: right;
+}
+
 /* ── Summary Section ─────────────────────────── */
 .summary-section {
   padding: 8px 16px;

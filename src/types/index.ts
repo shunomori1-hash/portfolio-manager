@@ -37,10 +37,27 @@ export interface PortfolioItem {
   previousPrice: number | null;
 }
 
+// ─── Futures hedge data ──────────────────────────────────────────────────────
+
+export interface FuturesPosition {
+  price: number | null;       // 先物価格（手入力）
+  lots: number | null;        // 枚数（売りヘッジはプラス）
+  multiplier: number;         // 乗数（変更可能、デフォルト: グロ先100 / 日経1000 / TOPIX10000）
+}
+
+export interface HedgeFutures {
+  grossNikkei: FuturesPosition;  // グロ先（例: 日経225ミニ、乗数100）
+  nikkei: FuturesPosition;       // 日経先物（乗数1000）
+  topix: FuturesPosition;        // TOPIX先物（乗数10000）
+}
+
+// ─── Summary extras ───────────────────────────────────────────────────────────
+
 export interface SummaryExtras {
-  nikkeiFutures: number | null;
-  topixFutures: number | null;
-  totalAssets: number | null;   // user's total asset value for ratio calculations
+  nikkeiFutures: number | null;  // legacy: kept for compat (not used in new calc)
+  topixFutures: number | null;   // legacy: kept for compat (not used in new calc)
+  totalAssets: number | null;    // user's total asset value for ratio calculations
+  hedgeFutures: HedgeFutures;    // futures hedge positions
 }
 
 export interface Portfolio {
