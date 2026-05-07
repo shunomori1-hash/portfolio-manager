@@ -9,8 +9,10 @@ npm install
 npm run dev:all
 ```
 
-- フロントエンド: http://localhost:5173
+- フロントエンド: http://localhost:5174/ （ポート固定・strictPort）
 - APIサーバー: http://localhost:3001
+
+> `vite.config.ts` で `port: 5174, strictPort: true` を設定しているため、5174 が使用中の場合は別ポートへ逃げずエラーになります。
 
 ## コマンド
 

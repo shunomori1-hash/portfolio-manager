@@ -37,7 +37,7 @@ export function AddItemModal({ onAdd, onClose }: Props) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) handleSubmit();
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) handleSubmit();
     if (e.key === 'Escape') onClose();
   };
 
@@ -126,7 +126,7 @@ export function AddItemModal({ onAdd, onClose }: Props) {
               />
             </div>
           </div>
-          <p className="form-hint">Ctrl+Enter で追加</p>
+          <p className="form-hint">Enter で追加 / Esc で閉じる</p>
         </div>
 
         <div className="modal-footer">
