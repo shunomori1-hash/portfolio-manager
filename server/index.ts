@@ -5,7 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
 import YahooFinance from 'yahoo-finance2';
-import type { PriceUpdateLogEntry } from '../src/types/index.js';
+import type { PriceUpdateLogEntry, FiscalMonthLogEntry } from '../src/types/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,6 +16,8 @@ const LOG_FILE = path.join(ROOT, 'data', 'price-update-log.json');
 const LOG_MAX = 500;
 const FUTURES_LOG_FILE = path.join(ROOT, 'data', 'futures-price-update-log.json');
 const FUTURES_LOG_MAX = 300;
+const FISCAL_LOG_FILE = path.join(ROOT, 'data', 'fiscal-month-update-log.json');
+const FISCAL_LOG_MAX = 500;
 
 // yahoo-finance2 instance (suppress survey notice)
 const yf = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
@@ -463,6 +465,168 @@ app.post('/api/prices/log', (req, res) => {
     res.json({ ok: true });
   } catch (e) {
     res.json({ ok: false, error: String(e) });
+  }
+});
+
+// ── Fiscal month helpers ──────────────────────────────────────────────────
+
+// Fetch fiscal year-end month for a single stock code using yahoo-finance2
+// Returns month as 1–12, or null if unavailable.
+// Designed to be replaceable with another data source if needed.
+async function fetchFiscalYearEnd(code: string): Promise<{
+  month: number | null;
+  error: string | null;
+  source: string;
+}> {
+  const symbol = toYahooSymbol(code);
+  const source = 'yahoo-finance';
+  try {
+    const result = await yf.quoteSummary(symbol, { modules: ['defaultKeyStatistics'] });
+    const stats = (result as Record<string, unknown>).defaultKeyStatistics as Record<string, unknown> | undefined;
+
+    if (!stats) {
+      return { month: null, error: 'defaultKeyStatistics not available', source };
+    }
+
+    // yahoo-finance2 returns lastFiscalYearEnd as an ISO date string or Date object
+    // e.g. "2025-12-31T00:00:00.000Z" → month 12
+    //      "2026-03-31T00:00:00.000Z" → month 3
+    let month: number | null = null;
+
+    for (const key of ['lastFiscalYearEnd', 'nextFiscalYearEnd', 'fiscalYearEnd']) {
+      const rawVal = stats[key];
+      if (rawVal == null) continue;
+
+      // Date object from yahoo-finance2 (getMonth() is 0-indexed)
+      if (rawVal instanceof Date) {
+        const m = rawVal.getMonth() + 1;
+        if (m >= 1 && m <= 12) { month = m; break; }
+      }
+      // ISO string: "YYYY-MM-DDT..."
+      if (typeof rawVal === 'string') {
+        const m = parseInt(rawVal.slice(5, 7), 10);
+        if (m >= 1 && m <= 12) { month = m; break; }
+      }
+      // Plain number (1–12)
+      if (typeof rawVal === 'number' && isFinite(rawVal)) {
+        const m = Math.round(rawVal);
+        if (m >= 1 && m <= 12) { month = m; break; }
+      }
+      // { raw: number } shape
+      if (rawVal != null && typeof rawVal === 'object') {
+        const r = (rawVal as Record<string, unknown>)['raw'];
+        if (typeof r === 'number' && isFinite(r)) {
+          const m = Math.round(r);
+          if (m >= 1 && m <= 12) { month = m; break; }
+        }
+      }
+    }
+
+    if (month == null) {
+      const tried = ['lastFiscalYearEnd', 'nextFiscalYearEnd', 'fiscalYearEnd']
+        .map(k => `${k}=${JSON.stringify(stats[k])}`).join(', ');
+      return { month: null, error: `No fiscal year-end month found (${tried})`, source };
+    }
+    return { month, error: null, source };
+  } catch (e) {
+    return { month: null, error: e instanceof Error ? e.message : String(e), source };
+  }
+}
+
+function appendFiscalLog(entries: FiscalMonthLogEntry[]) {
+  let existing: FiscalMonthLogEntry[] = [];
+  if (fs.existsSync(FISCAL_LOG_FILE)) {
+    try { existing = JSON.parse(fs.readFileSync(FISCAL_LOG_FILE, 'utf-8')); } catch { existing = []; }
+  }
+  const merged = [...entries, ...existing].slice(0, FISCAL_LOG_MAX);
+  fs.writeFileSync(FISCAL_LOG_FILE, JSON.stringify(merged, null, 2), 'utf-8');
+}
+
+// ── Fiscal month: bulk fetch ────────────────────────────────────────────────
+
+app.post('/api/fiscal-months/fetch', async (req, res) => {
+  const { codes } = req.body as { codes: string[] };
+  const fetchedAt = new Date().toISOString();
+
+  if (!codes || codes.length === 0) {
+    res.json({ results: [], fetchedAt });
+    return;
+  }
+
+  const validCodes = codes.map((c: string) => c.trim()).filter(Boolean);
+  console.log(`[fiscal-month/fetch] start: ${validCodes.length} codes`);
+
+  const settled = await Promise.allSettled(
+    validCodes.map(async (code, i) => {
+      // stagger requests to avoid rate-limiting (300ms apart)
+      if (i > 0) await sleep(i * 300);
+      const { month, error, source } = await fetchFiscalYearEnd(code);
+      const monthStr = month != null ? `${month}月` : null;
+      const status = monthStr != null ? 'success' : 'failed';
+      console.log(`[fiscal-month/fetch] ${code}: ${status} month=${monthStr ?? 'null'} ${error ? `error=${error}` : ''}`);
+      return { code, month, monthStr, source, error };
+    })
+  );
+
+  const results = settled.map((r, i) => {
+    if (r.status === 'fulfilled') return r.value;
+    const err = r.reason instanceof Error ? r.reason.message : String(r.reason);
+    return { code: validCodes[i], month: null, monthStr: null, source: 'yahoo-finance', error: err };
+  });
+
+  const successCount = results.filter(r => r.monthStr != null).length;
+  const failedCount  = results.filter(r => r.monthStr == null).length;
+  console.log(`[fiscal-month/fetch] done: success=${successCount} failed=${failedCount}`);
+
+  res.json({ results, fetchedAt });
+});
+
+// ── Fiscal month: log ──────────────────────────────────────────────────────
+
+app.get('/api/fiscal-month/log', (_req, res) => {
+  if (!fs.existsSync(FISCAL_LOG_FILE)) { res.json({ entries: [] }); return; }
+  try {
+    res.json({ entries: JSON.parse(fs.readFileSync(FISCAL_LOG_FILE, 'utf-8')) });
+  } catch {
+    res.json({ entries: [] });
+  }
+});
+
+app.post('/api/fiscal-month/log', (req, res) => {
+  const { entries } = req.body as { entries: FiscalMonthLogEntry[] };
+  try {
+    appendFiscalLog(entries);
+    res.json({ ok: true });
+  } catch (e) {
+    res.json({ ok: false, error: String(e) });
+  }
+});
+
+// ── Fiscal month: debug single code ───────────────────────────────────────
+
+app.get('/api/fiscal-month/test/:code', async (req, res) => {
+  const code = req.params.code.trim();
+  const symbol = toYahooSymbol(code);
+  console.log(`[fiscal-month/test] code=${code} symbol=${symbol}`);
+
+  try {
+    const raw = await yf.quoteSummary(symbol, { modules: ['defaultKeyStatistics'] });
+    const stats = (raw as Record<string, unknown>).defaultKeyStatistics;
+    const { month, error, source } = await fetchFiscalYearEnd(code);
+    const monthStr = month != null ? `${month}月` : null;
+    res.json({
+      code,
+      symbol,
+      success: month != null,
+      month,
+      monthStr,
+      source,
+      error,
+      rawDefaultKeyStatistics: stats ?? null,
+    });
+  } catch (e) {
+    const errMsg = e instanceof Error ? e.message : String(e);
+    res.json({ code, symbol, success: false, month: null, monthStr: null, source: 'yahoo-finance', error: errMsg, stack: (e instanceof Error ? e.stack : undefined) });
   }
 });
 

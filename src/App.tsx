@@ -108,9 +108,14 @@ export default function App() {
       if (!dates.length) return null;
       return `株価: ${new Date(dates[dates.length - 1]!).toLocaleString('ja-JP')}`;
     }
-    const { updatedAt, successCount, failedCount } = priceUpdateSummary;
+    const { updatedAt, successCount, failedCount, fiscalMonth } = priceUpdateSummary;
     const ts = new Date(updatedAt).toLocaleString('ja-JP');
-    return `株価更新: ${ts} | ✓${successCount}件${failedCount > 0 ? ` | ✗${failedCount}件` : ''}`;
+    let text = `株価更新: ${ts} | ✓${successCount}件${failedCount > 0 ? ` | ✗${failedCount}件` : ''}`;
+    if (fiscalMonth && (fiscalMonth.successCount > 0 || fiscalMonth.failedCount > 0)) {
+      text += ` | 決算月補完: ✓${fiscalMonth.successCount}件`;
+      if (fiscalMonth.failedCount > 0) text += ` ✗${fiscalMonth.failedCount}件`;
+    }
+    return text;
   })();
 
   const hasFailures = (priceUpdateSummary?.failedCount ?? 0) > 0;

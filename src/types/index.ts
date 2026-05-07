@@ -2,6 +2,7 @@ export type TagValue = '◎' | '○' | '△' | '×' | '';
 export type FxValue = '円高' | '円安' | '';
 export type PeriodValue = '3ヶ月' | '半年' | '1年' | '2年' | '';
 export type PriceUpdateStatus = 'success' | 'failed' | 'skipped' | 'manual' | 'unknown';
+export type FiscalMonthUpdateStatus = 'success' | 'failed' | 'manual' | 'unknown';
 export type PortfolioId = 'personal' | 'company';
 export const PORTFOLIO_LABELS: Record<PortfolioId, string> = { personal: '個人用', company: '会社用' };
 
@@ -37,6 +38,10 @@ export interface PortfolioItem {
   priceError: string | null;
   priceUpdateStatus: PriceUpdateStatus;
   previousPrice: number | null;
+  // fiscal month auto-fill tracking
+  fiscalMonthUpdateStatus: FiscalMonthUpdateStatus;
+  fiscalMonthUpdateError: string | null;
+  lastFiscalMonthUpdatedAt: string | null;
 }
 
 // ─── Futures hedge data ──────────────────────────────────────────────────────
@@ -104,4 +109,36 @@ export interface PriceUpdateSummary {
   failedCount: number;
   skippedCount: number;
   failedItems: { code: string; name: string; error: string }[];
+  fiscalMonth?: {
+    successCount: number;
+    failedCount: number;
+    skippedCount: number;
+  };
+}
+
+// ─── Fiscal month fetch ───────────────────────────────────────────────────────
+
+export interface FiscalMonthFetchResult {
+  code: string;
+  month: number | null;       // 1–12, or null if unavailable
+  monthStr: string | null;    // "3月", "12月", etc.
+  source: string;
+  error: string | null;
+}
+
+export interface FiscalMonthFetchResponse {
+  results: FiscalMonthFetchResult[];
+  fetchedAt: string;
+}
+
+export interface FiscalMonthLogEntry {
+  updatedAt: string;
+  portfolioId: string;
+  code: string;
+  name: string;
+  previousFiscalMonth: string;
+  newFiscalMonth: string | null;
+  status: 'success' | 'failed' | 'skipped';
+  source: string;
+  error: string | null;
 }

@@ -3,6 +3,7 @@ import type {
   Portfolio, PortfolioItem, PriceFetchResponse,
   PriceUpdateLogEntry, PriceUpdateSummary,
   HedgeFutures, FuturesPosition, PortfolioId,
+  FiscalMonthFetchResponse, FiscalMonthLogEntry,
 } from '../types';
 
 export const DEFAULT_HEDGE_FUTURES: HedgeFutures = {
@@ -22,7 +23,14 @@ const DEFAULT_PORTFOLIO: Portfolio = {
   lastSaved: null,
 };
 
-// Ensure every item has the new fields (backwards compat with old portfolio.json)
+// Returns true when settlementMonth has a meaningful value (not empty / dash)
+function isSettlementMonthFilled(month: string | undefined | null): boolean {
+  if (!month) return false;
+  const m = month.trim();
+  return m !== '' && m !== '-' && m !== '—';
+}
+
+// Ensure every item has all required fields (backwards compat with old portfolio.json)
 function normalizeItem(raw: Partial<PortfolioItem>): PortfolioItem {
   return {
     id: raw.id ?? crypto.randomUUID(),
@@ -55,6 +63,10 @@ function normalizeItem(raw: Partial<PortfolioItem>): PortfolioItem {
     priceError: raw.priceError ?? null,
     priceUpdateStatus: raw.priceUpdateStatus ?? 'unknown',
     previousPrice: raw.previousPrice ?? null,
+    // fiscal month tracking — default to 'unknown' for old data
+    fiscalMonthUpdateStatus: raw.fiscalMonthUpdateStatus ?? 'unknown',
+    fiscalMonthUpdateError: raw.fiscalMonthUpdateError ?? null,
+    lastFiscalMonthUpdatedAt: raw.lastFiscalMonthUpdatedAt ?? null,
   };
 }
 
@@ -98,6 +110,15 @@ function normalizePortfolio(raw: Partial<Portfolio>): Portfolio {
 function postPriceLog(entries: PriceUpdateLogEntry[]) {
   if (!entries.length) return;
   fetch('/api/prices/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ entries }),
+  }).catch(() => { /* best-effort */ });
+}
+
+function postFiscalMonthLog(entries: FiscalMonthLogEntry[]) {
+  if (!entries.length) return;
+  fetch('/api/fiscal-month/log', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ entries }),
@@ -258,7 +279,7 @@ export function usePortfolio(portfolioId: PortfolioId) {
     setSaving(false);
   }, [portfolioId]);
 
-  // ── Bulk price fetch ──────────────────────────────────────────────────────
+  // ── Bulk price fetch (+ fiscal month auto-fill for blank entries) ─────────
   const fetchPrices = useCallback(async (current: Portfolio) => {
     const targets = current.items.filter(i => i.code.trim() !== '');
     if (!targets.length) return;
@@ -271,9 +292,9 @@ export function usePortfolio(portfolioId: PortfolioId) {
       await fetch(`/api/portfolio/${portfolioId}/backup`, { method: 'POST' });
     } catch { /* backup failure is non-fatal */ }
 
-    // 2. Fetch prices
+    // 2. Fetch stock prices
     const codes = targets.map(i => i.code);
-    let results: PriceFetchResponse['results'] = [];
+    let priceResults: PriceFetchResponse['results'] = [];
     let updatedAt = new Date().toISOString();
 
     try {
@@ -283,7 +304,7 @@ export function usePortfolio(portfolioId: PortfolioId) {
         body: JSON.stringify({ codes }),
       });
       const data = await r.json() as PriceFetchResponse;
-      results = data.results;
+      priceResults = data.results;
       updatedAt = data.updatedAt;
     } catch (e) {
       setError('株価取得エラー: ' + String(e));
@@ -291,99 +312,168 @@ export function usePortfolio(portfolioId: PortfolioId) {
       return;
     }
 
-    // 3. Apply results — NEVER overwrite price on failure
-    const logEntries: PriceUpdateLogEntry[] = [];
+    // 3. Apply price results to compute new items
+    const priceLogEntries: PriceUpdateLogEntry[] = [];
+    let newItems = current.items.map(item => {
+      if (!item.code.trim()) {
+        return { ...item, priceUpdateStatus: 'skipped' as const };
+      }
+      const result = priceResults.find(r => r.code === item.code);
+      if (!result) return item;
 
-    setPortfolio(prev => {
-      const newItems = prev.items.map(item => {
-        if (!item.code.trim()) {
-          return { ...item, priceUpdateStatus: 'skipped' as const };
-        }
-
-        const result = results.find(r => r.code === item.code);
-        if (!result) return item;
-
-        if (result.price != null && isFinite(result.price)) {
-          logEntries.push({
-            timestamp: updatedAt,
-            code: item.code,
-            name: item.name,
-            prevPrice: item.price,
-            newPrice: result.price,
-            status: 'success',
-            error: null,
-          });
-          return {
-            ...item,
-            previousPrice: item.price,
-            price: result.price,
-            priceUpdatedAt: updatedAt,
-            priceError: null,
-            priceUpdateStatus: 'success' as const,
-          };
-        } else {
-          const errMsg = result.error ?? '取得失敗';
-          logEntries.push({
-            timestamp: updatedAt,
-            code: item.code,
-            name: item.name,
-            prevPrice: item.price,
-            newPrice: null,
-            status: 'failed',
-            error: errMsg,
-          });
-          return {
-            ...item,
-            priceError: errMsg,
-            priceUpdatedAt: updatedAt,
-            priceUpdateStatus: 'failed' as const,
-          };
-        }
-      });
-
-      return { ...prev, items: newItems };
+      if (result.price != null && isFinite(result.price)) {
+        priceLogEntries.push({
+          timestamp: updatedAt, code: item.code, name: item.name,
+          prevPrice: item.price, newPrice: result.price, status: 'success', error: null,
+        });
+        return {
+          ...item,
+          previousPrice: item.price,
+          price: result.price,
+          priceUpdatedAt: updatedAt,
+          priceError: null,
+          priceUpdateStatus: 'success' as const,
+        };
+      } else {
+        const errMsg = result.error ?? '取得失敗';
+        priceLogEntries.push({
+          timestamp: updatedAt, code: item.code, name: item.name,
+          prevPrice: item.price, newPrice: null, status: 'failed', error: errMsg,
+        });
+        return {
+          ...item,
+          // price NOT changed on failure
+          priceError: errMsg,
+          priceUpdatedAt: updatedAt,
+          priceUpdateStatus: 'failed' as const,
+        };
+      }
     });
 
-    const finalSuccess = results.filter(r => r.price != null && isFinite(r.price)).length;
-    const finalFailed  = results.filter(r => r.price == null).length;
-    const finalSkipped = current.items.filter(i => !i.code.trim()).length;
+    const finalPriceSuccess = priceResults.filter(r => r.price != null && isFinite(r.price)).length;
+    const finalPriceFailed  = priceResults.filter(r => r.price == null).length;
+    const finalPriceSkipped = current.items.filter(i => !i.code.trim()).length;
 
+    // 4. Fiscal month auto-fill — only for items with blank settlementMonth
+    const blankMonthItems = newItems.filter(
+      i => i.code.trim() !== '' && !isSettlementMonthFilled(i.settlementMonth)
+    );
+    const fmSkippedCount = newItems.filter(
+      i => i.code.trim() !== '' && isSettlementMonthFilled(i.settlementMonth)
+    ).length;
+
+    let fmSuccessCount = 0;
+    let fmFailedCount = 0;
+    const fmLogEntries: FiscalMonthLogEntry[] = [];
+
+    if (blankMonthItems.length > 0) {
+      const fmCodes = blankMonthItems.map(i => i.code);
+      try {
+        const fmR = await fetch('/api/fiscal-months/fetch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ codes: fmCodes }),
+        });
+        const fmData = await fmR.json() as FiscalMonthFetchResponse;
+        const fmFetchedAt = fmData.fetchedAt;
+
+        fmSuccessCount = fmData.results.filter(r => r.monthStr != null).length;
+        fmFailedCount  = fmData.results.filter(r => r.monthStr == null).length;
+
+        // Apply fiscal month results — ONLY write to currently-blank fields
+        newItems = newItems.map(item => {
+          if (!item.code.trim() || isSettlementMonthFilled(item.settlementMonth)) {
+            return item; // already filled — never overwrite
+          }
+          const result = fmData.results.find(r => r.code === item.code);
+          if (!result) return item;
+
+          if (result.monthStr != null) {
+            fmLogEntries.push({
+              updatedAt: fmFetchedAt, portfolioId, code: item.code, name: item.name,
+              previousFiscalMonth: item.settlementMonth,
+              newFiscalMonth: result.monthStr,
+              status: 'success', source: result.source, error: null,
+            });
+            return {
+              ...item,
+              settlementMonth: result.monthStr,
+              fiscalMonthUpdateStatus: 'success' as const,
+              fiscalMonthUpdateError: null,
+              lastFiscalMonthUpdatedAt: fmFetchedAt,
+            };
+          } else {
+            fmLogEntries.push({
+              updatedAt: fmFetchedAt, portfolioId, code: item.code, name: item.name,
+              previousFiscalMonth: item.settlementMonth,
+              newFiscalMonth: null,
+              status: 'failed', source: result.source, error: result.error ?? '取得失敗',
+            });
+            return {
+              ...item,
+              // settlementMonth NOT changed on failure
+              fiscalMonthUpdateStatus: 'failed' as const,
+              fiscalMonthUpdateError: result.error ?? '取得失敗',
+              lastFiscalMonthUpdatedAt: fmFetchedAt,
+            };
+          }
+        });
+
+        postFiscalMonthLog(fmLogEntries);
+      } catch { /* fiscal month fetch is non-fatal — ignore */ }
+    }
+
+    // 5. Set summary
     const summary: PriceUpdateSummary = {
       updatedAt,
-      successCount: finalSuccess,
-      failedCount: finalFailed,
-      skippedCount: finalSkipped,
-      failedItems: results
+      successCount: finalPriceSuccess,
+      failedCount: finalPriceFailed,
+      skippedCount: finalPriceSkipped,
+      failedItems: priceResults
         .filter(r => r.price == null)
         .map(r => {
           const item = current.items.find(i => i.code === r.code);
           return { code: r.code, name: item?.name ?? '', error: r.error ?? '取得失敗' };
         }),
+      fiscalMonth: {
+        successCount: fmSuccessCount,
+        failedCount: fmFailedCount,
+        skippedCount: fmSkippedCount,
+      },
     };
     setPriceUpdateSummary(summary);
 
-    // 4. Post log
-    postPriceLog(logEntries);
+    // 6. Post price log
+    postPriceLog(priceLogEntries);
 
-    // 5. Auto-save after price update
-    setPortfolio(prev => {
-      const updated = { ...prev };
-      setTimeout(async () => {
-        try {
-          const r = await fetch(`/api/portfolio/${portfolioId}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updated),
-          });
-          const saveData = await r.json() as { ok: boolean; lastSaved: string };
-          setPortfolio(p => ({ ...p, lastSaved: saveData.lastSaved }));
-          setIsDirty(false);
-          setSaveStatus(`株価更新 成功${finalSuccess}件${finalFailed > 0 ? ` 失敗${finalFailed}件` : ''}`);
-          setTimeout(() => setSaveStatus(null), 5000);
-        } catch { /* auto-save failure is non-fatal */ }
-      }, 0);
-      return prev;
-    });
+    // 7. Apply all updates to state at once
+    const updatedPortfolio = { ...current, items: newItems };
+    setPortfolio(updatedPortfolio);
+    setIsDirty(true);
+
+    // 8. Auto-save
+    setTimeout(async () => {
+      try {
+        const r = await fetch(`/api/portfolio/${portfolioId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedPortfolio),
+        });
+        const saveData = await r.json() as { ok: boolean; lastSaved: string };
+        setPortfolio(p => ({ ...p, lastSaved: saveData.lastSaved }));
+        setIsDirty(false);
+
+        let statusMsg = `株価更新 成功${finalPriceSuccess}件`;
+        if (finalPriceFailed > 0) statusMsg += ` 失敗${finalPriceFailed}件`;
+        if (blankMonthItems.length > 0) {
+          statusMsg += ` / 決算月補完 成功${fmSuccessCount}件`;
+          if (fmFailedCount > 0) statusMsg += ` 失敗${fmFailedCount}件`;
+          statusMsg += ` スキップ${fmSkippedCount}件`;
+        }
+        setSaveStatus(statusMsg);
+        setTimeout(() => setSaveStatus(null), 6000);
+      } catch { /* auto-save failure is non-fatal */ }
+    }, 0);
 
     setFetchingPrices(false);
   }, [portfolioId]);
@@ -408,13 +498,8 @@ export function usePortfolio(portfolioId: PortfolioId) {
 
         if (result?.price != null && isFinite(result.price)) {
           postPriceLog([{
-            timestamp: data.updatedAt,
-            code,
-            name: item.name,
-            prevPrice: item.price,
-            newPrice: result.price,
-            status: 'success',
-            error: null,
+            timestamp: data.updatedAt, code, name: item.name,
+            prevPrice: item.price, newPrice: result.price, status: 'success', error: null,
           }]);
           return {
             ...prev,
@@ -430,13 +515,8 @@ export function usePortfolio(portfolioId: PortfolioId) {
         } else {
           const errMsg = result?.error ?? '取得失敗';
           postPriceLog([{
-            timestamp: data.updatedAt,
-            code,
-            name: item.name,
-            prevPrice: item.price,
-            newPrice: null,
-            status: 'failed',
-            error: errMsg,
+            timestamp: data.updatedAt, code, name: item.name,
+            prevPrice: item.price, newPrice: null, status: 'failed', error: errMsg,
           }]);
           return {
             ...prev,
