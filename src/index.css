@@ -526,6 +526,23 @@ body {
   background: #fef9c3 !important;
 }
 
+/* ── Planned diff: shares ≠ plannedShares ─────── */
+.cell-planned-diff {
+  background: #fed7aa !important; /* orange-200 — planned differs from current */
+}
+
+.cell-planned-diff:hover {
+  background: #fdba74 !important; /* orange-300 */
+}
+
+.cell-planned-diff-light {
+  background: #ffedd5 !important; /* orange-100 — calc cells (plannedMV, plannedW) */
+}
+
+.cell-planned-diff-light:hover {
+  background: #fed7aa !important; /* orange-200 */
+}
+
 /* ── Name cell ellipsis ──────────────────────── */
 .cell-name {
   display: block;

@@ -92,6 +92,15 @@ function fmtPct(n: number | null): string {
   return (n * 100).toFixed(1) + '%';
 }
 
+// ─── Plan diff helper ────────────────────────────────────────────────────────
+// Returns true when plannedShares is set AND differs numerically from shares
+function hasPlanDiff(item: PortfolioItem): boolean {
+  const ps = safeN(item.plannedShares);
+  if (ps == null) return false;
+  const s = safeN(item.shares);
+  return s !== ps;
+}
+
 // ─── Color helpers ───────────────────────────────────────────────────────────
 function upsideColor(upside: number | null): string {
   if (upside == null) return '';
@@ -347,6 +356,7 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRemove, visib
             const divYield = calcDividendYield(item);
             const benefitYield = calcBenefitYield(item);
             const netPer = calcNetPer(item);
+            const planDiff = hasPlanDiff(item);
 
             return (
               <tr key={item.id} className={item.priceError ? 'row-error' : ''}>
@@ -427,9 +437,9 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRemove, visib
                 {renderNumCell(item, 'shares', item.shares, 'shares')}
                 {renderCalcCell(fmt(h), '', 'holding')}
                 {renderCalcCell(fmtPct(ratio), '', 'ratio')}
-                {renderNumCell(item, 'plannedShares', item.plannedShares, 'plannedShares', 'cell-planned')}
-                {renderCalcCell(fmt(plannedMV), '', 'plannedMarketValue')}
-                {renderCalcCell(fmtPct(plannedW), '', 'plannedWeight')}
+                {renderNumCell(item, 'plannedShares', item.plannedShares, 'plannedShares', planDiff ? 'cell-planned-diff' : 'cell-planned')}
+                {renderCalcCell(fmt(plannedMV), planDiff ? 'cell-planned-diff-light' : '', 'plannedMarketValue')}
+                {renderCalcCell(fmtPct(plannedW), planDiff ? 'cell-planned-diff-light' : '', 'plannedWeight')}
                 {renderNumCell(item, 'plannedDelta', item.plannedDelta, 'plannedDelta')}
                 {renderCalcCell(fmt(afterAmount), '', 'afterAmount')}
                 {renderCalcCell(fmtPct(afterRatio), '', 'afterRatio')}

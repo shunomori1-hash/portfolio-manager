@@ -197,8 +197,8 @@
       "code": "6779",
       "name": "日本電波",
       "price": 1895,
-      "shares": 1300,
-      "plannedShares": 21400,
+      "shares": 100,
+      "plannedShares": 100,
       "plannedDelta": 21400,
       "settlementMonth": "3月",
       "tech": "△",
@@ -1894,5 +1894,5 @@
       }
     }
   },
-  "lastSaved": "2026-05-07T01:04:27.154Z"
+  "lastSaved": "2026-05-07T01:32:49.016Z"
 }
