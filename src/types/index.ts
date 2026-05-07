@@ -1,8 +1,10 @@
 export type TagValue = '◎' | '○' | '△' | '×' | '';
+export type TechRating = '☆' | '◎' | '○' | '△' | '×' | '';
 export type FxValue = '円高' | '円安' | '';
 export type PeriodValue = '3ヶ月' | '半年' | '1年' | '2年' | '';
 export type PriceUpdateStatus = 'success' | 'failed' | 'skipped' | 'manual' | 'unknown';
 export type FiscalMonthUpdateStatus = 'success' | 'failed' | 'manual' | 'unknown';
+export type TechUpdateStatus = 'success' | 'failed' | 'insufficient_data' | 'cached' | 'unknown';
 export type PortfolioId = 'personal' | 'company';
 export const PORTFOLIO_LABELS: Record<PortfolioId, string> = { personal: '個人用', company: '会社用' };
 
@@ -12,10 +14,10 @@ export interface PortfolioItem {
   name: string;
   price: number | null;
   shares: number | null;
-  plannedShares: number | null;   // rebalance plan: target share count (not a delta)
-  plannedDelta: number | null;    // legacy field kept for compat
+  plannedShares: number | null;
+  plannedDelta: number | null;
   settlementMonth: string;
-  tech: TagValue;
+  tech: TechRating;           // displayed in テク column (hand-entry or auto-filled)
   topix: TagValue;
   borderPrice: number | null;
   targetPrice: number | null;
@@ -42,6 +44,14 @@ export interface PortfolioItem {
   fiscalMonthUpdateStatus: FiscalMonthUpdateStatus;
   fiscalMonthUpdateError: string | null;
   lastFiscalMonthUpdatedAt: string | null;
+  // technical auto-rating
+  techAutoRating: TechRating;
+  techRatingBeforeBreakout: TechRating | null;
+  techBreakoutBoosted: boolean;
+  techReason: string;
+  techUpdatedAt: string | null;
+  techUpdateStatus: TechUpdateStatus;
+  techUpdateError: string | null;
 }
 
 // ─── Futures hedge data ──────────────────────────────────────────────────────
@@ -49,30 +59,29 @@ export interface PortfolioItem {
 export type FuturesUpdateStatus = 'success' | 'failed' | 'manual' | 'unknown';
 
 export interface FuturesPosition {
-  price: number | null;               // 先物価格
-  lots: number | null;                // 枚数（売りヘッジはプラス）
-  multiplier: number;                 // 乗数（変更可能）
-  // fetch metadata
-  source: string;                     // 'nikkei225jp' | 'yahoo-finance' | 'manual'
-  symbol: string;                     // 'c=138' | 'NIY=F' | 'TPY=F' など
-  lastUpdatedAt: string | null;       // ISO timestamp
+  price: number | null;
+  lots: number | null;
+  multiplier: number;
+  source: string;
+  symbol: string;
+  lastUpdatedAt: string | null;
   updateStatus: FuturesUpdateStatus;
   updateError: string | null;
 }
 
 export interface HedgeFutures {
-  grossNikkei: FuturesPosition;  // グロ先（例: 日経225ミニ、乗数100）
-  nikkei: FuturesPosition;       // 日経先物（乗数1000）
-  topix: FuturesPosition;        // TOPIX先物（乗数10000）
+  grossNikkei: FuturesPosition;
+  nikkei: FuturesPosition;
+  topix: FuturesPosition;
 }
 
 // ─── Summary extras ───────────────────────────────────────────────────────────
 
 export interface SummaryExtras {
-  nikkeiFutures: number | null;  // legacy: kept for compat (not used in new calc)
-  topixFutures: number | null;   // legacy: kept for compat (not used in new calc)
-  totalAssets: number | null;    // user's total asset value for ratio calculations
-  hedgeFutures: HedgeFutures;    // futures hedge positions
+  nikkeiFutures: number | null;
+  topixFutures: number | null;
+  totalAssets: number | null;
+  hedgeFutures: HedgeFutures;
 }
 
 export interface Portfolio {
@@ -120,8 +129,8 @@ export interface PriceUpdateSummary {
 
 export interface FiscalMonthFetchResult {
   code: string;
-  month: number | null;       // 1–12, or null if unavailable
-  monthStr: string | null;    // "3月", "12月", etc.
+  month: number | null;
+  monthStr: string | null;
   source: string;
   error: string | null;
 }
@@ -140,5 +149,43 @@ export interface FiscalMonthLogEntry {
   newFiscalMonth: string | null;
   status: 'success' | 'failed' | 'skipped';
   source: string;
+  error: string | null;
+}
+
+// ─── Technical auto-rating ───────────────────────────────────────────────────
+
+export interface TechnicalUpdateResult {
+  code: string;
+  name: string;
+  previousTech: TechRating;
+  ratingBeforeBreakout: TechRating | null;
+  newTech: TechRating | null;
+  highBreakout: boolean;
+  status: TechUpdateStatus;
+  reason: string;
+  error: string | null;
+}
+
+export interface TechnicalUpdateSummary {
+  updatedAt: string;
+  successCount: number;
+  failedCount: number;
+  insufficientDataCount: number;
+  boostedCount: number;
+  cachedCount: number;
+  results: TechnicalUpdateResult[];
+}
+
+export interface TechnicalLogEntry {
+  updatedAt: string;
+  portfolioId: string;
+  code: string;
+  name: string;
+  previousTech: TechRating;
+  ratingBeforeBreakout: TechRating | null;
+  newTech: TechRating | null;
+  highBreakout: boolean;
+  status: TechUpdateStatus;
+  reason: string;
   error: string | null;
 }

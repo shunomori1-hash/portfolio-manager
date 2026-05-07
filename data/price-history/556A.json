@@ -1,0 +1,49 @@
+{
+  "code": "556A",
+  "symbol": "556A.T",
+  "lastFetchedAt": "2026-05-07T05:05:36.050Z",
+  "prices": [
+    {
+      "date": "2026-04-23",
+      "close": 4200,
+      "adjClose": 4200,
+      "valueForTechnical": 4200
+    },
+    {
+      "date": "2026-04-24",
+      "close": 4900,
+      "adjClose": 4900,
+      "valueForTechnical": 4900
+    },
+    {
+      "date": "2026-04-27",
+      "close": 4200,
+      "adjClose": 4200,
+      "valueForTechnical": 4200
+    },
+    {
+      "date": "2026-04-28",
+      "close": 3960,
+      "adjClose": 3960,
+      "valueForTechnical": 3960
+    },
+    {
+      "date": "2026-04-30",
+      "close": 3740,
+      "adjClose": 3740,
+      "valueForTechnical": 3740
+    },
+    {
+      "date": "2026-05-01",
+      "close": 3500,
+      "adjClose": 3500,
+      "valueForTechnical": 3500
+    },
+    {
+      "date": "2026-05-07",
+      "close": 3345,
+      "adjClose": 3345,
+      "valueForTechnical": 3345
+    }
+  ]
+}

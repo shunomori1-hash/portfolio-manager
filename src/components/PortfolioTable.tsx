@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import type { PortfolioItem, TagValue, FxValue, PeriodValue } from '../types';
+import type { PortfolioItem, TagValue, TechRating, FxValue, PeriodValue } from '../types';
 import { ALL_COLS, type ColKey, type SortState, type SortKey, COL_SORT_KEY } from '../utils/tableState';
 
 interface Props {
@@ -16,6 +16,7 @@ interface Props {
 }
 
 const TAG_OPTIONS: TagValue[] = ['◎', '○', '△', '×', ''];
+const TECH_OPTIONS: TechRating[] = ['☆', '◎', '○', '△', '×', ''];
 const FX_OPTIONS: FxValue[] = ['円高', '円安', ''];
 const PERIOD_OPTIONS: PeriodValue[] = ['3ヶ月', '半年', '1年', '2年', ''];
 
@@ -117,8 +118,9 @@ function divergenceColor(div: number | null): string {
   return '';
 }
 
-function tagColor(tag: TagValue): string {
+function tagColor(tag: TagValue | TechRating): string {
   switch (tag) {
+    case '☆': return 'tag-star';
     case '◎': return 'tag-double';
     case '○': return 'tag-single';
     case '△': return 'tag-triangle';
@@ -444,7 +446,22 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRemove, visib
                 {renderCalcCell(fmt(afterAmount), '', 'afterAmount')}
                 {renderCalcCell(fmtPct(afterRatio), '', 'afterRatio')}
                 {renderTextCell(item, 'settlementMonth', item.settlementMonth, 'settlement')}
-                {renderSelectCell(item, 'tech', TAG_OPTIONS, item.tech, 'tech')}
+                {/* テク列: ☆対応オプション + ツールチップ + 高値ブレイク色 */}
+                {vis('tech') && (
+                  <td
+                    className={`editable ${item.techBreakoutBoosted ? 'cell-tech-breakout' : ''}`}
+                    style={{ minWidth: W.tech }}
+                    title={item.techReason || undefined}
+                  >
+                    <select
+                      className="cell-select"
+                      value={item.tech}
+                      onChange={e => onUpdate(item.id, { tech: e.target.value as TechRating })}
+                    >
+                      {TECH_OPTIONS.map(o => <option key={o} value={o}>{o || '—'}</option>)}
+                    </select>
+                  </td>
+                )}
                 {renderSelectCell(item, 'topix', TAG_OPTIONS, item.topix, 'topix')}
                 {renderNumCell(item, 'borderPrice', item.borderPrice, 'border')}
                 {renderCalcCell(fmtPct(divergence), divergenceColor(divergence), 'divergence')}

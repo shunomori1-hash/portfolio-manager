@@ -305,6 +305,13 @@ export async function parseCsvFile(file: File): Promise<CsvParseResult> {
       fiscalMonthUpdateStatus: 'unknown',
       fiscalMonthUpdateError: null,
       lastFiscalMonthUpdatedAt: null,
+      techAutoRating: '',
+      techRatingBeforeBreakout: null,
+      techBreakoutBoosted: false,
+      techReason: '',
+      techUpdatedAt: null,
+      techUpdateStatus: 'unknown',
+      techUpdateError: null,
     };
 
     for (let colIdx = 0; colIdx < mappings.length; colIdx++) {

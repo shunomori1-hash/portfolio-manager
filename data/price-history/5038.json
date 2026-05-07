@@ -1,0 +1,1363 @@
+{
+  "code": "5038",
+  "symbol": "5038.T",
+  "lastFetchedAt": "2026-05-07T04:42:17.637Z",
+  "prices": [
+    {
+      "date": "2025-06-02",
+      "close": 2567,
+      "adjClose": 2551.32373046875,
+      "valueForTechnical": 2551.32373046875
+    },
+    {
+      "date": "2025-06-03",
+      "close": 2549,
+      "adjClose": 2533.43359375,
+      "valueForTechnical": 2533.43359375
+    },
+    {
+      "date": "2025-06-04",
+      "close": 2536,
+      "adjClose": 2520.512939453125,
+      "valueForTechnical": 2520.512939453125
+    },
+    {
+      "date": "2025-06-05",
+      "close": 2555,
+      "adjClose": 2539.39697265625,
+      "valueForTechnical": 2539.39697265625
+    },
+    {
+      "date": "2025-06-06",
+      "close": 2450,
+      "adjClose": 2435.038330078125,
+      "valueForTechnical": 2435.038330078125
+    },
+    {
+      "date": "2025-06-09",
+      "close": 2468,
+      "adjClose": 2452.92822265625,
+      "valueForTechnical": 2452.92822265625
+    },
+    {
+      "date": "2025-06-10",
+      "close": 2522,
+      "adjClose": 2506.5986328125,
+      "valueForTechnical": 2506.5986328125
+    },
+    {
+      "date": "2025-06-11",
+      "close": 2535,
+      "adjClose": 2519.51904296875,
+      "valueForTechnical": 2519.51904296875
+    },
+    {
+      "date": "2025-06-12",
+      "close": 2558,
+      "adjClose": 2542.378662109375,
+      "valueForTechnical": 2542.378662109375
+    },
+    {
+      "date": "2025-06-13",
+      "close": 2472,
+      "adjClose": 2456.90380859375,
+      "valueForTechnical": 2456.90380859375
+    },
+    {
+      "date": "2025-06-16",
+      "close": 2522,
+      "adjClose": 2506.5986328125,
+      "valueForTechnical": 2506.5986328125
+    },
+    {
+      "date": "2025-06-17",
+      "close": 2527,
+      "adjClose": 2511.56787109375,
+      "valueForTechnical": 2511.56787109375
+    },
+    {
+      "date": "2025-06-18",
+      "close": 2590,
+      "adjClose": 2574.183349609375,
+      "valueForTechnical": 2574.183349609375
+    },
+    {
+      "date": "2025-06-19",
+      "close": 2580,
+      "adjClose": 2564.244384765625,
+      "valueForTechnical": 2564.244384765625
+    },
+    {
+      "date": "2025-06-20",
+      "close": 2556,
+      "adjClose": 2540.390869140625,
+      "valueForTechnical": 2540.390869140625
+    },
+    {
+      "date": "2025-06-23",
+      "close": 2527,
+      "adjClose": 2511.56787109375,
+      "valueForTechnical": 2511.56787109375
+    },
+    {
+      "date": "2025-06-24",
+      "close": 2603,
+      "adjClose": 2587.103759765625,
+      "valueForTechnical": 2587.103759765625
+    },
+    {
+      "date": "2025-06-25",
+      "close": 2551,
+      "adjClose": 2535.42138671875,
+      "valueForTechnical": 2535.42138671875
+    },
+    {
+      "date": "2025-06-26",
+      "close": 2512,
+      "adjClose": 2496.65966796875,
+      "valueForTechnical": 2496.65966796875
+    },
+    {
+      "date": "2025-06-27",
+      "close": 2540,
+      "adjClose": 2524.488525390625,
+      "valueForTechnical": 2524.488525390625
+    },
+    {
+      "date": "2025-06-30",
+      "close": 2504,
+      "adjClose": 2488.70849609375,
+      "valueForTechnical": 2488.70849609375
+    },
+    {
+      "date": "2025-07-01",
+      "close": 2483,
+      "adjClose": 2467.836669921875,
+      "valueForTechnical": 2467.836669921875
+    },
+    {
+      "date": "2025-07-02",
+      "close": 2380,
+      "adjClose": 2365.465576171875,
+      "valueForTechnical": 2365.465576171875
+    },
+    {
+      "date": "2025-07-03",
+      "close": 2336,
+      "adjClose": 2321.734375,
+      "valueForTechnical": 2321.734375
+    },
+    {
+      "date": "2025-07-04",
+      "close": 2336,
+      "adjClose": 2321.734375,
+      "valueForTechnical": 2321.734375
+    },
+    {
+      "date": "2025-07-07",
+      "close": 2387,
+      "adjClose": 2372.4228515625,
+      "valueForTechnical": 2372.4228515625
+    },
+    {
+      "date": "2025-07-08",
+      "close": 2410,
+      "adjClose": 2395.282470703125,
+      "valueForTechnical": 2395.282470703125
+    },
+    {
+      "date": "2025-07-09",
+      "close": 2411,
+      "adjClose": 2396.2763671875,
+      "valueForTechnical": 2396.2763671875
+    },
+    {
+      "date": "2025-07-10",
+      "close": 2442,
+      "adjClose": 2427.087158203125,
+      "valueForTechnical": 2427.087158203125
+    },
+    {
+      "date": "2025-07-11",
+      "close": 2393,
+      "adjClose": 2378.38623046875,
+      "valueForTechnical": 2378.38623046875
+    },
+    {
+      "date": "2025-07-14",
+      "close": 2365,
+      "adjClose": 2350.557373046875,
+      "valueForTechnical": 2350.557373046875
+    },
+    {
+      "date": "2025-07-15",
+      "close": 2256,
+      "adjClose": 2242.222900390625,
+      "valueForTechnical": 2242.222900390625
+    },
+    {
+      "date": "2025-07-16",
+      "close": 2240,
+      "adjClose": 2226.320556640625,
+      "valueForTechnical": 2226.320556640625
+    },
+    {
+      "date": "2025-07-17",
+      "close": 2293,
+      "adjClose": 2278.9970703125,
+      "valueForTechnical": 2278.9970703125
+    },
+    {
+      "date": "2025-07-18",
+      "close": 2252,
+      "adjClose": 2238.247314453125,
+      "valueForTechnical": 2238.247314453125
+    },
+    {
+      "date": "2025-07-22",
+      "close": 2250,
+      "adjClose": 2236.259521484375,
+      "valueForTechnical": 2236.259521484375
+    },
+    {
+      "date": "2025-07-23",
+      "close": 2273,
+      "adjClose": 2259.119140625,
+      "valueForTechnical": 2259.119140625
+    },
+    {
+      "date": "2025-07-24",
+      "close": 2305,
+      "adjClose": 2290.923583984375,
+      "valueForTechnical": 2290.923583984375
+    },
+    {
+      "date": "2025-07-25",
+      "close": 2312,
+      "adjClose": 2297.880859375,
+      "valueForTechnical": 2297.880859375
+    },
+    {
+      "date": "2025-07-28",
+      "close": 2345,
+      "adjClose": 2330.679443359375,
+      "valueForTechnical": 2330.679443359375
+    },
+    {
+      "date": "2025-07-29",
+      "close": 2333,
+      "adjClose": 2318.752685546875,
+      "valueForTechnical": 2318.752685546875
+    },
+    {
+      "date": "2025-07-30",
+      "close": 2346,
+      "adjClose": 2331.67333984375,
+      "valueForTechnical": 2331.67333984375
+    },
+    {
+      "date": "2025-07-31",
+      "close": 2378,
+      "adjClose": 2363.477783203125,
+      "valueForTechnical": 2363.477783203125
+    },
+    {
+      "date": "2025-08-01",
+      "close": 2385,
+      "adjClose": 2370.43505859375,
+      "valueForTechnical": 2370.43505859375
+    },
+    {
+      "date": "2025-08-04",
+      "close": 2370,
+      "adjClose": 2355.52685546875,
+      "valueForTechnical": 2355.52685546875
+    },
+    {
+      "date": "2025-08-05",
+      "close": 2375,
+      "adjClose": 2360.496337890625,
+      "valueForTechnical": 2360.496337890625
+    },
+    {
+      "date": "2025-08-06",
+      "close": 2371,
+      "adjClose": 2356.520751953125,
+      "valueForTechnical": 2356.520751953125
+    },
+    {
+      "date": "2025-08-07",
+      "close": 2440,
+      "adjClose": 2425.099365234375,
+      "valueForTechnical": 2425.099365234375
+    },
+    {
+      "date": "2025-08-08",
+      "close": 2441,
+      "adjClose": 2426.09326171875,
+      "valueForTechnical": 2426.09326171875
+    },
+    {
+      "date": "2025-08-12",
+      "close": 2424,
+      "adjClose": 2409.197021484375,
+      "valueForTechnical": 2409.197021484375
+    },
+    {
+      "date": "2025-08-13",
+      "close": 2445,
+      "adjClose": 2430.06884765625,
+      "valueForTechnical": 2430.06884765625
+    },
+    {
+      "date": "2025-08-14",
+      "close": 2510,
+      "adjClose": 2494.671875,
+      "valueForTechnical": 2494.671875
+    },
+    {
+      "date": "2025-08-15",
+      "close": 2738,
+      "adjClose": 2721.279541015625,
+      "valueForTechnical": 2721.279541015625
+    },
+    {
+      "date": "2025-08-18",
+      "close": 2837,
+      "adjClose": 2819.6748046875,
+      "valueForTechnical": 2819.6748046875
+    },
+    {
+      "date": "2025-08-19",
+      "close": 2940,
+      "adjClose": 2922.0458984375,
+      "valueForTechnical": 2922.0458984375
+    },
+    {
+      "date": "2025-08-20",
+      "close": 2854,
+      "adjClose": 2836.571044921875,
+      "valueForTechnical": 2836.571044921875
+    },
+    {
+      "date": "2025-08-21",
+      "close": 2882,
+      "adjClose": 2864.400146484375,
+      "valueForTechnical": 2864.400146484375
+    },
+    {
+      "date": "2025-08-22",
+      "close": 2840,
+      "adjClose": 2822.656494140625,
+      "valueForTechnical": 2822.656494140625
+    },
+    {
+      "date": "2025-08-25",
+      "close": 2891,
+      "adjClose": 2873.344970703125,
+      "valueForTechnical": 2873.344970703125
+    },
+    {
+      "date": "2025-08-26",
+      "close": 2813,
+      "adjClose": 2795.821533203125,
+      "valueForTechnical": 2795.821533203125
+    },
+    {
+      "date": "2025-08-27",
+      "close": 2755,
+      "adjClose": 2738.175537109375,
+      "valueForTechnical": 2738.175537109375
+    },
+    {
+      "date": "2025-08-28",
+      "close": 2761,
+      "adjClose": 2744.138916015625,
+      "valueForTechnical": 2744.138916015625
+    },
+    {
+      "date": "2025-08-29",
+      "close": 2863,
+      "adjClose": 2845.51611328125,
+      "valueForTechnical": 2845.51611328125
+    },
+    {
+      "date": "2025-09-01",
+      "close": 2787,
+      "adjClose": 2769.980224609375,
+      "valueForTechnical": 2769.980224609375
+    },
+    {
+      "date": "2025-09-02",
+      "close": 2883,
+      "adjClose": 2865.39404296875,
+      "valueForTechnical": 2865.39404296875
+    },
+    {
+      "date": "2025-09-03",
+      "close": 2861,
+      "adjClose": 2843.5283203125,
+      "valueForTechnical": 2843.5283203125
+    },
+    {
+      "date": "2025-09-04",
+      "close": 2859,
+      "adjClose": 2841.54052734375,
+      "valueForTechnical": 2841.54052734375
+    },
+    {
+      "date": "2025-09-05",
+      "close": 2868,
+      "adjClose": 2850.485595703125,
+      "valueForTechnical": 2850.485595703125
+    },
+    {
+      "date": "2025-09-08",
+      "close": 2826,
+      "adjClose": 2808.741943359375,
+      "valueForTechnical": 2808.741943359375
+    },
+    {
+      "date": "2025-09-09",
+      "close": 2830,
+      "adjClose": 2812.717529296875,
+      "valueForTechnical": 2812.717529296875
+    },
+    {
+      "date": "2025-09-10",
+      "close": 2832,
+      "adjClose": 2814.705322265625,
+      "valueForTechnical": 2814.705322265625
+    },
+    {
+      "date": "2025-09-11",
+      "close": 2799,
+      "adjClose": 2781.906982421875,
+      "valueForTechnical": 2781.906982421875
+    },
+    {
+      "date": "2025-09-12",
+      "close": 2811,
+      "adjClose": 2793.833740234375,
+      "valueForTechnical": 2793.833740234375
+    },
+    {
+      "date": "2025-09-16",
+      "close": 2793,
+      "adjClose": 2775.943603515625,
+      "valueForTechnical": 2775.943603515625
+    },
+    {
+      "date": "2025-09-17",
+      "close": 2750,
+      "adjClose": 2733.2060546875,
+      "valueForTechnical": 2733.2060546875
+    },
+    {
+      "date": "2025-09-18",
+      "close": 2760,
+      "adjClose": 2743.14501953125,
+      "valueForTechnical": 2743.14501953125
+    },
+    {
+      "date": "2025-09-19",
+      "close": 2800,
+      "adjClose": 2782.90087890625,
+      "valueForTechnical": 2782.90087890625
+    },
+    {
+      "date": "2025-09-22",
+      "close": 2927,
+      "adjClose": 2909.125244140625,
+      "valueForTechnical": 2909.125244140625
+    },
+    {
+      "date": "2025-09-24",
+      "close": 2883,
+      "adjClose": 2865.39404296875,
+      "valueForTechnical": 2865.39404296875
+    },
+    {
+      "date": "2025-09-25",
+      "close": 2889,
+      "adjClose": 2871.357421875,
+      "valueForTechnical": 2871.357421875
+    },
+    {
+      "date": "2025-09-26",
+      "close": 2868,
+      "adjClose": 2850.485595703125,
+      "valueForTechnical": 2850.485595703125
+    },
+    {
+      "date": "2025-09-29",
+      "close": 2830,
+      "adjClose": 2812.717529296875,
+      "valueForTechnical": 2812.717529296875
+    },
+    {
+      "date": "2025-09-30",
+      "close": 2854,
+      "adjClose": 2836.571044921875,
+      "valueForTechnical": 2836.571044921875
+    },
+    {
+      "date": "2025-10-01",
+      "close": 2673,
+      "adjClose": 2656.67626953125,
+      "valueForTechnical": 2656.67626953125
+    },
+    {
+      "date": "2025-10-02",
+      "close": 2692,
+      "adjClose": 2675.560302734375,
+      "valueForTechnical": 2675.560302734375
+    },
+    {
+      "date": "2025-10-03",
+      "close": 2685,
+      "adjClose": 2668.60302734375,
+      "valueForTechnical": 2668.60302734375
+    },
+    {
+      "date": "2025-10-06",
+      "close": 2770,
+      "adjClose": 2753.083984375,
+      "valueForTechnical": 2753.083984375
+    },
+    {
+      "date": "2025-10-07",
+      "close": 2655,
+      "adjClose": 2638.786376953125,
+      "valueForTechnical": 2638.786376953125
+    },
+    {
+      "date": "2025-10-08",
+      "close": 2680,
+      "adjClose": 2663.633544921875,
+      "valueForTechnical": 2663.633544921875
+    },
+    {
+      "date": "2025-10-09",
+      "close": 2691,
+      "adjClose": 2674.56640625,
+      "valueForTechnical": 2674.56640625
+    },
+    {
+      "date": "2025-10-10",
+      "close": 2663,
+      "adjClose": 2646.737548828125,
+      "valueForTechnical": 2646.737548828125
+    },
+    {
+      "date": "2025-10-14",
+      "close": 2590,
+      "adjClose": 2574.183349609375,
+      "valueForTechnical": 2574.183349609375
+    },
+    {
+      "date": "2025-10-15",
+      "close": 2767,
+      "adjClose": 2750.102294921875,
+      "valueForTechnical": 2750.102294921875
+    },
+    {
+      "date": "2025-10-16",
+      "close": 2810,
+      "adjClose": 2792.83984375,
+      "valueForTechnical": 2792.83984375
+    },
+    {
+      "date": "2025-10-17",
+      "close": 2738,
+      "adjClose": 2721.279541015625,
+      "valueForTechnical": 2721.279541015625
+    },
+    {
+      "date": "2025-10-20",
+      "close": 2751,
+      "adjClose": 2734.199951171875,
+      "valueForTechnical": 2734.199951171875
+    },
+    {
+      "date": "2025-10-21",
+      "close": 2850,
+      "adjClose": 2832.595458984375,
+      "valueForTechnical": 2832.595458984375
+    },
+    {
+      "date": "2025-10-22",
+      "close": 2948,
+      "adjClose": 2929.9970703125,
+      "valueForTechnical": 2929.9970703125
+    },
+    {
+      "date": "2025-10-23",
+      "close": 2816,
+      "adjClose": 2798.80322265625,
+      "valueForTechnical": 2798.80322265625
+    },
+    {
+      "date": "2025-10-24",
+      "close": 2846,
+      "adjClose": 2828.619873046875,
+      "valueForTechnical": 2828.619873046875
+    },
+    {
+      "date": "2025-10-27",
+      "close": 2876,
+      "adjClose": 2858.436767578125,
+      "valueForTechnical": 2858.436767578125
+    },
+    {
+      "date": "2025-10-28",
+      "close": 2822,
+      "adjClose": 2804.766357421875,
+      "valueForTechnical": 2804.766357421875
+    },
+    {
+      "date": "2025-10-29",
+      "close": 2712,
+      "adjClose": 2695.438232421875,
+      "valueForTechnical": 2695.438232421875
+    },
+    {
+      "date": "2025-10-30",
+      "close": 2764,
+      "adjClose": 2747.12060546875,
+      "valueForTechnical": 2747.12060546875
+    },
+    {
+      "date": "2025-10-31",
+      "close": 2774,
+      "adjClose": 2757.0595703125,
+      "valueForTechnical": 2757.0595703125
+    },
+    {
+      "date": "2025-11-04",
+      "close": 2750,
+      "adjClose": 2733.2060546875,
+      "valueForTechnical": 2733.2060546875
+    },
+    {
+      "date": "2025-11-05",
+      "close": 2788,
+      "adjClose": 2770.97412109375,
+      "valueForTechnical": 2770.97412109375
+    },
+    {
+      "date": "2025-11-06",
+      "close": 2767,
+      "adjClose": 2750.102294921875,
+      "valueForTechnical": 2750.102294921875
+    },
+    {
+      "date": "2025-11-07",
+      "close": 2790,
+      "adjClose": 2772.9619140625,
+      "valueForTechnical": 2772.9619140625
+    },
+    {
+      "date": "2025-11-10",
+      "close": 2844,
+      "adjClose": 2826.632080078125,
+      "valueForTechnical": 2826.632080078125
+    },
+    {
+      "date": "2025-11-11",
+      "close": 2915,
+      "adjClose": 2897.198486328125,
+      "valueForTechnical": 2897.198486328125
+    },
+    {
+      "date": "2025-11-12",
+      "close": 2983,
+      "adjClose": 2964.783203125,
+      "valueForTechnical": 2964.783203125
+    },
+    {
+      "date": "2025-11-13",
+      "close": 2959,
+      "adjClose": 2940.929931640625,
+      "valueForTechnical": 2940.929931640625
+    },
+    {
+      "date": "2025-11-14",
+      "close": 2890,
+      "adjClose": 2872.35107421875,
+      "valueForTechnical": 2872.35107421875
+    },
+    {
+      "date": "2025-11-17",
+      "close": 2621,
+      "adjClose": 2604.993896484375,
+      "valueForTechnical": 2604.993896484375
+    },
+    {
+      "date": "2025-11-18",
+      "close": 2629,
+      "adjClose": 2612.945068359375,
+      "valueForTechnical": 2612.945068359375
+    },
+    {
+      "date": "2025-11-19",
+      "close": 2606,
+      "adjClose": 2590.08544921875,
+      "valueForTechnical": 2590.08544921875
+    },
+    {
+      "date": "2025-11-20",
+      "close": 2626,
+      "adjClose": 2609.96337890625,
+      "valueForTechnical": 2609.96337890625
+    },
+    {
+      "date": "2025-11-21",
+      "close": 2654,
+      "adjClose": 2637.79248046875,
+      "valueForTechnical": 2637.79248046875
+    },
+    {
+      "date": "2025-11-25",
+      "close": 2805,
+      "adjClose": 2787.870361328125,
+      "valueForTechnical": 2787.870361328125
+    },
+    {
+      "date": "2025-11-26",
+      "close": 2790,
+      "adjClose": 2772.9619140625,
+      "valueForTechnical": 2772.9619140625
+    },
+    {
+      "date": "2025-11-27",
+      "close": 2829,
+      "adjClose": 2811.7236328125,
+      "valueForTechnical": 2811.7236328125
+    },
+    {
+      "date": "2025-11-28",
+      "close": 2820,
+      "adjClose": 2802.778564453125,
+      "valueForTechnical": 2802.778564453125
+    },
+    {
+      "date": "2025-12-01",
+      "close": 2732,
+      "adjClose": 2715.316162109375,
+      "valueForTechnical": 2715.316162109375
+    },
+    {
+      "date": "2025-12-02",
+      "close": 2613,
+      "adjClose": 2597.042724609375,
+      "valueForTechnical": 2597.042724609375
+    },
+    {
+      "date": "2025-12-03",
+      "close": 2651,
+      "adjClose": 2634.810791015625,
+      "valueForTechnical": 2634.810791015625
+    },
+    {
+      "date": "2025-12-04",
+      "close": 2644,
+      "adjClose": 2627.853515625,
+      "valueForTechnical": 2627.853515625
+    },
+    {
+      "date": "2025-12-05",
+      "close": 2567,
+      "adjClose": 2551.32373046875,
+      "valueForTechnical": 2551.32373046875
+    },
+    {
+      "date": "2025-12-08",
+      "close": 2550,
+      "adjClose": 2534.427490234375,
+      "valueForTechnical": 2534.427490234375
+    },
+    {
+      "date": "2025-12-09",
+      "close": 2559,
+      "adjClose": 2543.37255859375,
+      "valueForTechnical": 2543.37255859375
+    },
+    {
+      "date": "2025-12-10",
+      "close": 2557,
+      "adjClose": 2541.384765625,
+      "valueForTechnical": 2541.384765625
+    },
+    {
+      "date": "2025-12-11",
+      "close": 2508,
+      "adjClose": 2492.68408203125,
+      "valueForTechnical": 2492.68408203125
+    },
+    {
+      "date": "2025-12-12",
+      "close": 2462,
+      "adjClose": 2446.96484375,
+      "valueForTechnical": 2446.96484375
+    },
+    {
+      "date": "2025-12-15",
+      "close": 2451,
+      "adjClose": 2436.031982421875,
+      "valueForTechnical": 2436.031982421875
+    },
+    {
+      "date": "2025-12-16",
+      "close": 2391,
+      "adjClose": 2376.3984375,
+      "valueForTechnical": 2376.3984375
+    },
+    {
+      "date": "2025-12-17",
+      "close": 2363,
+      "adjClose": 2348.569580078125,
+      "valueForTechnical": 2348.569580078125
+    },
+    {
+      "date": "2025-12-18",
+      "close": 2431,
+      "adjClose": 2416.154296875,
+      "valueForTechnical": 2416.154296875
+    },
+    {
+      "date": "2025-12-19",
+      "close": 2492,
+      "adjClose": 2476.78173828125,
+      "valueForTechnical": 2476.78173828125
+    },
+    {
+      "date": "2025-12-22",
+      "close": 2418,
+      "adjClose": 2403.233642578125,
+      "valueForTechnical": 2403.233642578125
+    },
+    {
+      "date": "2025-12-23",
+      "close": 2568,
+      "adjClose": 2552.317626953125,
+      "valueForTechnical": 2552.317626953125
+    },
+    {
+      "date": "2025-12-24",
+      "close": 2567,
+      "adjClose": 2551.32373046875,
+      "valueForTechnical": 2551.32373046875
+    },
+    {
+      "date": "2025-12-25",
+      "close": 2596,
+      "adjClose": 2580.146728515625,
+      "valueForTechnical": 2580.146728515625
+    },
+    {
+      "date": "2025-12-26",
+      "close": 2620,
+      "adjClose": 2604,
+      "valueForTechnical": 2604
+    },
+    {
+      "date": "2025-12-29",
+      "close": 2652,
+      "adjClose": 2652,
+      "valueForTechnical": 2652
+    },
+    {
+      "date": "2025-12-30",
+      "close": 2622,
+      "adjClose": 2622,
+      "valueForTechnical": 2622
+    },
+    {
+      "date": "2026-01-05",
+      "close": 2563,
+      "adjClose": 2563,
+      "valueForTechnical": 2563
+    },
+    {
+      "date": "2026-01-06",
+      "close": 2688,
+      "adjClose": 2688,
+      "valueForTechnical": 2688
+    },
+    {
+      "date": "2026-01-07",
+      "close": 2830,
+      "adjClose": 2830,
+      "valueForTechnical": 2830
+    },
+    {
+      "date": "2026-01-08",
+      "close": 2842,
+      "adjClose": 2842,
+      "valueForTechnical": 2842
+    },
+    {
+      "date": "2026-01-09",
+      "close": 2893,
+      "adjClose": 2893,
+      "valueForTechnical": 2893
+    },
+    {
+      "date": "2026-01-13",
+      "close": 2888,
+      "adjClose": 2888,
+      "valueForTechnical": 2888
+    },
+    {
+      "date": "2026-01-14",
+      "close": 2858,
+      "adjClose": 2858,
+      "valueForTechnical": 2858
+    },
+    {
+      "date": "2026-01-15",
+      "close": 2940,
+      "adjClose": 2940,
+      "valueForTechnical": 2940
+    },
+    {
+      "date": "2026-01-16",
+      "close": 2919,
+      "adjClose": 2919,
+      "valueForTechnical": 2919
+    },
+    {
+      "date": "2026-01-19",
+      "close": 2890,
+      "adjClose": 2890,
+      "valueForTechnical": 2890
+    },
+    {
+      "date": "2026-01-20",
+      "close": 2902,
+      "adjClose": 2902,
+      "valueForTechnical": 2902
+    },
+    {
+      "date": "2026-01-21",
+      "close": 2780,
+      "adjClose": 2780,
+      "valueForTechnical": 2780
+    },
+    {
+      "date": "2026-01-22",
+      "close": 2728,
+      "adjClose": 2728,
+      "valueForTechnical": 2728
+    },
+    {
+      "date": "2026-01-23",
+      "close": 2758,
+      "adjClose": 2758,
+      "valueForTechnical": 2758
+    },
+    {
+      "date": "2026-01-26",
+      "close": 2760,
+      "adjClose": 2760,
+      "valueForTechnical": 2760
+    },
+    {
+      "date": "2026-01-27",
+      "close": 2753,
+      "adjClose": 2753,
+      "valueForTechnical": 2753
+    },
+    {
+      "date": "2026-01-28",
+      "close": 2626,
+      "adjClose": 2626,
+      "valueForTechnical": 2626
+    },
+    {
+      "date": "2026-01-29",
+      "close": 2544,
+      "adjClose": 2544,
+      "valueForTechnical": 2544
+    },
+    {
+      "date": "2026-01-30",
+      "close": 2501,
+      "adjClose": 2501,
+      "valueForTechnical": 2501
+    },
+    {
+      "date": "2026-02-02",
+      "close": 2458,
+      "adjClose": 2458,
+      "valueForTechnical": 2458
+    },
+    {
+      "date": "2026-02-03",
+      "close": 2514,
+      "adjClose": 2514,
+      "valueForTechnical": 2514
+    },
+    {
+      "date": "2026-02-04",
+      "close": 2340,
+      "adjClose": 2340,
+      "valueForTechnical": 2340
+    },
+    {
+      "date": "2026-02-05",
+      "close": 2440,
+      "adjClose": 2440,
+      "valueForTechnical": 2440
+    },
+    {
+      "date": "2026-02-06",
+      "close": 2420,
+      "adjClose": 2420,
+      "valueForTechnical": 2420
+    },
+    {
+      "date": "2026-02-09",
+      "close": 2376,
+      "adjClose": 2376,
+      "valueForTechnical": 2376
+    },
+    {
+      "date": "2026-02-10",
+      "close": 2490,
+      "adjClose": 2490,
+      "valueForTechnical": 2490
+    },
+    {
+      "date": "2026-02-12",
+      "close": 2390,
+      "adjClose": 2390,
+      "valueForTechnical": 2390
+    },
+    {
+      "date": "2026-02-13",
+      "close": 2270,
+      "adjClose": 2270,
+      "valueForTechnical": 2270
+    },
+    {
+      "date": "2026-02-16",
+      "close": 2072,
+      "adjClose": 2072,
+      "valueForTechnical": 2072
+    },
+    {
+      "date": "2026-02-17",
+      "close": 1960,
+      "adjClose": 1960,
+      "valueForTechnical": 1960
+    },
+    {
+      "date": "2026-02-18",
+      "close": 2002,
+      "adjClose": 2002,
+      "valueForTechnical": 2002
+    },
+    {
+      "date": "2026-02-19",
+      "close": 2160,
+      "adjClose": 2160,
+      "valueForTechnical": 2160
+    },
+    {
+      "date": "2026-02-20",
+      "close": 2218,
+      "adjClose": 2218,
+      "valueForTechnical": 2218
+    },
+    {
+      "date": "2026-02-24",
+      "close": 2195,
+      "adjClose": 2195,
+      "valueForTechnical": 2195
+    },
+    {
+      "date": "2026-02-25",
+      "close": 2195,
+      "adjClose": 2195,
+      "valueForTechnical": 2195
+    },
+    {
+      "date": "2026-02-26",
+      "close": 2384,
+      "adjClose": 2384,
+      "valueForTechnical": 2384
+    },
+    {
+      "date": "2026-02-27",
+      "close": 2347,
+      "adjClose": 2347,
+      "valueForTechnical": 2347
+    },
+    {
+      "date": "2026-03-02",
+      "close": 2223,
+      "adjClose": 2223,
+      "valueForTechnical": 2223
+    },
+    {
+      "date": "2026-03-03",
+      "close": 2229,
+      "adjClose": 2229,
+      "valueForTechnical": 2229
+    },
+    {
+      "date": "2026-03-04",
+      "close": 2201,
+      "adjClose": 2201,
+      "valueForTechnical": 2201
+    },
+    {
+      "date": "2026-03-05",
+      "close": 2301,
+      "adjClose": 2301,
+      "valueForTechnical": 2301
+    },
+    {
+      "date": "2026-03-06",
+      "close": 2342,
+      "adjClose": 2342,
+      "valueForTechnical": 2342
+    },
+    {
+      "date": "2026-03-09",
+      "close": 2321,
+      "adjClose": 2321,
+      "valueForTechnical": 2321
+    },
+    {
+      "date": "2026-03-10",
+      "close": 2396,
+      "adjClose": 2396,
+      "valueForTechnical": 2396
+    },
+    {
+      "date": "2026-03-11",
+      "close": 2400,
+      "adjClose": 2400,
+      "valueForTechnical": 2400
+    },
+    {
+      "date": "2026-03-12",
+      "close": 2279,
+      "adjClose": 2279,
+      "valueForTechnical": 2279
+    },
+    {
+      "date": "2026-03-13",
+      "close": 2168,
+      "adjClose": 2168,
+      "valueForTechnical": 2168
+    },
+    {
+      "date": "2026-03-16",
+      "close": 2150,
+      "adjClose": 2150,
+      "valueForTechnical": 2150
+    },
+    {
+      "date": "2026-03-17",
+      "close": 2081,
+      "adjClose": 2081,
+      "valueForTechnical": 2081
+    },
+    {
+      "date": "2026-03-18",
+      "close": 2049,
+      "adjClose": 2049,
+      "valueForTechnical": 2049
+    },
+    {
+      "date": "2026-03-19",
+      "close": 1946,
+      "adjClose": 1946,
+      "valueForTechnical": 1946
+    },
+    {
+      "date": "2026-03-23",
+      "close": 1960,
+      "adjClose": 1960,
+      "valueForTechnical": 1960
+    },
+    {
+      "date": "2026-03-24",
+      "close": 2053,
+      "adjClose": 2053,
+      "valueForTechnical": 2053
+    },
+    {
+      "date": "2026-03-25",
+      "close": 2149,
+      "adjClose": 2149,
+      "valueForTechnical": 2149
+    },
+    {
+      "date": "2026-03-26",
+      "close": 2057,
+      "adjClose": 2057,
+      "valueForTechnical": 2057
+    },
+    {
+      "date": "2026-03-27",
+      "close": 2086,
+      "adjClose": 2086,
+      "valueForTechnical": 2086
+    },
+    {
+      "date": "2026-03-30",
+      "close": 1983,
+      "adjClose": 1983,
+      "valueForTechnical": 1983
+    },
+    {
+      "date": "2026-03-31",
+      "close": 2029,
+      "adjClose": 2029,
+      "valueForTechnical": 2029
+    },
+    {
+      "date": "2026-04-01",
+      "close": 2133,
+      "adjClose": 2133,
+      "valueForTechnical": 2133
+    },
+    {
+      "date": "2026-04-02",
+      "close": 2038,
+      "adjClose": 2038,
+      "valueForTechnical": 2038
+    },
+    {
+      "date": "2026-04-03",
+      "close": 2034,
+      "adjClose": 2034,
+      "valueForTechnical": 2034
+    },
+    {
+      "date": "2026-04-06",
+      "close": 2015,
+      "adjClose": 2015,
+      "valueForTechnical": 2015
+    },
+    {
+      "date": "2026-04-07",
+      "close": 2031,
+      "adjClose": 2031,
+      "valueForTechnical": 2031
+    },
+    {
+      "date": "2026-04-08",
+      "close": 2145,
+      "adjClose": 2145,
+      "valueForTechnical": 2145
+    },
+    {
+      "date": "2026-04-09",
+      "close": 2104,
+      "adjClose": 2104,
+      "valueForTechnical": 2104
+    },
+    {
+      "date": "2026-04-10",
+      "close": 2053,
+      "adjClose": 2053,
+      "valueForTechnical": 2053
+    },
+    {
+      "date": "2026-04-13",
+      "close": 2064,
+      "adjClose": 2064,
+      "valueForTechnical": 2064
+    },
+    {
+      "date": "2026-04-14",
+      "close": 2110,
+      "adjClose": 2110,
+      "valueForTechnical": 2110
+    },
+    {
+      "date": "2026-04-15",
+      "close": 2116,
+      "adjClose": 2116,
+      "valueForTechnical": 2116
+    },
+    {
+      "date": "2026-04-16",
+      "close": 2110,
+      "adjClose": 2110,
+      "valueForTechnical": 2110
+    },
+    {
+      "date": "2026-04-17",
+      "close": 2117,
+      "adjClose": 2117,
+      "valueForTechnical": 2117
+    },
+    {
+      "date": "2026-04-20",
+      "close": 2117,
+      "adjClose": 2117,
+      "valueForTechnical": 2117
+    },
+    {
+      "date": "2026-04-21",
+      "close": 2160,
+      "adjClose": 2160,
+      "valueForTechnical": 2160
+    },
+    {
+      "date": "2026-04-22",
+      "close": 2082,
+      "adjClose": 2082,
+      "valueForTechnical": 2082
+    },
+    {
+      "date": "2026-04-23",
+      "close": 2040,
+      "adjClose": 2040,
+      "valueForTechnical": 2040
+    },
+    {
+      "date": "2026-04-24",
+      "close": 2055,
+      "adjClose": 2055,
+      "valueForTechnical": 2055
+    },
+    {
+      "date": "2026-04-27",
+      "close": 2004,
+      "adjClose": 2004,
+      "valueForTechnical": 2004
+    },
+    {
+      "date": "2026-04-28",
+      "close": 2007,
+      "adjClose": 2007,
+      "valueForTechnical": 2007
+    },
+    {
+      "date": "2026-04-30",
+      "close": 1994,
+      "adjClose": 1994,
+      "valueForTechnical": 1994
+    },
+    {
+      "date": "2026-05-01",
+      "close": 1998,
+      "adjClose": 1998,
+      "valueForTechnical": 1998
+    },
+    {
+      "date": "2026-05-07",
+      "close": 2031,
+      "adjClose": 2031,
+      "valueForTechnical": 2031
+    }
+  ]
+}

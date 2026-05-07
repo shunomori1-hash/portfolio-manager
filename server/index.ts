@@ -5,7 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
 import YahooFinance from 'yahoo-finance2';
-import type { PriceUpdateLogEntry, FiscalMonthLogEntry } from '../src/types/index.js';
+import type { PriceUpdateLogEntry, FiscalMonthLogEntry, TechnicalLogEntry, TechRating, TechUpdateStatus } from '../src/types/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,6 +18,9 @@ const FUTURES_LOG_FILE = path.join(ROOT, 'data', 'futures-price-update-log.json'
 const FUTURES_LOG_MAX = 300;
 const FISCAL_LOG_FILE = path.join(ROOT, 'data', 'fiscal-month-update-log.json');
 const FISCAL_LOG_MAX = 500;
+const PRICE_HISTORY_DIR = path.join(ROOT, 'data', 'price-history');
+const TECH_LOG_FILE = path.join(ROOT, 'data', 'technical-update-log.json');
+const TECH_LOG_MAX = 500;
 
 // yahoo-finance2 instance (suppress survey notice)
 const yf = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
@@ -26,7 +29,7 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 
 // ─── Directory setup ──────────────────────────────────────────────────────────
 
-for (const dir of [path.join(ROOT, 'data'), PORTFOLIOS_DIR, BACKUPS_DIR]) {
+for (const dir of [path.join(ROOT, 'data'), PORTFOLIOS_DIR, BACKUPS_DIR, PRICE_HISTORY_DIR]) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
@@ -905,6 +908,387 @@ app.get('/api/futures-price/test-growth', async (_req, res) => {
       stack,
     });
   }
+});
+
+// ── Technical: types ──────────────────────────────────────────────────────
+
+interface PriceHistoryEntry {
+  date: string;             // YYYY-MM-DD
+  close: number | null;
+  adjClose: number | null;
+  valueForTechnical: number;
+}
+
+interface PriceHistoryFile {
+  code: string;
+  symbol: string;
+  lastFetchedAt: string;
+  prices: PriceHistoryEntry[];
+}
+
+interface TechJudgementResult {
+  rating: TechRating | null;
+  ratingBeforeBreakout: TechRating | null;
+  breakoutBoosted: boolean;
+  reason: string;
+  status: TechUpdateStatus;
+  debug: Record<string, unknown>;
+}
+
+// ── Technical: price history helpers ────────────────────────────────────────
+
+async function fetchPriceHistoryFromYahoo(code: string): Promise<PriceHistoryEntry[] | null> {
+  const symbol = toYahooSymbol(code);
+  const endDate = new Date();
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - 340); // ~220+ trading days buffer
+
+  try {
+    const history = await yf.historical(symbol, {
+      period1: startDate,
+      period2: endDate,
+      interval: '1d',
+    });
+
+    if (!history || history.length === 0) return null;
+
+    const entries: PriceHistoryEntry[] = [];
+    for (const row of history) {
+      const adjClose = (row.adjClose != null && isFinite(row.adjClose) && row.adjClose > 0)
+        ? row.adjClose : null;
+      const close = (row.close != null && isFinite(row.close) && row.close > 0)
+        ? row.close : null;
+      const valueForTechnical = adjClose ?? close;
+      if (valueForTechnical == null) continue;
+      entries.push({
+        date: row.date.toISOString().slice(0, 10),
+        close,
+        adjClose,
+        valueForTechnical,
+      });
+    }
+    // Sort ascending by date
+    entries.sort((a, b) => a.date.localeCompare(b.date));
+    return entries.length > 0 ? entries : null;
+  } catch (e) {
+    console.error(`[technical] fetchPriceHistory failed for ${code}:`, e instanceof Error ? e.message : e);
+    return null;
+  }
+}
+
+async function loadOrFetchPriceHistory(code: string): Promise<{ prices: PriceHistoryEntry[]; source: 'fetched' | 'cached' } | null> {
+  const histFile = path.join(PRICE_HISTORY_DIR, `${code}.json`);
+  const todayStr = new Date().toISOString().slice(0, 10);
+
+  // Return cached if already fetched today
+  if (fs.existsSync(histFile)) {
+    try {
+      const existing = JSON.parse(fs.readFileSync(histFile, 'utf-8')) as PriceHistoryFile;
+      if (existing.lastFetchedAt?.slice(0, 10) === todayStr && existing.prices?.length > 0) {
+        return { prices: existing.prices, source: 'cached' };
+      }
+    } catch { /* corrupt file — re-fetch */ }
+  }
+
+  // Fetch from Yahoo Finance
+  const fetched = await fetchPriceHistoryFromYahoo(code);
+
+  if (fetched && fetched.length > 0) {
+    const histData: PriceHistoryFile = {
+      code,
+      symbol: toYahooSymbol(code),
+      lastFetchedAt: new Date().toISOString(),
+      prices: fetched,
+    };
+    try { fs.writeFileSync(histFile, JSON.stringify(histData, null, 2), 'utf-8'); } catch { /* ignore */ }
+    return { prices: fetched, source: 'fetched' };
+  }
+
+  // Fetch failed — try stale cache
+  if (fs.existsSync(histFile)) {
+    try {
+      const existing = JSON.parse(fs.readFileSync(histFile, 'utf-8')) as PriceHistoryFile;
+      if (existing.prices?.length > 0) {
+        console.log(`[technical] using stale cache for ${code}`);
+        return { prices: existing.prices, source: 'cached' };
+      }
+    } catch { /* ignore */ }
+  }
+
+  return null;
+}
+
+// ── Technical: calculation ────────────────────────────────────────────────────
+
+function calcMA(values: number[], endIdx: number, period: number): number | null {
+  if (endIdx < period) return null;
+  const slice = values.slice(endIdx - period, endIdx);
+  if (slice.some(v => !isFinite(v) || v <= 0)) return null;
+  return slice.reduce((a, b) => a + b, 0) / period;
+}
+
+const TECH_RANK_UP: Record<string, TechRating> = {
+  '☆': '☆', '◎': '☆', '○': '◎', '△': '○', '×': '△', '': '',
+};
+
+function judgeTechnical(prices: PriceHistoryEntry[]): TechJudgementResult {
+  const MIN_DATA = 205; // 200 for MA200 + 5 for rising-check lookback
+  const n = prices.length;
+
+  if (n < MIN_DATA) {
+    return {
+      rating: null, ratingBeforeBreakout: null, breakoutBoosted: false,
+      reason: `データ不足(${n}件 < ${MIN_DATA}件)のため既存評価を維持`,
+      status: 'insufficient_data', debug: { dataCount: n },
+    };
+  }
+
+  const values = prices.map(p => p.valueForTechnical);
+  const latest = values[n - 1];
+
+  // Current MAs
+  const ma5   = calcMA(values, n, 5);
+  const ma25  = calcMA(values, n, 25);
+  const ma50  = calcMA(values, n, 50);
+  const ma75  = calcMA(values, n, 75);
+  const ma200 = calcMA(values, n, 200);
+
+  if (ma5 == null || ma25 == null || ma50 == null || ma75 == null || ma200 == null) {
+    return {
+      rating: null, ratingBeforeBreakout: null, breakoutBoosted: false,
+      reason: 'MA計算に必要なデータ不足のため既存評価を維持',
+      status: 'insufficient_data', debug: { dataCount: n, ma5, ma25, ma50, ma75, ma200 },
+    };
+  }
+
+  // MAs 5 trading days ago
+  const ma5_5d   = calcMA(values, n - 5, 5);
+  const ma25_5d  = calcMA(values, n - 5, 25);
+  const ma50_5d  = calcMA(values, n - 5, 50);
+  const ma75_5d  = calcMA(values, n - 5, 75);
+  const ma200_5d = calcMA(values, n - 5, 200);
+
+  const isPerfectOrder = ma5 > ma25 && ma25 > ma50 && ma50 > ma75 && ma75 > ma200;
+  const allRising = ma5_5d != null && ma25_5d != null && ma50_5d != null && ma75_5d != null && ma200_5d != null
+    && ma5 > ma5_5d && ma25 > ma25_5d && ma50 > ma50_5d && ma75 > ma75_5d && ma200 > ma200_5d;
+
+  let baseRating: TechRating;
+  let reason: string;
+
+  if (isPerfectOrder && allRising) {
+    baseRating = '☆';
+    reason = 'MA5>MA25>MA50>MA75>MA200 かつ全MA上昇のため☆';
+  } else if (latest > ma25 && latest > ma200) {
+    baseRating = '◎';
+    reason = '終値が25日線と200日線を上回るため◎';
+  } else if (latest > ma50 && latest > ma200) {
+    baseRating = '○';
+    reason = '終値が50日線と200日線を上回るため○';
+  } else if (latest > ma200) {
+    baseRating = '△';
+    reason = '終値が200日線を上回るため△';
+  } else {
+    baseRating = '×';
+    reason = '終値が200日線を下回るため×';
+  }
+
+  // High breakout check: recent 10 days vs prior 90 days
+  const recent10 = values.slice(-10);
+  const prev90 = values.slice(Math.max(0, n - 100), n - 10);
+  const recentHigh = Math.max(...recent10);
+  const prevHigh = prev90.length > 0 ? Math.max(...prev90) : null;
+  const highBreakout = prevHigh != null && isFinite(recentHigh) && recentHigh > prevHigh;
+
+  const debug = {
+    dataCount: n, latest, ma5, ma25, ma50, ma75, ma200,
+    ma5_5d, ma200_5d, isPerfectOrder, allRising,
+    highBreakout, recentHigh, prevHigh,
+  };
+
+  if (highBreakout && prevHigh != null) {
+    const boosted = TECH_RANK_UP[baseRating] ?? baseRating;
+    const breakNote = `直近10日終値最高値(${recentHigh.toFixed(0)})が直前90日高値(${prevHigh.toFixed(0)})を上回ったため${boosted}へランクアップ`;
+    reason += `。${breakNote}`;
+    return { rating: boosted, ratingBeforeBreakout: baseRating, breakoutBoosted: true, reason, status: 'success', debug };
+  }
+
+  return { rating: baseRating, ratingBeforeBreakout: baseRating, breakoutBoosted: false, reason, status: 'success', debug };
+}
+
+// ── Technical: log helper ─────────────────────────────────────────────────────
+
+function appendTechLog(entries: TechnicalLogEntry[]) {
+  let existing: TechnicalLogEntry[] = [];
+  if (fs.existsSync(TECH_LOG_FILE)) {
+    try { existing = JSON.parse(fs.readFileSync(TECH_LOG_FILE, 'utf-8')); } catch { existing = []; }
+  }
+  const merged = [...entries, ...existing].slice(0, TECH_LOG_MAX);
+  fs.writeFileSync(TECH_LOG_FILE, JSON.stringify(merged, null, 2), 'utf-8');
+}
+
+// ── Technical: debug single code ────────────────────────────────────────────
+
+app.get('/api/technical/test/:code', async (req, res) => {
+  const code = req.params.code.trim();
+  console.log(`[technical/test] code=${code}`);
+  try {
+    const loaded = await loadOrFetchPriceHistory(code);
+    if (!loaded) {
+      res.json({ code, symbol: toYahooSymbol(code), success: false, error: 'price history unavailable', dataCount: 0, source: 'none' });
+      return;
+    }
+    const { prices, source } = loaded;
+    const result = judgeTechnical(prices);
+    const n = prices.length;
+    const latest = n > 0 ? prices[n - 1] : null;
+    res.json({
+      code, symbol: toYahooSymbol(code),
+      success: result.rating != null,
+      latestDate: latest?.date ?? null,
+      latestClose: latest?.valueForTechnical ?? null,
+      ...result.debug,
+      ratingBeforeBreakout: result.ratingBeforeBreakout,
+      finalRating: result.rating,
+      highBreakout: result.breakoutBoosted,
+      reason: result.reason,
+      dataCount: n,
+      source,
+      error: null,
+    });
+  } catch (e) {
+    const errMsg = e instanceof Error ? e.message : String(e);
+    res.json({ code, symbol: toYahooSymbol(code), success: false, error: errMsg, stack: (e instanceof Error ? e.stack : undefined) });
+  }
+});
+
+// ── Technical: bulk update for a portfolio ───────────────────────────────────
+
+app.post('/api/portfolio/:portfolioId/update-technicals', async (req, res) => {
+  const { portfolioId } = req.params;
+  if (!validatePortfolioId(portfolioId)) {
+    res.status(400).json({ error: `Invalid portfolioId: ${portfolioId}` });
+    return;
+  }
+
+  const updatedAt = new Date().toISOString();
+  const pfFile = getPortfolioFile(portfolioId);
+
+  // Backup before update
+  try { createPortfolioBackup(portfolioId); } catch { /* non-fatal */ }
+
+  let portfolio: { items: Record<string, unknown>[]; summary: unknown; lastSaved: string | null };
+  try {
+    portfolio = fs.existsSync(pfFile)
+      ? JSON.parse(fs.readFileSync(pfFile, 'utf-8'))
+      : { items: [], summary: {}, lastSaved: null };
+  } catch (e) {
+    res.status(500).json({ error: 'Failed to read portfolio: ' + String(e) });
+    return;
+  }
+
+  const items = portfolio.items as Record<string, unknown>[];
+  const targets = items.filter(i => typeof i['code'] === 'string' && (i['code'] as string).trim() !== '');
+
+  console.log(`[technical/update] portfolioId=${portfolioId} targets=${targets.length}`);
+
+  let successCount = 0, failedCount = 0, insufficientDataCount = 0, boostedCount = 0, cachedCount = 0;
+  const results: unknown[] = [];
+  const logEntries: TechnicalLogEntry[] = [];
+
+  // Process one at a time with slight delay to avoid rate-limiting
+  for (let i = 0; i < targets.length; i++) {
+    const item = targets[i];
+    const code = (item['code'] as string).trim();
+    const name = (item['name'] as string) ?? '';
+    const previousTech = (item['tech'] as TechRating) ?? '';
+
+    if (i > 0) await sleep(200);
+
+    let judged: TechJudgementResult;
+    let source: 'fetched' | 'cached' | 'none' = 'none';
+
+    try {
+      const loaded = await loadOrFetchPriceHistory(code);
+      if (loaded) {
+        source = loaded.source;
+        judged = judgeTechnical(loaded.prices);
+      } else {
+        judged = {
+          rating: null, ratingBeforeBreakout: null, breakoutBoosted: false,
+          reason: '日足データ取得失敗のため既存評価を維持', status: 'failed', debug: {},
+        };
+      }
+    } catch (e) {
+      const errMsg = e instanceof Error ? e.message : String(e);
+      judged = {
+        rating: null, ratingBeforeBreakout: null, breakoutBoosted: false,
+        reason: errMsg, status: 'failed', debug: {},
+      };
+    }
+
+    const statusLabel = source === 'cached' && judged.status === 'success' ? 'cached' : judged.status;
+
+    // Apply to item only on success
+    if (judged.rating != null && judged.status === 'success') {
+      item['tech'] = judged.rating;
+      item['techAutoRating'] = judged.rating;
+      item['techRatingBeforeBreakout'] = judged.ratingBeforeBreakout;
+      item['techBreakoutBoosted'] = judged.breakoutBoosted;
+      item['techReason'] = judged.reason;
+      item['techUpdatedAt'] = updatedAt;
+      item['techUpdateStatus'] = statusLabel;
+      item['techUpdateError'] = null;
+
+      if (source === 'cached') cachedCount++;
+      else successCount++;
+      if (judged.breakoutBoosted) boostedCount++;
+    } else {
+      // Keep existing tech — only update status fields
+      item['techUpdateStatus'] = judged.status;
+      item['techUpdateError'] = judged.reason;
+      item['techUpdatedAt'] = updatedAt;
+
+      if (judged.status === 'insufficient_data') insufficientDataCount++;
+      else failedCount++;
+    }
+
+    results.push({
+      code, name,
+      previousTech,
+      ratingBeforeBreakout: judged.ratingBeforeBreakout,
+      newTech: judged.rating,
+      highBreakout: judged.breakoutBoosted,
+      status: statusLabel,
+      reason: judged.reason,
+      error: judged.status === 'failed' ? judged.reason : null,
+    });
+
+    logEntries.push({
+      updatedAt, portfolioId, code, name,
+      previousTech,
+      ratingBeforeBreakout: judged.ratingBeforeBreakout,
+      newTech: judged.rating,
+      highBreakout: judged.breakoutBoosted,
+      status: statusLabel as TechUpdateStatus,
+      reason: judged.reason,
+      error: judged.status === 'failed' ? judged.reason : null,
+    });
+
+    console.log(`[technical/update] ${code} ${name}: ${statusLabel} tech=${judged.rating ?? '(kept)'} breakout=${judged.breakoutBoosted}`);
+  }
+
+  // Save updated portfolio
+  portfolio.lastSaved = updatedAt;
+  try {
+    fs.writeFileSync(pfFile, JSON.stringify(portfolio, null, 2), 'utf-8');
+  } catch (e) {
+    console.error('[technical/update] Save failed:', e);
+  }
+
+  // Save log
+  try { appendTechLog(logEntries); } catch { /* non-fatal */ }
+
+  res.json({ updatedAt, successCount, failedCount, insufficientDataCount, boostedCount, cachedCount, results });
 });
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -4,6 +4,7 @@ import type {
   PriceUpdateLogEntry, PriceUpdateSummary,
   HedgeFutures, FuturesPosition, PortfolioId,
   FiscalMonthFetchResponse, FiscalMonthLogEntry,
+  TechnicalUpdateSummary,
 } from '../types';
 
 export const DEFAULT_HEDGE_FUTURES: HedgeFutures = {
@@ -67,6 +68,14 @@ function normalizeItem(raw: Partial<PortfolioItem>): PortfolioItem {
     fiscalMonthUpdateStatus: raw.fiscalMonthUpdateStatus ?? 'unknown',
     fiscalMonthUpdateError: raw.fiscalMonthUpdateError ?? null,
     lastFiscalMonthUpdatedAt: raw.lastFiscalMonthUpdatedAt ?? null,
+    // technical auto-rating — default to 'unknown' for old data
+    techAutoRating: raw.techAutoRating ?? '',
+    techRatingBeforeBreakout: raw.techRatingBeforeBreakout ?? null,
+    techBreakoutBoosted: raw.techBreakoutBoosted ?? false,
+    techReason: raw.techReason ?? '',
+    techUpdatedAt: raw.techUpdatedAt ?? null,
+    techUpdateStatus: raw.techUpdateStatus ?? 'unknown',
+    techUpdateError: raw.techUpdateError ?? null,
   };
 }
 
@@ -148,6 +157,8 @@ export function usePortfolio(portfolioId: PortfolioId) {
   const [saving, setSaving] = useState(false);
   const [fetchingPrices, setFetchingPrices] = useState(false);
   const [fetchingFutures, setFetchingFutures] = useState(false);
+  const [fetchingTechnicals, setFetchingTechnicals] = useState(false);
+  const [technicalUpdateSummary, setTechnicalUpdateSummary] = useState<TechnicalUpdateSummary | null>(null);
   const [fetchingPriceItemId, setFetchingPriceItemId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState<string | null>(null);
@@ -582,17 +593,51 @@ export function usePortfolio(portfolioId: PortfolioId) {
     }
   }, []);
 
+  // ── Fetch technical ratings ───────────────────────────────────────────────
+  const fetchTechnicals = useCallback(async () => {
+    setFetchingTechnicals(true);
+    setTechnicalUpdateSummary(null);
+    try {
+      const r = await fetch(`/api/portfolio/${portfolioId}/update-technicals`, { method: 'POST' });
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const data = await r.json() as TechnicalUpdateSummary;
+      setTechnicalUpdateSummary(data);
+
+      // Reload portfolio to reflect server-side changes
+      const reloadR = await fetch(`/api/portfolio/${portfolioId}`);
+      const reloaded = await reloadR.json() as Partial<Portfolio>;
+      setPortfolio(normalizePortfolio(reloaded));
+      setIsDirty(false);
+
+      const { successCount, cachedCount, insufficientDataCount, failedCount, boostedCount } = data;
+      const total = successCount + cachedCount;
+      let msg = `テク更新 成功${total}件`;
+      if (insufficientDataCount > 0) msg += ` データ不足${insufficientDataCount}件`;
+      if (failedCount > 0) msg += ` 失敗${failedCount}件`;
+      if (boostedCount > 0) msg += ` 高値ブレイク${boostedCount}件`;
+      setSaveStatus(msg);
+      setTimeout(() => setSaveStatus(null), 6000);
+    } catch (e) {
+      setSaveStatus('テク更新エラー: ' + String(e));
+      setTimeout(() => setSaveStatus(null), 5000);
+    } finally {
+      setFetchingTechnicals(false);
+    }
+  }, [portfolioId]);
+
   return {
     portfolio,
     loading,
     saving,
     fetchingPrices,
     fetchingFutures,
+    fetchingTechnicals,
     fetchingPriceItemId,
     error,
     saveStatus,
     isDirty,
     priceUpdateSummary,
+    technicalUpdateSummary,
     updateItem,
     updatePriceManually,
     resetPlannedShares,
@@ -603,6 +648,7 @@ export function usePortfolio(portfolioId: PortfolioId) {
     fetchPrices,
     fetchSinglePrice,
     fetchFuturesPrices,
+    fetchTechnicals,
     importItems,
   };
 }

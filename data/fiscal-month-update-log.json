@@ -1,5 +1,38 @@
 [
   {
+    "updatedAt": "2026-05-07T05:02:04.062Z",
+    "portfolioId": "personal",
+    "code": "556A",
+    "name": "犬猫生活",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": null,
+    "status": "failed",
+    "source": "yahoo-finance",
+    "error": "No fiscal year-end month found (lastFiscalYearEnd=undefined, nextFiscalYearEnd=undefined, fiscalYearEnd=undefined)"
+  },
+  {
+    "updatedAt": "2026-05-07T05:02:04.062Z",
+    "portfolioId": "personal",
+    "code": "6076",
+    "name": "アメイズ",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": null,
+    "status": "failed",
+    "source": "yahoo-finance",
+    "error": "Quote not found for symbol: 6076.T"
+  },
+  {
+    "updatedAt": "2026-05-07T05:02:04.062Z",
+    "portfolioId": "personal",
+    "code": "4966",
+    "name": "上村工業",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "3月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
     "updatedAt": "2026-05-07T02:16:29.212Z",
     "portfolioId": "company",
     "code": "4554",

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { usePortfolio } from './hooks/usePortfolio';
 import { PortfolioTable } from './components/PortfolioTable';
 import { LongSummary } from './components/LongSummary';
@@ -30,9 +30,11 @@ export default function App() {
 
   const {
     portfolio, loading, saving, fetchingPrices, fetchingPriceItemId,
+    fetchingTechnicals, technicalUpdateSummary,
     error, saveStatus, isDirty, priceUpdateSummary,
     updateItem, updatePriceManually, resetPlannedShares, updateSummary,
-    addItem, removeItem, save, fetchPrices, fetchSinglePrice, fetchFuturesPrices, fetchingFutures, importItems,
+    addItem, removeItem, save, fetchPrices, fetchSinglePrice,
+    fetchFuturesPrices, fetchingFutures, fetchTechnicals, importItems,
   } = usePortfolio(activePortfolioId);
 
   // ── UI state ─────────────────────────────────────────────────────────────
@@ -42,6 +44,8 @@ export default function App() {
   const [showColSettings, setShowColSettings] = useState(false);
   const [showPriceLog, setShowPriceLog] = useState(false);
   const [showFailedList, setShowFailedList] = useState(false);
+  const [showTechDetail, setShowTechDetail] = useState(false);
+  const [techResultVisible, setTechResultVisible] = useState(false);
 
   // ── Table state ───────────────────────────────────────────────────────────
   const [sortState, setSortState] = useState<SortState>(DEFAULT_SORT);
@@ -85,6 +89,14 @@ export default function App() {
   }, [portfolio.items, filter, sortState, totalBuy]);
 
   const filterActive = isFilterActive(filter);
+
+  // Show tech result bar whenever a new summary arrives
+  useEffect(() => {
+    if (technicalUpdateSummary) {
+      setTechResultVisible(true);
+      setShowTechDetail(false);
+    }
+  }, [technicalUpdateSummary]);
 
   // ── Loading / error ──────────────────────────────────────────────────────
   if (loading) return <div className="loading">データを読み込み中...</div>;
@@ -192,8 +204,14 @@ export default function App() {
           </button>
           <button className="btn btn-primary"
             onClick={() => fetchPrices(portfolio)}
-            disabled={fetchingPrices}>
+            disabled={fetchingPrices || fetchingTechnicals}>
             {fetchingPrices ? '取得中...' : '株価一括更新'}
+          </button>
+          <button className="btn btn-tech"
+            onClick={() => fetchTechnicals()}
+            disabled={fetchingTechnicals || fetchingPrices}
+            title="選択中PFの銘柄について日足データを取得しテク列を自動判定します">
+            {fetchingTechnicals ? 'テク判定中...' : 'テク更新'}
           </button>
           <button className="btn btn-save"
             onClick={() => save(portfolio)}
@@ -214,6 +232,42 @@ export default function App() {
           ))}
           <button className="btn-filter-clear" style={{ marginLeft: 8 }}
             onClick={() => setShowFailedList(false)}>閉じる</button>
+        </div>
+      )}
+
+      {/* ── Technical update result bar ─────────────────────────────────── */}
+      {techResultVisible && technicalUpdateSummary && (
+        <div className="tech-result-bar">
+          <span className="tech-result-title">テク更新:</span>
+          <span>成功 {technicalUpdateSummary.successCount + technicalUpdateSummary.cachedCount}件</span>
+          {technicalUpdateSummary.boostedCount > 0 && (
+            <span className="tech-result-boost"> 高値ブレイク {technicalUpdateSummary.boostedCount}件</span>
+          )}
+          {technicalUpdateSummary.insufficientDataCount > 0 && (
+            <span className="tech-result-warn"> データ不足 {technicalUpdateSummary.insufficientDataCount}件</span>
+          )}
+          {technicalUpdateSummary.failedCount > 0 && (
+            <span className="tech-result-error"> 失敗 {technicalUpdateSummary.failedCount}件</span>
+          )}
+          {(technicalUpdateSummary.failedCount > 0 || technicalUpdateSummary.insufficientDataCount > 0) && (
+            <button className="btn-filter-clear" style={{ marginLeft: 8 }}
+              onClick={() => setShowTechDetail(v => !v)}>
+              {showTechDetail ? '閉じる' : '詳細'}
+            </button>
+          )}
+          <button className="btn-filter-clear" style={{ marginLeft: 4 }}
+            onClick={() => { setTechResultVisible(false); setShowTechDetail(false); }}>×</button>
+        </div>
+      )}
+      {showTechDetail && technicalUpdateSummary && (
+        <div className="tech-detail-bar">
+          {technicalUpdateSummary.results
+            .filter(r => r.status === 'failed' || r.status === 'insufficient_data')
+            .map((r, i) => (
+              <span key={i} className="failed-price-item" title={r.reason}>
+                {r.code} {r.name}:{r.status === 'insufficient_data' ? 'データ不足' : '失敗'}
+              </span>
+            ))}
         </div>
       )}
 
