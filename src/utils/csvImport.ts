@@ -312,6 +312,7 @@ export async function parseCsvFile(file: File): Promise<CsvParseResult> {
       techUpdatedAt: null,
       techUpdateStatus: 'unknown',
       techUpdateError: null,
+      nameSource: 'import',
       nameUpdateStatus: 'unknown',
       nameUpdateError: null,
       nameUpdatedAt: null,

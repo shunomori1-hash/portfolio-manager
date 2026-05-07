@@ -25,17 +25,19 @@ const DEFAULT_PORTFOLIO: Portfolio = {
   lastSaved: null,
 };
 
-// Returns true when the string contains at least one Japanese character
-function hasJapaneseChars(str: string | undefined | null): boolean {
-  if (!str) return false;
-  return /[぀-ゟ゠-ヿ一-鿿]/.test(str);
-}
-
 // Returns true when name has a meaningful value (not empty / dash)
 function isNameFilled(name: string | undefined | null): boolean {
   if (!name) return false;
   const n = name.trim();
   return n !== '' && n !== '-' && n !== '—';
+}
+
+// Returns true when the name field may be auto-overwritten.
+// Blank names, Yahoo-fetched names, and JPX-fetched names are writable.
+// Manual/import/override-tagged names are protected.
+function isNameWritable(item: PortfolioItem): boolean {
+  if (!isNameFilled(item.name)) return true;
+  return item.nameSource === 'yahoo' || item.nameSource === 'jpx';
 }
 
 // Returns true when settlementMonth has a meaningful value (not empty / dash)
@@ -83,6 +85,8 @@ function normalizeItem(raw: Partial<PortfolioItem>): PortfolioItem {
     fiscalMonthUpdateError: raw.fiscalMonthUpdateError ?? null,
     lastFiscalMonthUpdatedAt: raw.lastFiscalMonthUpdatedAt ?? null,
     // company name auto-fill tracking
+    // Existing items without nameSource: treat filled names as 'manual' so they won't be overwritten
+    nameSource: raw.nameSource ?? (raw.name?.trim() ? 'manual' : 'unknown'),
     nameUpdateStatus: raw.nameUpdateStatus ?? 'unknown',
     nameUpdateError: raw.nameUpdateError ?? null,
     nameUpdatedAt: raw.nameUpdatedAt ?? null,
@@ -258,6 +262,14 @@ export function usePortfolio(portfolioId: PortfolioId) {
     const newItem = normalizeItem({ ...initial, id: crypto.randomUUID() });
     setPortfolio(prev => ({ ...prev, items: [...prev.items, newItem] }));
     setIsDirty(true);
+    // Save hand-entered name to master so future auto-fill can use it
+    if (newItem.code.trim() && newItem.name.trim()) {
+      fetch('/api/company-name/master/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: newItem.code.trim(), name: newItem.name.trim() }),
+      }).catch(() => { /* best-effort */ });
+    }
   }, []);
 
   const removeItem = useCallback((id: string) => {
@@ -461,54 +473,20 @@ export function usePortfolio(portfolioId: PortfolioId) {
       } catch { /* fiscal month fetch is non-fatal — ignore */ }
     }
 
-    // 5. Company name: Phase A — apply overrides (blank OR English-named items)
-    //    Phase B — fetch from Yahoo for still-blank items
-    let cnSuccessCount = 0;
-    let cnFailedCount = 0;
-    let cnSkippedCount = 0;
+    // 5. Company name: lookup from overrides → JPX master for writable items
+    //    Writable = blank name OR nameSource is yahoo/jpx
+    //    Protected = manual/import/override
+    let cnFilledCount = 0;       // blank → filled
+    let cnCorrectionCount = 0;   // yahoo/jpx-named → corrected
+    let cnUnregisteredCount = 0; // blank → stayed blank (not in overrides/master)
+    let cnSkippedCount = 0;      // had manual/import name → not touched
     const cnLogEntries: CompanyNameLogEntry[] = [];
 
-    // Phase A: load overrides and correct English/blank names that have an override
-    const overrideUpdatedAt = new Date().toISOString();
-    try {
-      const ovR = await fetch('/api/company-name/overrides');
-      const overrides = await ovR.json() as Record<string, string>;
+    const writableItems = newItems.filter(i => i.code.trim() !== '' && isNameWritable(i));
+    cnSkippedCount = newItems.filter(i => i.code.trim() !== '' && !isNameWritable(i)).length;
 
-      newItems = newItems.map(item => {
-        if (!item.code.trim()) return item;
-        const overrideName = overrides[item.code];
-        if (!overrideName) return item;
-
-        // Already has Japanese name → skip (never overwrite Japanese with override)
-        if (hasJapaneseChars(item.name)) return item;
-
-        // Apply override (blank name OR English-named item)
-        cnSuccessCount++;
-        cnLogEntries.push({
-          updatedAt: overrideUpdatedAt, portfolioId, code: item.code,
-          previousName: item.name, newName: overrideName,
-          status: 'success', source: 'override', error: null,
-        });
-        return {
-          ...item,
-          name: overrideName,
-          nameUpdateStatus: 'success' as const,
-          nameUpdateError: null,
-          nameUpdatedAt: overrideUpdatedAt,
-        };
-      });
-    } catch { /* non-fatal */ }
-
-    // Phase B: Yahoo fetch for items still blank after override step
-    const blankNameItems = newItems.filter(
-      i => i.code.trim() !== '' && !isNameFilled(i.name)
-    );
-    cnSkippedCount = newItems.filter(
-      i => i.code.trim() !== '' && isNameFilled(i.name)
-    ).length;
-
-    if (blankNameItems.length > 0) {
-      const cnCodes = blankNameItems.map(i => i.code);
+    if (writableItems.length > 0) {
+      const cnCodes = writableItems.map(i => i.code);
       try {
         const cnR = await fetch('/api/company-names/fetch', {
           method: 'POST',
@@ -518,40 +496,32 @@ export function usePortfolio(portfolioId: PortfolioId) {
         const cnData = await cnR.json() as CompanyNameFetchResponse;
         const cnFetchedAt = cnData.fetchedAt;
 
-        cnSuccessCount += cnData.results.filter(r => r.name != null).length;
-        cnFailedCount   = cnData.results.filter(r => r.name == null).length;
-
-        // Apply Yahoo results — ONLY to still-blank fields (never overwrite)
         newItems = newItems.map(item => {
-          if (!item.code.trim() || isNameFilled(item.name)) return item;
+          if (!item.code.trim() || !isNameWritable(item)) return item;
           const result = cnData.results.find(r => r.code === item.code);
           if (!result) return item;
 
           if (result.name != null) {
+            const wasBlank = !isNameFilled(item.name);
+            if (wasBlank) cnFilledCount++; else cnCorrectionCount++;
+            const newSource = (result.source === 'override' ? 'override' : 'jpx') as 'override' | 'jpx';
             cnLogEntries.push({
               updatedAt: cnFetchedAt, portfolioId, code: item.code,
               previousName: item.name, newName: result.name,
-              status: 'success', source: result.source, error: null,
+              status: 'success', source: newSource, error: null,
             });
             return {
               ...item,
               name: result.name,
+              nameSource: newSource,
               nameUpdateStatus: 'success' as const,
               nameUpdateError: null,
               nameUpdatedAt: cnFetchedAt,
             };
           } else {
-            cnLogEntries.push({
-              updatedAt: cnFetchedAt, portfolioId, code: item.code,
-              previousName: item.name, newName: null,
-              status: 'failed', source: result.source, error: result.error ?? '取得失敗',
-            });
-            return {
-              ...item,
-              nameUpdateStatus: 'failed' as const,
-              nameUpdateError: result.error ?? '取得失敗',
-              nameUpdatedAt: cnFetchedAt,
-            };
+            // Not in overrides/master — do NOT use Yahoo; blank stays blank
+            if (!isNameFilled(item.name)) cnUnregisteredCount++;
+            return item;
           }
         });
       } catch { /* non-fatal */ }
@@ -577,8 +547,9 @@ export function usePortfolio(portfolioId: PortfolioId) {
         skippedCount: fmSkippedCount,
       },
       companyName: {
-        successCount: cnSuccessCount,
-        failedCount: cnFailedCount,
+        filledCount: cnFilledCount,
+        correctionCount: cnCorrectionCount,
+        unregisteredCount: cnUnregisteredCount,
         skippedCount: cnSkippedCount,
       },
     };
@@ -611,9 +582,10 @@ export function usePortfolio(portfolioId: PortfolioId) {
           if (fmFailedCount > 0) statusMsg += ` 失敗${fmFailedCount}件`;
           statusMsg += ` スキップ${fmSkippedCount}件`;
         }
-        if (blankNameItems.length > 0) {
-          statusMsg += ` / 銘柄名補完 成功${cnSuccessCount}件`;
-          if (cnFailedCount > 0) statusMsg += ` 失敗${cnFailedCount}件`;
+        if (writableItems.length > 0 || cnCorrectionCount > 0) {
+          statusMsg += ` / 銘柄名補完 成功${cnFilledCount}件`;
+          if (cnCorrectionCount > 0) statusMsg += ` 補正${cnCorrectionCount}件`;
+          if (cnUnregisteredCount > 0) statusMsg += ` 未登録${cnUnregisteredCount}件`;
           statusMsg += ` スキップ${cnSkippedCount}件`;
         }
         setSaveStatus(statusMsg);

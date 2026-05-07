@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
 import YahooFinance from 'yahoo-finance2';
+import XLSX from 'xlsx';
 import type { PriceUpdateLogEntry, FiscalMonthLogEntry, TechnicalLogEntry, TechRating, TechUpdateStatus, CompanyNameLogEntry } from '../src/types/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -24,6 +25,7 @@ const TECH_LOG_MAX = 500;
 const COMPANY_NAME_LOG_FILE = path.join(ROOT, 'data', 'company-name-update-log.json');
 const COMPANY_NAME_LOG_MAX = 500;
 const COMPANY_NAME_OVERRIDES_FILE = path.join(ROOT, 'data', 'company-name-overrides.json');
+const COMPANY_NAME_MASTER_FILE   = path.join(ROOT, 'data', 'company-name-master.json');
 
 // yahoo-finance2 instance (suppress survey notice)
 const yf = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
@@ -913,7 +915,10 @@ app.get('/api/futures-price/test-growth', async (_req, res) => {
   }
 });
 
-// ── Company name: fetch & log ─────────────────────────────────────────────
+// ── Company name: JPX master + overrides ─────────────────────────────────
+
+const JPX_XLS_URL = 'https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls';
+const JPX_MASTER_CACHE_HOURS = 24;
 
 function loadOverrides(): Record<string, string> {
   if (!fs.existsSync(COMPANY_NAME_OVERRIDES_FILE)) return {};
@@ -921,39 +926,120 @@ function loadOverrides(): Record<string, string> {
   catch { return {}; }
 }
 
-async function fetchCompanyName(code: string): Promise<{
-  name: string | null; source: string; error: string | null;
-  overrideName?: string | null; raw?: Record<string, unknown>;
-}> {
-  // A. Check overrides first (highest priority)
-  const overrides = loadOverrides();
-  const overrideName = overrides[code] ?? null;
-  if (overrideName) {
-    console.log(`[company-name] override for ${code}: "${overrideName}"`);
-    return { name: overrideName, source: 'override', error: null, overrideName };
-  }
-
-  // C. Fall back to Yahoo Finance
-  const symbol = toYahooSymbol(code);
-  const source = 'yahoo-finance';
+// Load master, filtering out _meta key — always returns code→name strings only
+function loadMaster(): Record<string, string> {
+  if (!fs.existsSync(COMPANY_NAME_MASTER_FILE)) return {};
   try {
-    const rawQuote = await yf.quote(symbol);
-    const quote = (rawQuote ?? {}) as Record<string, unknown>;
-    if (!rawQuote) {
-      return { name: null, source, error: 'シンボルが見つかりません', overrideName, raw: {} };
+    const raw = JSON.parse(fs.readFileSync(COMPANY_NAME_MASTER_FILE, 'utf-8')) as Record<string, unknown>;
+    const result: Record<string, string> = {};
+    for (const [k, v] of Object.entries(raw)) {
+      if (k !== '_meta' && typeof v === 'string') result[k] = v;
     }
-    const shortName   = (quote['shortName']   as string | null | undefined)?.trim() || null;
-    const longName    = (quote['longName']     as string | null | undefined)?.trim() || null;
-    const displayName = (quote['displayName']  as string | null | undefined)?.trim() || null;
-    const name = shortName || longName || displayName || null;
+    return result;
+  } catch { return {}; }
+}
 
-    if (!name || name === symbol) {
-      return { name: null, source, error: '銘柄名を取得できませんでした（シンボルのみ）', overrideName, raw: { shortName, longName, displayName } };
-    }
-    return { name, source, error: null, overrideName, raw: { shortName, longName, displayName } };
-  } catch (e) {
-    return { name: null, source, error: e instanceof Error ? e.message : String(e), overrideName };
+// Merged lookup: overrides take precedence over JPX master
+function loadNameLookup(): Record<string, string> {
+  return { ...loadMaster(), ...loadOverrides() };
+}
+
+// Preserve _meta when adding a hand-entered name to master
+function saveToMaster(code: string, name: string): void {
+  let data: Record<string, unknown> = {};
+  if (fs.existsSync(COMPANY_NAME_MASTER_FILE)) {
+    try { data = JSON.parse(fs.readFileSync(COMPANY_NAME_MASTER_FILE, 'utf-8')); } catch { data = {}; }
   }
+  data[code] = name;
+  fs.writeFileSync(COMPANY_NAME_MASTER_FILE, JSON.stringify(data, null, 2), 'utf-8');
+}
+
+function isMasterStale(): boolean {
+  if (!fs.existsSync(COMPANY_NAME_MASTER_FILE)) return true;
+  try {
+    const raw = JSON.parse(fs.readFileSync(COMPANY_NAME_MASTER_FILE, 'utf-8')) as Record<string, unknown>;
+    const meta = raw['_meta'] as { lastUpdatedAt?: string } | undefined;
+    if (!meta?.lastUpdatedAt) return true;
+    const ageHours = (Date.now() - new Date(meta.lastUpdatedAt).getTime()) / 3_600_000;
+    return ageHours > JPX_MASTER_CACHE_HOURS;
+  } catch { return true; }
+}
+
+async function fetchAndSaveJpxMaster(): Promise<{ success: boolean; count: number; error: string | null }> {
+  try {
+    console.log('[jpx-master] Fetching JPX listed company data...');
+    const response = await fetch(JPX_XLS_URL, {
+      headers: {
+        'User-Agent': UA,
+        'Accept': 'application/vnd.ms-excel,*/*',
+        'Referer': 'https://www.jpx.co.jp/',
+      },
+    });
+    if (!response.ok) throw new Error(`JPX HTTP ${response.status}`);
+
+    const buffer = await response.buffer();
+    const workbook = XLSX.read(buffer, { type: 'buffer' });
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json<(string | number | null)[]>(sheet, { header: 1, raw: false, defval: '' });
+
+    // Detect header row containing 'コード' and '銘柄名'
+    let codeCol = -1, nameCol = -1, dataStart = -1;
+    for (let i = 0; i < Math.min(rows.length, 10); i++) {
+      const row = rows[i];
+      for (let j = 0; j < row.length; j++) {
+        const cell = String(row[j] ?? '').trim();
+        if (cell === 'コード') codeCol = j;
+        if (cell === '銘柄名') nameCol = j;
+      }
+      if (codeCol >= 0 && nameCol >= 0) { dataStart = i + 1; break; }
+    }
+    if (codeCol < 0 || nameCol < 0) throw new Error('JPX XLS: コード/銘柄名 列が見つかりません');
+
+    const names: Record<string, string> = {};
+    for (let i = dataStart; i < rows.length; i++) {
+      const row = rows[i];
+      if (!row) continue;
+      const code = String(row[codeCol] ?? '').trim();
+      const name = String(row[nameCol] ?? '').trim();
+      if (code.length >= 4 && name) names[code] = name;
+    }
+
+    const count = Object.keys(names).length;
+    // Preserve any hand-entered names in master that are NOT in JPX data
+    const existing = loadMaster();
+    const merged = { ...names, ...existing }; // hand-entered wins over JPX
+
+    const masterData = {
+      _meta: { lastUpdatedAt: new Date().toISOString(), source: 'JPX data_j.xls', count },
+      ...merged,
+    };
+    fs.writeFileSync(COMPANY_NAME_MASTER_FILE, JSON.stringify(masterData, null, 2), 'utf-8');
+    console.log(`[jpx-master] Saved ${count} JPX entries (+${Object.keys(existing).length} hand-entered) to master`);
+    return { success: true, count, error: null };
+  } catch (e) {
+    const errMsg = e instanceof Error ? e.message : String(e);
+    console.error('[jpx-master] Failed:', errMsg);
+    return { success: false, count: 0, error: errMsg };
+  }
+}
+
+// Lookup name from overrides → JPX master only. NO Yahoo Finance fallback.
+function fetchCompanyName(code: string): {
+  name: string | null; source: string; error: string | null;
+  overrideName: string | null; jpxName: string | null;
+} {
+  const overrides = loadOverrides();
+  const master    = loadMaster();
+  const overrideName = overrides[code] ?? null;
+  const jpxName      = master[code]    ?? null;
+
+  if (overrideName) {
+    return { name: overrideName, source: 'override', error: null, overrideName, jpxName };
+  }
+  if (jpxName) {
+    return { name: jpxName, source: 'jpx', error: null, overrideName, jpxName };
+  }
+  return { name: null, source: 'none', error: 'override/master に未登録', overrideName, jpxName };
 }
 
 function appendCompanyNameLog(entries: CompanyNameLogEntry[]) {
@@ -978,19 +1064,11 @@ app.post('/api/company-names/fetch', async (req, res) => {
   const validCodes = codes.map((c: string) => c.trim()).filter(Boolean);
   console.log(`[company-name/fetch] start: ${validCodes.length} codes`);
 
-  const settled = await Promise.allSettled(
-    validCodes.map(async (code, i) => {
-      if (i > 0) await sleep(i * 200); // stagger 200ms to avoid rate-limiting
-      const { name, source, error, raw } = await fetchCompanyName(code);
-      console.log(`[company-name/fetch] ${code}: ${name ? `"${name}"` : 'failed'} ${error ?? ''}`);
-      return { code, name, source, error, raw };
-    })
-  );
-
-  const results = settled.map((r, i) => {
-    if (r.status === 'fulfilled') return { code: r.value.code, name: r.value.name, source: r.value.source, error: r.value.error };
-    const err = r.reason instanceof Error ? r.reason.message : String(r.reason);
-    return { code: validCodes[i], name: null, source: 'yahoo-finance', error: err };
+  // No stagger needed — fetchCompanyName is now synchronous (file read only)
+  const results = validCodes.map(code => {
+    const { name, source, error } = fetchCompanyName(code);
+    console.log(`[company-name/fetch] ${code}: ${name ? `"${name}"` : 'unregistered'} ${error ?? ''}`);
+    return { code, name, source, error };
   });
 
   const successCount = results.filter(r => r.name != null).length;
@@ -1000,9 +1078,30 @@ app.post('/api/company-names/fetch', async (req, res) => {
   res.json({ results, fetchedAt });
 });
 
-// Company name: expose overrides
+// Company name: expose overrides (raw)
 app.get('/api/company-name/overrides', (_req, res) => {
   res.json(loadOverrides());
+});
+
+// Company name: merged lookup (master + overrides, overrides win)
+app.get('/api/company-name/lookup', (_req, res) => {
+  res.json(loadNameLookup());
+});
+
+// Company name: add entry to master (called when user hand-enters a name)
+app.post('/api/company-name/master/add', (req, res) => {
+  const { code, name } = req.body as { code: string; name: string };
+  if (!code?.trim() || !name?.trim()) {
+    res.status(400).json({ ok: false, error: 'code and name are required' });
+    return;
+  }
+  try {
+    saveToMaster(code.trim(), name.trim());
+    console.log(`[company-name/master] saved ${code}: "${name}"`);
+    res.json({ ok: true });
+  } catch (e) {
+    res.json({ ok: false, error: String(e) });
+  }
 });
 
 // Company name: log endpoints
@@ -1019,27 +1118,51 @@ app.post('/api/company-name/log', (req, res) => {
 });
 
 // Company name: debug single code
-app.get('/api/company-name/test/:code', async (req, res) => {
+app.get('/api/company-name/test/:code', (req, res) => {
   const code = req.params.code.trim();
-  const symbol = toYahooSymbol(code);
-  try {
-    const { name, source, error, overrideName, raw } = await fetchCompanyName(code);
-    res.json({
-      code, symbol,
-      success: name != null,
-      finalName: name,
-      overrideName: overrideName ?? null,
-      yahooName: source === 'yahoo-finance' ? name : (raw?.['shortName'] ?? raw?.['longName'] ?? null),
-      source, error,
-      shortName:   raw?.['shortName']   ?? null,
-      longName:    raw?.['longName']    ?? null,
-      displayName: raw?.['displayName'] ?? null,
-    });
-  } catch (e) {
-    const errMsg = e instanceof Error ? e.message : String(e);
-    res.json({ code, symbol, success: false, finalName: null, error: errMsg, stack: (e instanceof Error ? e.stack : undefined) });
-  }
+  const { name, source, error, overrideName, jpxName } = fetchCompanyName(code);
+
+  let reason = '';
+  if (overrideName) reason = `overrides.json に "${overrideName}" が登録されているため採用`;
+  else if (jpxName)  reason = `JPX master に "${jpxName}" が登録されているため採用`;
+  else               reason = 'overrides/master に未登録のため空欄維持（Yahoo Finance は使用しない）';
+
+  res.json({
+    code,
+    overrideName:     overrideName ?? null,
+    jpxFetchedName:   jpxName      ?? null,
+    masterName:       jpxName      ?? null,   // alias for compatibility
+    yahooName:        null,                   // never used for name fill
+    currentName:      null,                   // unknown without portfolio context
+    finalName:        name         ?? null,
+    source,
+    willUseYahooName: false,
+    reason,
+    success:          name != null,
+    error:            error ?? null,
+  });
 });
+
+// Company name: JPX master update API (no button needed — also runs on startup)
+app.get('/api/company-name-master/update', async (_req, res) => {
+  const result = await fetchAndSaveJpxMaster();
+  res.json({
+    success: result.success,
+    count: result.count,
+    lastUpdatedAt: result.success ? new Date().toISOString() : null,
+    source: JPX_XLS_URL,
+    error: result.error,
+  });
+});
+
+// On startup: refresh JPX master if stale (async, non-blocking)
+if (isMasterStale()) {
+  console.log('[jpx-master] Master is stale or missing — starting background refresh...');
+  fetchAndSaveJpxMaster().catch(e => console.error('[jpx-master] Startup refresh failed:', e instanceof Error ? e.message : e));
+} else {
+  const master = loadMaster();
+  console.log(`[jpx-master] Master is fresh (${Object.keys(master).length} entries)`);
+}
 
 // ── Technical: types ──────────────────────────────────────────────────────
 

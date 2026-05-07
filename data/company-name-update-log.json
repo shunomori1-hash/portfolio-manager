@@ -1,5 +1,175 @@
 [
   {
+    "updatedAt": "2026-05-07T14:10:32.352Z",
+    "portfolioId": "personal",
+    "code": "8203",
+    "previousName": "ＭｒＭａｘＨＤ",
+    "newName": "ＭｒＭａｘＨＤ",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T14:10:32.352Z",
+    "portfolioId": "personal",
+    "code": "1852",
+    "previousName": "淺沼組",
+    "newName": "淺沼組",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T14:10:32.352Z",
+    "portfolioId": "personal",
+    "code": "6570",
+    "previousName": "共和コーポレーション",
+    "newName": "共和コーポレーション",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T14:10:32.352Z",
+    "portfolioId": "personal",
+    "code": "9612",
+    "previousName": "",
+    "newName": "ラックランド",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T14:10:32.352Z",
+    "portfolioId": "personal",
+    "code": "9731",
+    "previousName": "",
+    "newName": "白洋舎",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T14:08:49.561Z",
+    "portfolioId": "personal",
+    "code": "8203",
+    "previousName": "ＭｒＭａｘＨＤ",
+    "newName": "ＭｒＭａｘＨＤ",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T14:08:49.561Z",
+    "portfolioId": "personal",
+    "code": "1852",
+    "previousName": "淺沼組",
+    "newName": "淺沼組",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T14:08:49.561Z",
+    "portfolioId": "personal",
+    "code": "6570",
+    "previousName": "",
+    "newName": "共和コーポレーション",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T14:07:18.923Z",
+    "portfolioId": "personal",
+    "code": "8203",
+    "previousName": "ＭｒＭａｘＨＤ",
+    "newName": "ＭｒＭａｘＨＤ",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T14:07:18.923Z",
+    "portfolioId": "personal",
+    "code": "1852",
+    "previousName": "",
+    "newName": "淺沼組",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T14:07:03.021Z",
+    "portfolioId": "personal",
+    "code": "8203",
+    "previousName": "",
+    "newName": "ＭｒＭａｘＨＤ",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T14:06:23.107Z",
+    "portfolioId": "personal",
+    "code": "547A",
+    "previousName": "",
+    "newName": "ムニノバホールディングス",
+    "status": "success",
+    "source": "override",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T13:58:26.739Z",
+    "portfolioId": "personal",
+    "code": "547A",
+    "previousName": "",
+    "newName": "MUNINOVA",
+    "status": "success",
+    "source": "override",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T13:44:16.591Z",
+    "portfolioId": "personal",
+    "code": "547A",
+    "previousName": "",
+    "newName": "MUNINOVA",
+    "status": "success",
+    "source": "override",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T13:43:55.307Z",
+    "portfolioId": "personal",
+    "code": "547A",
+    "previousName": "",
+    "newName": "MUNINOVA",
+    "status": "success",
+    "source": "override",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T13:35:14.470Z",
+    "portfolioId": "personal",
+    "code": "547A",
+    "previousName": "",
+    "newName": "MUNINOVA HOLDINGS INC",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T13:34:49.555Z",
+    "portfolioId": "personal",
+    "code": "547A",
+    "previousName": "",
+    "newName": "MUNINOVA HOLDINGS INC",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
     "updatedAt": "2026-05-07T13:25:12.846Z",
     "portfolioId": "personal",
     "code": "547A",

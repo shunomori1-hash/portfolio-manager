@@ -6,6 +6,7 @@ export type PriceUpdateStatus = 'success' | 'failed' | 'skipped' | 'manual' | 'u
 export type FiscalMonthUpdateStatus = 'success' | 'failed' | 'manual' | 'unknown';
 export type TechUpdateStatus = 'success' | 'failed' | 'insufficient_data' | 'cached' | 'unknown';
 export type NameUpdateStatus = 'success' | 'failed' | 'manual' | 'unknown';
+export type NameSource = 'manual' | 'import' | 'override' | 'jpx' | 'master' | 'yahoo' | 'unknown';
 export type PortfolioId = 'personal' | 'company';
 export const PORTFOLIO_LABELS: Record<PortfolioId, string> = { personal: '個人用', company: '会社用' };
 
@@ -54,6 +55,7 @@ export interface PortfolioItem {
   techUpdateStatus: TechUpdateStatus;
   techUpdateError: string | null;
   // company name auto-fill tracking
+  nameSource: NameSource;       // where the name came from
   nameUpdateStatus: NameUpdateStatus;
   nameUpdateError: string | null;
   nameUpdatedAt: string | null;
@@ -129,9 +131,10 @@ export interface PriceUpdateSummary {
     skippedCount: number;
   };
   companyName?: {
-    successCount: number;
-    failedCount: number;
-    skippedCount: number;
+    filledCount: number;       // blank → filled from override/master
+    correctionCount: number;   // yahoo-named → corrected by override/master
+    unregisteredCount: number; // blank → stayed blank (not in override/master)
+    skippedCount: number;      // had name already (not writable)
   };
 }
 

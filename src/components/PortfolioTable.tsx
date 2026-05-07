@@ -204,7 +204,23 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRemove, visib
       const n = Number(value.replace(/,/g, ''));
       value = value === '' ? null : (isNaN(n) ? null : n);
     }
-    onUpdate(id, { [key]: value } as Partial<PortfolioItem>);
+    const updates: Partial<PortfolioItem> = { [key]: value };
+    if (key === 'name') {
+      updates.nameSource = 'manual';
+      updates.nameUpdatedAt = new Date().toISOString();
+      // Save hand-entered name to master (fire-and-forget)
+      if (typeof value === 'string' && value.trim()) {
+        const item = items.find(i => i.id === id);
+        if (item?.code.trim()) {
+          fetch('/api/company-name/master/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: item.code.trim(), name: value.trim() }),
+          }).catch(() => { /* best-effort */ });
+        }
+      }
+    }
+    onUpdate(id, updates);
     setEditingCell(null);
   }
 

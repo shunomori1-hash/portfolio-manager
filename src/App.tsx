@@ -127,9 +127,11 @@ export default function App() {
       text += ` | 決算月補完: ✓${fiscalMonth.successCount}件`;
       if (fiscalMonth.failedCount > 0) text += ` ✗${fiscalMonth.failedCount}件`;
     }
-    if (priceUpdateSummary.companyName && priceUpdateSummary.companyName.successCount > 0) {
-      text += ` | 銘柄名補完: ✓${priceUpdateSummary.companyName.successCount}件`;
-      if (priceUpdateSummary.companyName.failedCount > 0) text += ` ✗${priceUpdateSummary.companyName.failedCount}件`;
+    const cn = priceUpdateSummary.companyName;
+    if (cn && (cn.filledCount > 0 || cn.correctionCount > 0 || cn.unregisteredCount > 0)) {
+      text += ` | 銘柄名補完: ✓${cn.filledCount}件`;
+      if (cn.correctionCount > 0)   text += ` 補正${cn.correctionCount}件`;
+      if (cn.unregisteredCount > 0) text += ` 未登録${cn.unregisteredCount}件`;
     }
     return text;
   })();
