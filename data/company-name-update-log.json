@@ -1,0 +1,32 @@
+[
+  {
+    "updatedAt": "2026-05-07T06:15:40.672Z",
+    "portfolioId": "personal",
+    "code": "7564",
+    "previousName": "",
+    "newName": "ワークマン",
+    "status": "success",
+    "source": "override",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T05:47:25.917Z",
+    "portfolioId": "personal",
+    "code": "7564",
+    "previousName": "",
+    "newName": "WORKMAN CO LTD",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-07T05:46:32.757Z",
+    "portfolioId": "personal",
+    "code": "7564",
+    "previousName": "",
+    "newName": "WORKMAN CO LTD",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  }
+]

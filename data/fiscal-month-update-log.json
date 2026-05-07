@@ -1,5 +1,49 @@
 [
   {
+    "updatedAt": "2026-05-07T06:15:40.035Z",
+    "portfolioId": "personal",
+    "code": "6076",
+    "name": "アメイズ",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": null,
+    "status": "failed",
+    "source": "yahoo-finance",
+    "error": "Quote not found for symbol: 6076.T"
+  },
+  {
+    "updatedAt": "2026-05-07T05:47:25.806Z",
+    "portfolioId": "personal",
+    "code": "6076",
+    "name": "アメイズ",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": null,
+    "status": "failed",
+    "source": "yahoo-finance",
+    "error": "Quote not found for symbol: 6076.T"
+  },
+  {
+    "updatedAt": "2026-05-07T05:46:32.353Z",
+    "portfolioId": "personal",
+    "code": "6076",
+    "name": "アメイズ",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": null,
+    "status": "failed",
+    "source": "yahoo-finance",
+    "error": "Quote not found for symbol: 6076.T"
+  },
+  {
+    "updatedAt": "2026-05-07T05:46:32.353Z",
+    "portfolioId": "personal",
+    "code": "7564",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "3月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
     "updatedAt": "2026-05-07T05:02:04.062Z",
     "portfolioId": "personal",
     "code": "556A",

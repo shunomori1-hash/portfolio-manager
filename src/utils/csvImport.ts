@@ -312,6 +312,9 @@ export async function parseCsvFile(file: File): Promise<CsvParseResult> {
       techUpdatedAt: null,
       techUpdateStatus: 'unknown',
       techUpdateError: null,
+      nameUpdateStatus: 'unknown',
+      nameUpdateError: null,
+      nameUpdatedAt: null,
     };
 
     for (let colIdx = 0; colIdx < mappings.length; colIdx++) {

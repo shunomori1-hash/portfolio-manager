@@ -5,7 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fetch from 'node-fetch';
 import YahooFinance from 'yahoo-finance2';
-import type { PriceUpdateLogEntry, FiscalMonthLogEntry, TechnicalLogEntry, TechRating, TechUpdateStatus } from '../src/types/index.js';
+import type { PriceUpdateLogEntry, FiscalMonthLogEntry, TechnicalLogEntry, TechRating, TechUpdateStatus, CompanyNameLogEntry } from '../src/types/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,6 +21,9 @@ const FISCAL_LOG_MAX = 500;
 const PRICE_HISTORY_DIR = path.join(ROOT, 'data', 'price-history');
 const TECH_LOG_FILE = path.join(ROOT, 'data', 'technical-update-log.json');
 const TECH_LOG_MAX = 500;
+const COMPANY_NAME_LOG_FILE = path.join(ROOT, 'data', 'company-name-update-log.json');
+const COMPANY_NAME_LOG_MAX = 500;
+const COMPANY_NAME_OVERRIDES_FILE = path.join(ROOT, 'data', 'company-name-overrides.json');
 
 // yahoo-finance2 instance (suppress survey notice)
 const yf = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
@@ -907,6 +910,134 @@ app.get('/api/futures-price/test-growth', async (_req, res) => {
       error: errMsg,
       stack,
     });
+  }
+});
+
+// ── Company name: fetch & log ─────────────────────────────────────────────
+
+function loadOverrides(): Record<string, string> {
+  if (!fs.existsSync(COMPANY_NAME_OVERRIDES_FILE)) return {};
+  try { return JSON.parse(fs.readFileSync(COMPANY_NAME_OVERRIDES_FILE, 'utf-8')); }
+  catch { return {}; }
+}
+
+async function fetchCompanyName(code: string): Promise<{
+  name: string | null; source: string; error: string | null;
+  overrideName?: string | null; raw?: Record<string, unknown>;
+}> {
+  // A. Check overrides first (highest priority)
+  const overrides = loadOverrides();
+  const overrideName = overrides[code] ?? null;
+  if (overrideName) {
+    console.log(`[company-name] override for ${code}: "${overrideName}"`);
+    return { name: overrideName, source: 'override', error: null, overrideName };
+  }
+
+  // C. Fall back to Yahoo Finance
+  const symbol = toYahooSymbol(code);
+  const source = 'yahoo-finance';
+  try {
+    const rawQuote = await yf.quote(symbol);
+    const quote = (rawQuote ?? {}) as Record<string, unknown>;
+    if (!rawQuote) {
+      return { name: null, source, error: 'シンボルが見つかりません', overrideName, raw: {} };
+    }
+    const shortName   = (quote['shortName']   as string | null | undefined)?.trim() || null;
+    const longName    = (quote['longName']     as string | null | undefined)?.trim() || null;
+    const displayName = (quote['displayName']  as string | null | undefined)?.trim() || null;
+    const name = shortName || longName || displayName || null;
+
+    if (!name || name === symbol) {
+      return { name: null, source, error: '銘柄名を取得できませんでした（シンボルのみ）', overrideName, raw: { shortName, longName, displayName } };
+    }
+    return { name, source, error: null, overrideName, raw: { shortName, longName, displayName } };
+  } catch (e) {
+    return { name: null, source, error: e instanceof Error ? e.message : String(e), overrideName };
+  }
+}
+
+function appendCompanyNameLog(entries: CompanyNameLogEntry[]) {
+  let existing: CompanyNameLogEntry[] = [];
+  if (fs.existsSync(COMPANY_NAME_LOG_FILE)) {
+    try { existing = JSON.parse(fs.readFileSync(COMPANY_NAME_LOG_FILE, 'utf-8')); } catch { existing = []; }
+  }
+  const merged = [...entries, ...existing].slice(0, COMPANY_NAME_LOG_MAX);
+  fs.writeFileSync(COMPANY_NAME_LOG_FILE, JSON.stringify(merged, null, 2), 'utf-8');
+}
+
+// Bulk fetch company names for codes with blank names
+app.post('/api/company-names/fetch', async (req, res) => {
+  const { codes } = req.body as { codes: string[] };
+  const fetchedAt = new Date().toISOString();
+
+  if (!codes || codes.length === 0) {
+    res.json({ results: [], fetchedAt });
+    return;
+  }
+
+  const validCodes = codes.map((c: string) => c.trim()).filter(Boolean);
+  console.log(`[company-name/fetch] start: ${validCodes.length} codes`);
+
+  const settled = await Promise.allSettled(
+    validCodes.map(async (code, i) => {
+      if (i > 0) await sleep(i * 200); // stagger 200ms to avoid rate-limiting
+      const { name, source, error, raw } = await fetchCompanyName(code);
+      console.log(`[company-name/fetch] ${code}: ${name ? `"${name}"` : 'failed'} ${error ?? ''}`);
+      return { code, name, source, error, raw };
+    })
+  );
+
+  const results = settled.map((r, i) => {
+    if (r.status === 'fulfilled') return { code: r.value.code, name: r.value.name, source: r.value.source, error: r.value.error };
+    const err = r.reason instanceof Error ? r.reason.message : String(r.reason);
+    return { code: validCodes[i], name: null, source: 'yahoo-finance', error: err };
+  });
+
+  const successCount = results.filter(r => r.name != null).length;
+  const failedCount  = results.filter(r => r.name == null).length;
+  console.log(`[company-name/fetch] done: success=${successCount} failed=${failedCount}`);
+
+  res.json({ results, fetchedAt });
+});
+
+// Company name: expose overrides
+app.get('/api/company-name/overrides', (_req, res) => {
+  res.json(loadOverrides());
+});
+
+// Company name: log endpoints
+app.get('/api/company-name/log', (_req, res) => {
+  if (!fs.existsSync(COMPANY_NAME_LOG_FILE)) { res.json({ entries: [] }); return; }
+  try { res.json({ entries: JSON.parse(fs.readFileSync(COMPANY_NAME_LOG_FILE, 'utf-8')) }); }
+  catch { res.json({ entries: [] }); }
+});
+
+app.post('/api/company-name/log', (req, res) => {
+  const { entries } = req.body as { entries: CompanyNameLogEntry[] };
+  try { appendCompanyNameLog(entries); res.json({ ok: true }); }
+  catch (e) { res.json({ ok: false, error: String(e) }); }
+});
+
+// Company name: debug single code
+app.get('/api/company-name/test/:code', async (req, res) => {
+  const code = req.params.code.trim();
+  const symbol = toYahooSymbol(code);
+  try {
+    const { name, source, error, overrideName, raw } = await fetchCompanyName(code);
+    res.json({
+      code, symbol,
+      success: name != null,
+      finalName: name,
+      overrideName: overrideName ?? null,
+      yahooName: source === 'yahoo-finance' ? name : (raw?.['shortName'] ?? raw?.['longName'] ?? null),
+      source, error,
+      shortName:   raw?.['shortName']   ?? null,
+      longName:    raw?.['longName']    ?? null,
+      displayName: raw?.['displayName'] ?? null,
+    });
+  } catch (e) {
+    const errMsg = e instanceof Error ? e.message : String(e);
+    res.json({ code, symbol, success: false, finalName: null, error: errMsg, stack: (e instanceof Error ? e.stack : undefined) });
   }
 });
 

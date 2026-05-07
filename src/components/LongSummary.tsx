@@ -1,4 +1,4 @@
-import type { Portfolio, PortfolioItem, FuturesPosition, HedgeFutures } from '../types';
+import type { Portfolio, PortfolioItem, FuturesPosition, HedgeFutures, TechRating } from '../types';
 
 interface Props {
   portfolio: Portfolio;
@@ -109,8 +109,15 @@ export function LongSummary({ portfolio, onUpdateSummary, onFetchFuturesPrices, 
   const plannedRatio    = assetBase != null && hasPlan ? plannedTotal / assetBase : null;
   const plannedNetRatio = assetBase != null && hasPlan ? (plannedTotal - totalHedge) / assetBase : null;
 
-  // ── Top 5 ──────────────────────────────────────────────────────────────────
-  const currentRanked = [...longItems].sort((a, b) => holding(b) - holding(a)).slice(0, 5);
+  // ── Tech breakdown ────────────────────────────────────────────────────────
+  const TECH_ROWS: { rating: TechRating; label: string; color: string }[] = [
+    { rating: '☆', label: '☆',    color: '#d97706' },
+    { rating: '◎', label: '◎',    color: '#059669' },
+    { rating: '○', label: '○',    color: '#2563eb' },
+    { rating: '△', label: '△',    color: '#b45309' },
+    { rating: '×', label: '×',    color: '#dc2626' },
+    { rating: '',  label: '未設定', color: '#94a3b8' },
+  ];
 
   // ── Futures update helpers ────────────────────────────────────────────────
   function setFuturesField<K extends keyof FuturesPosition>(
@@ -359,34 +366,39 @@ export function LongSummary({ portfolio, onUpdateSummary, onFetchFuturesPrices, 
           )}
         </div>
 
-        {/* ── D. 現在 上位保有 ──────────────────────────────────── */}
-        {currentRanked.length > 0 && (
-          <div className="summary-group">
-            <h3>現在 上位保有</h3>
-            <table className="summary-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>銘柄</th>
-                  <th className="num">{assetBase != null ? '割合' : 'PF比率'}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentRanked.map((item, i) => (
-                  <tr key={item.id}>
-                    <td style={{ color: '#64748b', fontSize: 10 }}>{i + 1}</td>
-                    <td>{item.name || item.code}</td>
-                    <td className="num">
-                      {assetBase != null
-                        ? fmtPct(holding(item) / assetBase)
-                        : longTotal > 0 ? fmtPct(holding(item) / longTotal) : '—'}
-                    </td>
+        {/* ── D. テク別サマリー ─────────────────────────────────── */}
+        <div className="summary-group">
+          <h3>テク別</h3>
+          <table className="summary-table">
+            <thead>
+              <tr>
+                <th>テク</th>
+                <th className="num">保有金額</th>
+                <th className="num">割合</th>
+                <th className="num">銘柄数</th>
+              </tr>
+            </thead>
+            <tbody>
+              {TECH_ROWS.map(({ rating, label, color }) => {
+                const rKey = rating as string;
+                const groupItems = longItems.filter(i => {
+                  const t = (i.tech as string) || '';
+                  return rKey === '' ? t === '' : t === rKey;
+                });
+                const groupHolding = groupItems.reduce((acc, i) => acc + holding(i), 0);
+                const groupRatio = longTotal > 0 ? groupHolding / longTotal : null;
+                return (
+                  <tr key={rating || 'none'}>
+                    <td style={{ fontWeight: 600, color }}>{label}</td>
+                    <td className="num">{groupHolding > 0 ? fmt(groupHolding) : '—'}</td>
+                    <td className="num">{longTotal > 0 ? fmtPct(groupRatio) : '—'}</td>
+                    <td className="num">{groupItems.length}</td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
 
       </div>
     </div>

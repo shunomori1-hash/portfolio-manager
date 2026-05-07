@@ -5,6 +5,7 @@ import type {
   HedgeFutures, FuturesPosition, PortfolioId,
   FiscalMonthFetchResponse, FiscalMonthLogEntry,
   TechnicalUpdateSummary,
+  CompanyNameFetchResponse, CompanyNameLogEntry,
 } from '../types';
 
 export const DEFAULT_HEDGE_FUTURES: HedgeFutures = {
@@ -23,6 +24,19 @@ const DEFAULT_PORTFOLIO: Portfolio = {
   },
   lastSaved: null,
 };
+
+// Returns true when the string contains at least one Japanese character
+function hasJapaneseChars(str: string | undefined | null): boolean {
+  if (!str) return false;
+  return /[぀-ゟ゠-ヿ一-鿿]/.test(str);
+}
+
+// Returns true when name has a meaningful value (not empty / dash)
+function isNameFilled(name: string | undefined | null): boolean {
+  if (!name) return false;
+  const n = name.trim();
+  return n !== '' && n !== '-' && n !== '—';
+}
 
 // Returns true when settlementMonth has a meaningful value (not empty / dash)
 function isSettlementMonthFilled(month: string | undefined | null): boolean {
@@ -68,6 +82,10 @@ function normalizeItem(raw: Partial<PortfolioItem>): PortfolioItem {
     fiscalMonthUpdateStatus: raw.fiscalMonthUpdateStatus ?? 'unknown',
     fiscalMonthUpdateError: raw.fiscalMonthUpdateError ?? null,
     lastFiscalMonthUpdatedAt: raw.lastFiscalMonthUpdatedAt ?? null,
+    // company name auto-fill tracking
+    nameUpdateStatus: raw.nameUpdateStatus ?? 'unknown',
+    nameUpdateError: raw.nameUpdateError ?? null,
+    nameUpdatedAt: raw.nameUpdatedAt ?? null,
     // technical auto-rating — default to 'unknown' for old data
     techAutoRating: raw.techAutoRating ?? '',
     techRatingBeforeBreakout: raw.techRatingBeforeBreakout ?? null,
@@ -128,6 +146,15 @@ function postPriceLog(entries: PriceUpdateLogEntry[]) {
 function postFiscalMonthLog(entries: FiscalMonthLogEntry[]) {
   if (!entries.length) return;
   fetch('/api/fiscal-month/log', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ entries }),
+  }).catch(() => { /* best-effort */ });
+}
+
+function postCompanyNameLog(entries: CompanyNameLogEntry[]) {
+  if (!entries.length) return;
+  fetch('/api/company-name/log', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ entries }),
@@ -434,7 +461,105 @@ export function usePortfolio(portfolioId: PortfolioId) {
       } catch { /* fiscal month fetch is non-fatal — ignore */ }
     }
 
-    // 5. Set summary
+    // 5. Company name: Phase A — apply overrides (blank OR English-named items)
+    //    Phase B — fetch from Yahoo for still-blank items
+    let cnSuccessCount = 0;
+    let cnFailedCount = 0;
+    let cnSkippedCount = 0;
+    const cnLogEntries: CompanyNameLogEntry[] = [];
+
+    // Phase A: load overrides and correct English/blank names that have an override
+    const overrideUpdatedAt = new Date().toISOString();
+    try {
+      const ovR = await fetch('/api/company-name/overrides');
+      const overrides = await ovR.json() as Record<string, string>;
+
+      newItems = newItems.map(item => {
+        if (!item.code.trim()) return item;
+        const overrideName = overrides[item.code];
+        if (!overrideName) return item;
+
+        // Already has Japanese name → skip (never overwrite Japanese with override)
+        if (hasJapaneseChars(item.name)) return item;
+
+        // Apply override (blank name OR English-named item)
+        cnSuccessCount++;
+        cnLogEntries.push({
+          updatedAt: overrideUpdatedAt, portfolioId, code: item.code,
+          previousName: item.name, newName: overrideName,
+          status: 'success', source: 'override', error: null,
+        });
+        return {
+          ...item,
+          name: overrideName,
+          nameUpdateStatus: 'success' as const,
+          nameUpdateError: null,
+          nameUpdatedAt: overrideUpdatedAt,
+        };
+      });
+    } catch { /* non-fatal */ }
+
+    // Phase B: Yahoo fetch for items still blank after override step
+    const blankNameItems = newItems.filter(
+      i => i.code.trim() !== '' && !isNameFilled(i.name)
+    );
+    cnSkippedCount = newItems.filter(
+      i => i.code.trim() !== '' && isNameFilled(i.name)
+    ).length;
+
+    if (blankNameItems.length > 0) {
+      const cnCodes = blankNameItems.map(i => i.code);
+      try {
+        const cnR = await fetch('/api/company-names/fetch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ codes: cnCodes }),
+        });
+        const cnData = await cnR.json() as CompanyNameFetchResponse;
+        const cnFetchedAt = cnData.fetchedAt;
+
+        cnSuccessCount += cnData.results.filter(r => r.name != null).length;
+        cnFailedCount   = cnData.results.filter(r => r.name == null).length;
+
+        // Apply Yahoo results — ONLY to still-blank fields (never overwrite)
+        newItems = newItems.map(item => {
+          if (!item.code.trim() || isNameFilled(item.name)) return item;
+          const result = cnData.results.find(r => r.code === item.code);
+          if (!result) return item;
+
+          if (result.name != null) {
+            cnLogEntries.push({
+              updatedAt: cnFetchedAt, portfolioId, code: item.code,
+              previousName: item.name, newName: result.name,
+              status: 'success', source: result.source, error: null,
+            });
+            return {
+              ...item,
+              name: result.name,
+              nameUpdateStatus: 'success' as const,
+              nameUpdateError: null,
+              nameUpdatedAt: cnFetchedAt,
+            };
+          } else {
+            cnLogEntries.push({
+              updatedAt: cnFetchedAt, portfolioId, code: item.code,
+              previousName: item.name, newName: null,
+              status: 'failed', source: result.source, error: result.error ?? '取得失敗',
+            });
+            return {
+              ...item,
+              nameUpdateStatus: 'failed' as const,
+              nameUpdateError: result.error ?? '取得失敗',
+              nameUpdatedAt: cnFetchedAt,
+            };
+          }
+        });
+      } catch { /* non-fatal */ }
+    }
+
+    postCompanyNameLog(cnLogEntries);
+
+    // 7. Set summary
     const summary: PriceUpdateSummary = {
       updatedAt,
       successCount: finalPriceSuccess,
@@ -451,13 +576,18 @@ export function usePortfolio(portfolioId: PortfolioId) {
         failedCount: fmFailedCount,
         skippedCount: fmSkippedCount,
       },
+      companyName: {
+        successCount: cnSuccessCount,
+        failedCount: cnFailedCount,
+        skippedCount: cnSkippedCount,
+      },
     };
     setPriceUpdateSummary(summary);
 
-    // 6. Post price log
+    // 8. Post price log
     postPriceLog(priceLogEntries);
 
-    // 7. Apply all updates to state at once
+    // 9. Apply all updates to state at once
     const updatedPortfolio = { ...current, items: newItems };
     setPortfolio(updatedPortfolio);
     setIsDirty(true);
@@ -480,6 +610,11 @@ export function usePortfolio(portfolioId: PortfolioId) {
           statusMsg += ` / 決算月補完 成功${fmSuccessCount}件`;
           if (fmFailedCount > 0) statusMsg += ` 失敗${fmFailedCount}件`;
           statusMsg += ` スキップ${fmSkippedCount}件`;
+        }
+        if (blankNameItems.length > 0) {
+          statusMsg += ` / 銘柄名補完 成功${cnSuccessCount}件`;
+          if (cnFailedCount > 0) statusMsg += ` 失敗${cnFailedCount}件`;
+          statusMsg += ` スキップ${cnSkippedCount}件`;
         }
         setSaveStatus(statusMsg);
         setTimeout(() => setSaveStatus(null), 6000);

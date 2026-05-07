@@ -5,6 +5,7 @@ export type PeriodValue = '3ヶ月' | '半年' | '1年' | '2年' | '';
 export type PriceUpdateStatus = 'success' | 'failed' | 'skipped' | 'manual' | 'unknown';
 export type FiscalMonthUpdateStatus = 'success' | 'failed' | 'manual' | 'unknown';
 export type TechUpdateStatus = 'success' | 'failed' | 'insufficient_data' | 'cached' | 'unknown';
+export type NameUpdateStatus = 'success' | 'failed' | 'manual' | 'unknown';
 export type PortfolioId = 'personal' | 'company';
 export const PORTFOLIO_LABELS: Record<PortfolioId, string> = { personal: '個人用', company: '会社用' };
 
@@ -52,6 +53,10 @@ export interface PortfolioItem {
   techUpdatedAt: string | null;
   techUpdateStatus: TechUpdateStatus;
   techUpdateError: string | null;
+  // company name auto-fill tracking
+  nameUpdateStatus: NameUpdateStatus;
+  nameUpdateError: string | null;
+  nameUpdatedAt: string | null;
 }
 
 // ─── Futures hedge data ──────────────────────────────────────────────────────
@@ -123,6 +128,11 @@ export interface PriceUpdateSummary {
     failedCount: number;
     skippedCount: number;
   };
+  companyName?: {
+    successCount: number;
+    failedCount: number;
+    skippedCount: number;
+  };
 }
 
 // ─── Fiscal month fetch ───────────────────────────────────────────────────────
@@ -187,5 +197,30 @@ export interface TechnicalLogEntry {
   highBreakout: boolean;
   status: TechUpdateStatus;
   reason: string;
+  error: string | null;
+}
+
+// ─── Company name fetch ───────────────────────────────────────────────────────
+
+export interface CompanyNameFetchResult {
+  code: string;
+  name: string | null;
+  source: string;
+  error: string | null;
+}
+
+export interface CompanyNameFetchResponse {
+  results: CompanyNameFetchResult[];
+  fetchedAt: string;
+}
+
+export interface CompanyNameLogEntry {
+  updatedAt: string;
+  portfolioId: string;
+  code: string;
+  previousName: string;
+  newName: string | null;
+  status: 'success' | 'failed' | 'skipped';
+  source: string;
   error: string | null;
 }

@@ -127,6 +127,10 @@ export default function App() {
       text += ` | 決算月補完: ✓${fiscalMonth.successCount}件`;
       if (fiscalMonth.failedCount > 0) text += ` ✗${fiscalMonth.failedCount}件`;
     }
+    if (priceUpdateSummary.companyName && priceUpdateSummary.companyName.successCount > 0) {
+      text += ` | 銘柄名補完: ✓${priceUpdateSummary.companyName.successCount}件`;
+      if (priceUpdateSummary.companyName.failedCount > 0) text += ` ✗${priceUpdateSummary.companyName.failedCount}件`;
+    }
     return text;
   })();
 
