@@ -7,6 +7,8 @@ import { ColumnSettingsModal } from './components/ColumnSettingsModal';
 import { AddItemModal } from './components/AddItemModal';
 import { CsvImportModal } from './components/CsvImportModal';
 import { PriceLogModal } from './components/PriceLogModal';
+import type { PortfolioId } from './types';
+import { PORTFOLIO_LABELS } from './types';
 import {
   COL_PRESETS,
   DEFAULT_FILTER,
@@ -20,13 +22,18 @@ import {
   type FilterState,
 } from './utils/tableState';
 
+const PORTFOLIO_IDS: PortfolioId[] = ['personal', 'company'];
+
 export default function App() {
+  // ── Portfolio selection ───────────────────────────────────────────────────
+  const [activePortfolioId, setActivePortfolioId] = useState<PortfolioId>('personal');
+
   const {
     portfolio, loading, saving, fetchingPrices, fetchingPriceItemId,
     error, saveStatus, isDirty, priceUpdateSummary,
     updateItem, updatePriceManually, resetPlannedShares, updateSummary,
     addItem, removeItem, save, fetchPrices, fetchSinglePrice, fetchFuturesPrices, fetchingFutures, importItems,
-  } = usePortfolio();
+  } = usePortfolio(activePortfolioId);
 
   // ── UI state ─────────────────────────────────────────────────────────────
   const [density, setDensity] = useState<'compact' | 'standard'>('compact');
@@ -40,6 +47,20 @@ export default function App() {
   const [sortState, setSortState] = useState<SortState>(DEFAULT_SORT);
   const [filter, setFilter] = useState<FilterState>(DEFAULT_FILTER);
   const [visibleCols, setVisibleCols] = useState<Set<ColKey>>(new Set(COL_PRESETS.investment));
+
+  // ── Portfolio switch with unsaved-changes guard ───────────────────────────
+  const handleSwitchPortfolio = (newId: PortfolioId) => {
+    if (newId === activePortfolioId) return;
+    if (isDirty) {
+      const msg = '未保存の変更があります。保存せずにポートフォリオを切り替えますか？';
+      if (!confirm(msg)) return;
+    }
+    setActivePortfolioId(newId);
+    // Reset table state on switch so stale sort/filter doesn't confuse the user
+    setSortState(DEFAULT_SORT);
+    setFilter(DEFAULT_FILTER);
+    setShowFailedList(false);
+  };
 
   const handleSort = (key: SortKey) => {
     setSortState(prev =>
@@ -80,11 +101,9 @@ export default function App() {
     ? new Date(portfolio.lastSaved).toLocaleString('ja-JP')
     : '未保存';
 
-  // Price update status display
   const priceStatusText = (() => {
     if (fetchingPrices) return '株価取得中...';
     if (!priceUpdateSummary) {
-      // Fall back to item-based last update time
       const dates = portfolio.items.map(i => i.priceUpdatedAt).filter(Boolean).sort();
       if (!dates.length) return null;
       return `株価: ${new Date(dates[dates.length - 1]!).toLocaleString('ja-JP')}`;
@@ -102,6 +121,20 @@ export default function App() {
       <header className="app-header">
         <div className="header-left">
           <h1>ポートフォリオ管理</h1>
+
+          {/* ── Portfolio switcher ──────────────────────────────────── */}
+          <div className="portfolio-switcher">
+            {PORTFOLIO_IDS.map(id => (
+              <button
+                key={id}
+                className={`portfolio-tab${activePortfolioId === id ? ' active' : ''}`}
+                onClick={() => handleSwitchPortfolio(id)}
+              >
+                {PORTFOLIO_LABELS[id]}
+              </button>
+            ))}
+          </div>
+
           {priceStatusText && (
             <span
               className={`price-updated ${hasFailures ? 'price-status-warn' : ''}`}

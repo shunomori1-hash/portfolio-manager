@@ -2,6 +2,8 @@ export type TagValue = '◎' | '○' | '△' | '×' | '';
 export type FxValue = '円高' | '円安' | '';
 export type PeriodValue = '3ヶ月' | '半年' | '1年' | '2年' | '';
 export type PriceUpdateStatus = 'success' | 'failed' | 'skipped' | 'manual' | 'unknown';
+export type PortfolioId = 'personal' | 'company';
+export const PORTFOLIO_LABELS: Record<PortfolioId, string> = { personal: '個人用', company: '会社用' };
 
 export interface PortfolioItem {
   id: string;

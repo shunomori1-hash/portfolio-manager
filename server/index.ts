@@ -10,7 +10,7 @@ import type { PriceUpdateLogEntry } from '../src/types/index.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.join(__dirname, '..');
-const DATA_FILE = path.join(ROOT, 'data', 'portfolio.json');
+const PORTFOLIOS_DIR = path.join(ROOT, 'data', 'portfolios');
 const BACKUPS_DIR = path.join(ROOT, 'data', 'backups');
 const LOG_FILE = path.join(ROOT, 'data', 'price-update-log.json');
 const LOG_MAX = 500;
@@ -22,25 +22,92 @@ const yf = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
 
-if (!fs.existsSync(path.join(ROOT, 'data'))) {
-  fs.mkdirSync(path.join(ROOT, 'data'), { recursive: true });
+// ─── Directory setup ──────────────────────────────────────────────────────────
+
+for (const dir of [path.join(ROOT, 'data'), PORTFOLIOS_DIR, BACKUPS_DIR]) {
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
-if (!fs.existsSync(BACKUPS_DIR)) {
-  fs.mkdirSync(BACKUPS_DIR, { recursive: true });
+
+// ─── Multi-portfolio helpers ──────────────────────────────────────────────────
+
+type PortfolioId = 'personal' | 'company';
+
+const VALID_PORTFOLIO_IDS: PortfolioId[] = ['personal', 'company'];
+
+function validatePortfolioId(id: string): id is PortfolioId {
+  return (VALID_PORTFOLIO_IDS as string[]).includes(id);
+}
+
+function getPortfolioFile(portfolioId: PortfolioId): string {
+  return path.join(PORTFOLIOS_DIR, `${portfolioId}.json`);
+}
+
+const EMPTY_COMPANY_PORTFOLIO = {
+  items: [],
+  summary: {
+    nikkeiFutures: null,
+    topixFutures: null,
+    totalAssets: null,
+    hedgeFutures: {
+      grossNikkei: { price: null, lots: null, multiplier: 100,   source: 'nikkei225jp',   symbol: 'c=138', lastUpdatedAt: null, updateStatus: 'unknown', updateError: null },
+      nikkei:      { price: null, lots: null, multiplier: 1000,  source: 'yahoo-finance', symbol: 'NIY=F', lastUpdatedAt: null, updateStatus: 'unknown', updateError: null },
+      topix:       { price: null, lots: null, multiplier: 10000, source: 'yahoo-finance', symbol: 'TPY=F', lastUpdatedAt: null, updateStatus: 'unknown', updateError: null },
+    },
+  },
+  lastSaved: null,
+};
+
+// ─── Migration: portfolio.json → portfolios/personal.json ───────────────────
+
+const LEGACY_FILE = path.join(ROOT, 'data', 'portfolio.json');
+const PERSONAL_FILE = getPortfolioFile('personal');
+const COMPANY_FILE  = getPortfolioFile('company');
+
+if (!fs.existsSync(PERSONAL_FILE)) {
+  if (fs.existsSync(LEGACY_FILE)) {
+    fs.copyFileSync(LEGACY_FILE, PERSONAL_FILE);
+    console.log('[migration] Copied data/portfolio.json → data/portfolios/personal.json');
+  } else {
+    fs.writeFileSync(PERSONAL_FILE, JSON.stringify(EMPTY_COMPANY_PORTFOLIO, null, 2), 'utf-8');
+    console.log('[migration] Created empty data/portfolios/personal.json');
+  }
+}
+
+if (!fs.existsSync(COMPANY_FILE)) {
+  fs.writeFileSync(COMPANY_FILE, JSON.stringify(EMPTY_COMPANY_PORTFOLIO, null, 2), 'utf-8');
+  console.log('[migration] Created empty data/portfolios/company.json');
+}
+
+// ─── Backup helper ────────────────────────────────────────────────────────────
+
+function createPortfolioBackup(portfolioId: PortfolioId): string | null {
+  const file = getPortfolioFile(portfolioId);
+  if (!fs.existsSync(file)) return null;
+  const ts = new Date().toISOString().slice(0, 19).replace('T', '_').replace(/:/g, '');
+  const backupFile = path.join(BACKUPS_DIR, `${portfolioId}_${ts}.json`);
+  fs.copyFileSync(file, backupFile);
+  // Keep last 30 backups per portfolio
+  const pfBackups = fs.readdirSync(BACKUPS_DIR)
+    .filter(f => f.startsWith(`${portfolioId}_`))
+    .sort();
+  if (pfBackups.length > 30) {
+    pfBackups.slice(0, pfBackups.length - 30).forEach(f => {
+      try { fs.unlinkSync(path.join(BACKUPS_DIR, f)); } catch { /* ignore */ }
+    });
+  }
+  return backupFile;
 }
 
 // ─── Yahoo Finance crumb session ──────────────────────────────────────────────
-// Yahoo Finance requires a session cookie + crumb for all API calls (since 2024).
-// We cache them in memory and refresh every 50 minutes or on 401.
 
 interface YFSession {
   cookie: string;
   crumb: string;
-  obtainedAt: number; // ms epoch
+  obtainedAt: number;
 }
 
 let yfSession: YFSession | null = null;
-const SESSION_TTL_MS = 50 * 60 * 1000; // 50 minutes
+const SESSION_TTL_MS = 50 * 60 * 1000;
 
 async function getYFSession(forceRefresh = false): Promise<YFSession> {
   const now = Date.now();
@@ -50,7 +117,6 @@ async function getYFSession(forceRefresh = false): Promise<YFSession> {
 
   console.log('[yf-session] Obtaining new crumb/cookie...');
 
-  // Step 1: get Yahoo session cookie
   const r1 = await fetch('https://fc.yahoo.com', {
     headers: { 'User-Agent': UA },
     redirect: 'follow',
@@ -62,7 +128,6 @@ async function getYFSession(forceRefresh = false): Promise<YFSession> {
     throw new Error('Yahoo Finance: failed to obtain session cookie');
   }
 
-  // Step 2: get crumb
   const r2 = await fetch('https://query2.finance.yahoo.com/v1/test/getcrumb', {
     headers: { 'User-Agent': UA, 'Cookie': cookie },
   });
@@ -84,7 +149,6 @@ function toYahooSymbol(code: string): string {
   return trimmed.endsWith('.T') ? trimmed : `${trimmed}.T`;
 }
 
-// Extract the best available price from a Yahoo Finance quote object
 function extractPrice(quote: Record<string, unknown>): number | null {
   const candidates = [
     'regularMarketPrice',
@@ -156,7 +220,6 @@ async function fetchFromYahoo(
   });
 }
 
-// Fetch with auto session refresh on auth error
 async function fetchPricesWithRetry(
   codes: string[]
 ): Promise<Array<{ code: string; price: number | null; error: string | null }>> {
@@ -177,21 +240,7 @@ async function fetchPricesWithRetry(
   }
 }
 
-// ─── Other helpers ────────────────────────────────────────────────────────────
-
-function createBackup(): string | null {
-  if (!fs.existsSync(DATA_FILE)) return null;
-  const ts = new Date().toISOString().replace(/[:.]/g, '-');
-  const backupFile = path.join(BACKUPS_DIR, `portfolio-${ts}.json`);
-  fs.copyFileSync(DATA_FILE, backupFile);
-  const backups = fs.readdirSync(BACKUPS_DIR).sort();
-  if (backups.length > 30) {
-    backups.slice(0, backups.length - 30).forEach(f => {
-      try { fs.unlinkSync(path.join(BACKUPS_DIR, f)); } catch { /* ignore */ }
-    });
-  }
-  return backupFile;
-}
+// ─── Log helpers ──────────────────────────────────────────────────────────────
 
 function appendPriceLog(entries: PriceUpdateLogEntry[]) {
   let existing: PriceUpdateLogEntry[] = [];
@@ -210,40 +259,90 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
-// ── Portfolio CRUD ──────────────────────────────────────────────────────────
+// ── Portfolio CRUD (portfolioId-based) ─────────────────────────────────────
 
-app.get('/api/portfolio', (_req, res) => {
-  if (!fs.existsSync(DATA_FILE)) {
-    res.json({ items: [], summary: { nikkeiFutures: null, topixFutures: null }, lastSaved: null });
+app.get('/api/portfolio/:portfolioId', (req, res) => {
+  const { portfolioId } = req.params;
+  if (!validatePortfolioId(portfolioId)) {
+    res.status(400).json({ error: `Invalid portfolioId: ${portfolioId}` });
     return;
   }
-  const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
-  res.json(data);
+  const file = getPortfolioFile(portfolioId);
+  if (!fs.existsSync(file)) {
+    res.json({ items: [], summary: { nikkeiFutures: null, topixFutures: null, totalAssets: null, hedgeFutures: EMPTY_COMPANY_PORTFOLIO.summary.hedgeFutures }, lastSaved: null });
+    return;
+  }
+  try {
+    const data = JSON.parse(fs.readFileSync(file, 'utf-8'));
+    res.json(data);
+  } catch (e) {
+    res.status(500).json({ error: String(e) });
+  }
+});
+
+app.post('/api/portfolio/:portfolioId', (req, res) => {
+  const { portfolioId } = req.params;
+  if (!validatePortfolioId(portfolioId)) {
+    res.status(400).json({ error: `Invalid portfolioId: ${portfolioId}` });
+    return;
+  }
+  try {
+    createPortfolioBackup(portfolioId);
+    const portfolio = req.body;
+    portfolio.lastSaved = new Date().toISOString();
+    fs.writeFileSync(getPortfolioFile(portfolioId), JSON.stringify(portfolio, null, 2), 'utf-8');
+    res.json({ ok: true, lastSaved: portfolio.lastSaved });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: String(e) });
+  }
+});
+
+// ── Backup (portfolioId-based) ─────────────────────────────────────────────
+
+app.post('/api/portfolio/:portfolioId/backup', (req, res) => {
+  const { portfolioId } = req.params;
+  if (!validatePortfolioId(portfolioId)) {
+    res.status(400).json({ error: `Invalid portfolioId: ${portfolioId}` });
+    return;
+  }
+  try {
+    const file = createPortfolioBackup(portfolioId);
+    res.json({ ok: true, file });
+  } catch (e) {
+    res.json({ ok: false, error: String(e) });
+  }
+});
+
+// ── Legacy aliases (delegate to personal) ──────────────────────────────────
+
+app.get('/api/portfolio', (_req, res) => {
+  const file = getPortfolioFile('personal');
+  if (!fs.existsSync(file)) {
+    res.json({ items: [], summary: { nikkeiFutures: null, topixFutures: null, totalAssets: null, hedgeFutures: EMPTY_COMPANY_PORTFOLIO.summary.hedgeFutures }, lastSaved: null });
+    return;
+  }
+  try {
+    res.json(JSON.parse(fs.readFileSync(file, 'utf-8')));
+  } catch (e) {
+    res.status(500).json({ error: String(e) });
+  }
 });
 
 app.post('/api/portfolio', (req, res) => {
-  const portfolio = req.body;
-  if (fs.existsSync(DATA_FILE)) {
-    const ts = new Date().toISOString().replace(/[:.]/g, '-');
-    const backupFile = path.join(BACKUPS_DIR, `portfolio-${ts}.json`);
-    fs.copyFileSync(DATA_FILE, backupFile);
-    const backups = fs.readdirSync(BACKUPS_DIR).sort();
-    if (backups.length > 30) {
-      backups.slice(0, backups.length - 30).forEach(f => {
-        try { fs.unlinkSync(path.join(BACKUPS_DIR, f)); } catch { /* ignore */ }
-      });
-    }
+  try {
+    createPortfolioBackup('personal');
+    const portfolio = req.body;
+    portfolio.lastSaved = new Date().toISOString();
+    fs.writeFileSync(getPortfolioFile('personal'), JSON.stringify(portfolio, null, 2), 'utf-8');
+    res.json({ ok: true, lastSaved: portfolio.lastSaved });
+  } catch (e) {
+    res.status(500).json({ ok: false, error: String(e) });
   }
-  portfolio.lastSaved = new Date().toISOString();
-  fs.writeFileSync(DATA_FILE, JSON.stringify(portfolio, null, 2), 'utf-8');
-  res.json({ ok: true, lastSaved: portfolio.lastSaved });
 });
-
-// ── Backup ─────────────────────────────────────────────────────────────────
 
 app.post('/api/backup', (_req, res) => {
   try {
-    const file = createBackup();
+    const file = createPortfolioBackup('personal');
     res.json({ ok: true, file });
   } catch (e) {
     res.json({ ok: false, error: String(e) });
@@ -313,7 +412,6 @@ app.post('/api/prices/fetch', async (req, res) => {
   try {
     results = await fetchPricesWithRetry(validCodes);
 
-    // Retry failed codes individually after a short delay
     const failed = results.filter(r => r.price == null);
     if (failed.length > 0 && failed.length < validCodes.length) {
       console.log(`[price-fetch] retrying ${failed.length} failed codes individually...`);
@@ -383,7 +481,6 @@ function appendFuturesLog(entries: Array<{
   fs.writeFileSync(FUTURES_LOG_FILE, JSON.stringify(merged, null, 2), 'utf-8');
 }
 
-// Fetch グロース250先物 price from nikkei225jp.com HTML
 async function fetchGrowthFuturesPrice(): Promise<{ price: number | null; error: string | null; rawSnippet: string }> {
   const url = 'https://nikkei225jp.com/_ssi/if/?c=138';
   const CODE = '138';
@@ -398,7 +495,6 @@ async function fetchGrowthFuturesPrice(): Promise<{ price: number | null; error:
   if (!response.ok) throw new Error(`nikkei225jp HTTP ${response.status}`);
   const html = await response.text() as string;
 
-  // Primary: A[138]="price_change_..." pattern
   const aMatch = html.match(new RegExp(`A\\[${CODE}\\]="([^"]+)"`));
   if (aMatch) {
     const parsed = parseFloat(aMatch[1].split('_')[0].replace(',', ''));
@@ -407,7 +503,6 @@ async function fetchGrowthFuturesPrice(): Promise<{ price: number | null; error:
     }
   }
 
-  // Fallback: Ldata="price"
   const ldataMatch = html.match(/[,;]\s*Ldata="([^"]+)"/);
   if (ldataMatch) {
     const parsed = parseFloat(ldataMatch[1].replace(',', ''));
@@ -419,7 +514,6 @@ async function fetchGrowthFuturesPrice(): Promise<{ price: number | null; error:
   return { price: null, error: `Price pattern not found in HTML (len=${html.length})`, rawSnippet: '' };
 }
 
-// Fetch futures price via yahoo-finance2
 async function fetchYahooFuturesPrice(symbol: string): Promise<{ price: number | null; error: string | null; raw?: unknown }> {
   const quote = await yf.quote(symbol);
   const candidates = [
@@ -436,7 +530,6 @@ async function fetchYahooFuturesPrice(symbol: string): Promise<{ price: number |
   return { price: null, error: 'No valid price field found', raw: quote };
 }
 
-// Configuration for each futures contract
 const FUTURES_CONFIG = [
   { key: 'grossNikkei' as const, name: 'グロ先',     source: 'nikkei225jp',   symbol: 'c=138'  },
   { key: 'nikkei'      as const, name: '日経先物',   source: 'yahoo-finance', symbol: 'NIY=F'  },
@@ -486,17 +579,16 @@ app.post('/api/futures-prices/update', async (_req, res) => {
   const successCount = results.filter(r => r.status === 'success').length;
   const failedCount  = results.filter(r => r.status === 'failed').length;
 
-  // Log to file
   try {
     appendFuturesLog(results.map(r => ({
       updatedAt,
       name: r.name,
       source: r.source,
       symbol: r.symbol,
-      previousPrice: null,  // client has this info; server doesn't know current price
+      previousPrice: null,
       newPrice: r.price,
-      status: r.status,
-      error: r.error,
+      status: r.status as 'success' | 'failed',
+      error: r.error ?? null,
     })));
   } catch (e) {
     console.error('[futures-prices/update] Log write failed:', e);
@@ -542,18 +634,6 @@ app.get('/api/futures-price/test/yahoo/:symbol', async (req, res) => {
   }
 });
 
-// ── Debug: グロース250先物 price investigation ─────────────────────────────
-//
-// nikkei225jp.com/_ssi/if/?c=138 contains price data embedded directly in HTML:
-//   A[138]="price_change_changePct_time_?_high_low"
-//   var Bdata="...",Ldata="lastPrice",...
-//
-// The page uses WebSocket (wss://wss.nikkei225jp.com:8124) for real-time updates,
-// but the initial HTML snapshot already contains the latest known price.
-//
-// Note: tick2.json (/_data/_nfsWEB/hs_data/hs_tick2.json) does NOT include code 138.
-// HTML scraping is the only confirmed method for this symbol.
-
 app.get('/api/futures-price/test-growth', async (_req, res) => {
   const sourceUrl = 'https://nikkei225jp.com/_ssi/if/?c=138';
   const CODE = '138';
@@ -576,7 +656,6 @@ app.get('/api/futures-price/test-growth', async (_req, res) => {
     const html = await response.text() as string;
     console.log(`[futures-price/test-growth] HTML length: ${html.length}`);
 
-    // ── Method 1: A[138]="price_..." pattern ────────────────────────────────
     const aPattern = new RegExp(`A\\[${CODE}\\]="([^"]+)"`);
     const aMatch = html.match(aPattern);
 
@@ -595,7 +674,6 @@ app.get('/api/futures-price/test-growth', async (_req, res) => {
       }
     }
 
-    // ── Method 2: Ldata="..." fallback ─────────────────────────────────────
     const ldataMatch = html.match(/[,;]\s*Ldata="([^"]+)"/);
     let ldataPrice: number | null = null;
     if (ldataMatch) {
@@ -605,7 +683,6 @@ app.get('/api/futures-price/test-growth', async (_req, res) => {
       }
     }
 
-    // ── Method 3: Bdata (base/prev close) ──────────────────────────────────
     const bdataMatch = html.match(/var\s+Bdata="([^"]+)"/);
     let bdataPrice: number | null = null;
     if (bdataMatch) {
@@ -615,13 +692,11 @@ app.get('/api/futures-price/test-growth', async (_req, res) => {
       }
     }
 
-    // ── Extra context: title, time, change ─────────────────────────────────
     const timeMatch = html.match(/[,;]\s*Time="([^"]+)"/);
     const perMatch  = html.match(/[,;]\s*Per="([^"]+)"/);
     const maxMatch  = html.match(/[,;]\s*Max="([^"]+)"/);
     const minMatch  = html.match(/[,;]\s*Min="([^"]+)"/);
 
-    // Use Method 1 as primary, Method 2 as fallback
     if (detectedPrice == null && ldataPrice != null) {
       detectedPrice = ldataPrice;
       detectedMethod = `HTML regex: Ldata="${ldataPrice}"`;

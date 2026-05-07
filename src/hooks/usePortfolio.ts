@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import type {
   Portfolio, PortfolioItem, PriceFetchResponse,
   PriceUpdateLogEntry, PriceUpdateSummary,
-  HedgeFutures, FuturesPosition,
+  HedgeFutures, FuturesPosition, PortfolioId,
 } from '../types';
 
 export const DEFAULT_HEDGE_FUTURES: HedgeFutures = {
@@ -30,7 +30,6 @@ function normalizeItem(raw: Partial<PortfolioItem>): PortfolioItem {
     name: raw.name ?? '',
     price: raw.price ?? null,
     shares: raw.shares ?? null,
-    // plannedShares defaults to current shares when not present in saved data
     plannedShares: 'plannedShares' in raw ? (raw.plannedShares ?? null) : (raw.shares ?? null),
     plannedDelta: raw.plannedDelta ?? null,
     settlementMonth: raw.settlementMonth ?? '',
@@ -122,7 +121,7 @@ interface FuturesUpdateResponse {
   failedCount: number;
 }
 
-export function usePortfolio() {
+export function usePortfolio(portfolioId: PortfolioId) {
   const [portfolio, setPortfolio] = useState<Portfolio>(DEFAULT_PORTFOLIO);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -134,9 +133,16 @@ export function usePortfolio() {
   const [isDirty, setIsDirty] = useState(false);
   const [priceUpdateSummary, setPriceUpdateSummary] = useState<PriceUpdateSummary | null>(null);
 
-  // ── Load ──────────────────────────────────────────────────────────────────
+  // ── Load (re-runs on portfolioId change) ──────────────────────────────────
   useEffect(() => {
-    fetch('/api/portfolio')
+    setLoading(true);
+    setPortfolio(DEFAULT_PORTFOLIO);
+    setIsDirty(false);
+    setError(null);
+    setSaveStatus(null);
+    setPriceUpdateSummary(null);
+
+    fetch(`/api/portfolio/${portfolioId}`)
       .then(r => r.json())
       .then((raw: Partial<Portfolio>) => {
         setPortfolio(normalizePortfolio(raw));
@@ -146,7 +152,7 @@ export function usePortfolio() {
         setError(String(e));
         setLoading(false);
       });
-  }, []);
+  }, [portfolioId]);
 
   // ── Basic CRUD ────────────────────────────────────────────────────────────
   const updateItem = useCallback((id: string, updates: Partial<PortfolioItem>) => {
@@ -157,7 +163,6 @@ export function usePortfolio() {
     setIsDirty(true);
   }, []);
 
-  // Manual price update: tracks previousPrice and sets status='manual'
   const updatePriceManually = useCallback((id: string, newPrice: number | null) => {
     const now = new Date().toISOString();
     setPortfolio(prev => ({
@@ -206,7 +211,7 @@ export function usePortfolio() {
     setSaving(true);
     setSaveStatus(null);
     try {
-      const r = await fetch('/api/portfolio', {
+      const r = await fetch(`/api/portfolio/${portfolioId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(current),
@@ -221,7 +226,7 @@ export function usePortfolio() {
     } finally {
       setSaving(false);
     }
-  }, []);
+  }, [portfolioId]);
 
   // ── Import ────────────────────────────────────────────────────────────────
   const importItems = useCallback(async (items: PortfolioItem[]) => {
@@ -235,7 +240,7 @@ export function usePortfolio() {
     await new Promise<void>(resolve => setTimeout(resolve, 0));
     try {
       if (!newPortfolio) throw new Error('state error');
-      const r = await fetch('/api/portfolio', {
+      const r = await fetch(`/api/portfolio/${portfolioId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newPortfolio),
@@ -251,7 +256,7 @@ export function usePortfolio() {
       throw new Error('JSON保存に失敗しました: ' + (e instanceof Error ? e.message : String(e)));
     }
     setSaving(false);
-  }, []);
+  }, [portfolioId]);
 
   // ── Bulk price fetch ──────────────────────────────────────────────────────
   const fetchPrices = useCallback(async (current: Portfolio) => {
@@ -263,7 +268,7 @@ export function usePortfolio() {
 
     // 1. Backup before fetch
     try {
-      await fetch('/api/backup', { method: 'POST' });
+      await fetch(`/api/portfolio/${portfolioId}/backup`, { method: 'POST' });
     } catch { /* backup failure is non-fatal */ }
 
     // 2. Fetch prices
@@ -288,8 +293,6 @@ export function usePortfolio() {
 
     // 3. Apply results — NEVER overwrite price on failure
     const logEntries: PriceUpdateLogEntry[] = [];
-    const failedItems: PriceUpdateSummary['failedItems'] = [];
-    let successCount = 0, failedCount = 0;
 
     setPortfolio(prev => {
       const newItems = prev.items.map(item => {
@@ -301,7 +304,6 @@ export function usePortfolio() {
         if (!result) return item;
 
         if (result.price != null && isFinite(result.price)) {
-          successCount++;
           logEntries.push({
             timestamp: updatedAt,
             code: item.code,
@@ -320,10 +322,7 @@ export function usePortfolio() {
             priceUpdateStatus: 'success' as const,
           };
         } else {
-          // KEEP existing price on failure
-          failedCount++;
           const errMsg = result.error ?? '取得失敗';
-          failedItems.push({ code: item.code, name: item.name, error: errMsg });
           logEntries.push({
             timestamp: updatedAt,
             code: item.code,
@@ -335,7 +334,6 @@ export function usePortfolio() {
           });
           return {
             ...item,
-            // price is NOT changed
             priceError: errMsg,
             priceUpdatedAt: updatedAt,
             priceUpdateStatus: 'failed' as const,
@@ -346,8 +344,6 @@ export function usePortfolio() {
       return { ...prev, items: newItems };
     });
 
-    // Use the counts computed during state update
-    // (Re-compute from results for the summary since we can't read state from within setPortfolio)
     const finalSuccess = results.filter(r => r.price != null && isFinite(r.price)).length;
     const finalFailed  = results.filter(r => r.price == null).length;
     const finalSkipped = current.items.filter(i => !i.code.trim()).length;
@@ -372,10 +368,9 @@ export function usePortfolio() {
     // 5. Auto-save after price update
     setPortfolio(prev => {
       const updated = { ...prev };
-      // Trigger a save
       setTimeout(async () => {
         try {
-          const r = await fetch('/api/portfolio', {
+          const r = await fetch(`/api/portfolio/${portfolioId}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updated),
@@ -391,7 +386,7 @@ export function usePortfolio() {
     });
 
     setFetchingPrices(false);
-  }, []);
+  }, [portfolioId]);
 
   // ── Single price fetch ────────────────────────────────────────────────────
   const fetchSinglePrice = useCallback(async (itemId: string, code: string) => {
@@ -447,7 +442,6 @@ export function usePortfolio() {
             ...prev,
             items: prev.items.map(i => i.id === itemId ? {
               ...i,
-              // price NOT changed
               priceError: errMsg,
               priceUpdatedAt: data.updatedAt,
               priceUpdateStatus: 'failed' as const,
@@ -489,14 +483,12 @@ export function usePortfolio() {
             hf[k] = { ...pos, price: result.price, updateStatus: 'success', updateError: null, lastUpdatedAt: data.updatedAt };
           } else {
             hf[k] = { ...pos, updateStatus: 'failed', updateError: result.error ?? '取得失敗', lastUpdatedAt: now };
-            // price NOT changed on failure
           }
         }
         return { ...prev, summary: { ...prev.summary, hedgeFutures: hf } };
       });
       setIsDirty(true);
     } catch (e) {
-      // If the whole request failed, mark all as failed but keep prices
       setPortfolio(prev => {
         const hf = { ...prev.summary.hedgeFutures };
         const errMsg = e instanceof Error ? e.message : String(e);
