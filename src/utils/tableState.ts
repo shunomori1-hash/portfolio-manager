@@ -157,6 +157,47 @@ export function sortItems(items: PortfolioItem[], sort: SortState, totalBuy: num
   });
 }
 
+// ─── Column Settings Persistence ────────────────────────────────────────────
+
+const LS_COL_SETTINGS_PREFIX = 'portfolio-manager-column-settings';
+
+// All valid column keys as a Set for fast lookup when filtering saved data.
+const ALL_COL_KEYS = new Set<ColKey>(ALL_COLS.map(c => c.key));
+
+export function colSettingsLsKey(portfolioId: string): string {
+  return `${LS_COL_SETTINGS_PREFIX}-${portfolioId}`;
+}
+
+// Load column settings from localStorage for the given portfolio.
+// Returns null if nothing is saved or the data is unreadable.
+// Unknown column keys (from future/deleted columns) are silently ignored.
+export function loadColSettings(portfolioId: string): Set<ColKey> | null {
+  try {
+    const raw = localStorage.getItem(colSettingsLsKey(portfolioId));
+    if (!raw) return null;
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return null;
+    const valid = (parsed as unknown[]).filter(
+      (k): k is ColKey => typeof k === 'string' && ALL_COL_KEYS.has(k as ColKey)
+    );
+    if (valid.length === 0) return null;
+    const result = new Set(valid);
+    // code / name are always visible
+    result.add('code');
+    result.add('name');
+    return result;
+  } catch {
+    return null;
+  }
+}
+
+// Persist column settings to localStorage for the given portfolio.
+export function saveColSettings(portfolioId: string, visible: Set<ColKey>): void {
+  try {
+    localStorage.setItem(colSettingsLsKey(portfolioId), JSON.stringify([...visible]));
+  } catch { /* ignore write errors (e.g., private-browsing quota) */ }
+}
+
 // ─── Filter ──────────────────────────────────────────────────────────────────
 export interface FilterState {
   search: string;
@@ -206,9 +247,12 @@ export function filterItems(items: PortfolioItem[], f: FilterState): PortfolioIt
       if (y == null || y <= 0) return false;
     }
     if (f.plannedChangeOnly) {
-      // Show only items where plannedShares is set AND differs from current shares
-      if (item.plannedShares == null) return false;
-      if (item.plannedShares === item.shares) return false;
+      const s  = item.shares;
+      const ps = item.plannedShares;
+      // Case A: plannedShares is set and differs from shares
+      // Case B: shares is a positive number but plannedShares is unset
+      const hasDiff = (ps != null && ps !== s) || (ps == null && s != null && s > 0);
+      if (!hasDiff) return false;
     }
     return true;
   });

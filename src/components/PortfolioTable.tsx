@@ -94,12 +94,14 @@ function fmtPct(n: number | null): string {
 }
 
 // ─── Plan diff helper ────────────────────────────────────────────────────────
-// Returns true when plannedShares is set AND differs numerically from shares
+// Returns true when:
+//   A) plannedShares is set and differs from shares, OR
+//   B) shares is a positive number but plannedShares is unset (entry missing)
 function hasPlanDiff(item: PortfolioItem): boolean {
+  const s  = safeN(item.shares);
   const ps = safeN(item.plannedShares);
-  if (ps == null) return false;
-  const s = safeN(item.shares);
-  return s !== ps;
+  if (ps != null) return s !== ps;   // Case A
+  return s != null && s > 0;        // Case B
 }
 
 // ─── Color helpers ───────────────────────────────────────────────────────────

@@ -16,6 +16,8 @@ import {
   sortItems,
   filterItems,
   isFilterActive,
+  loadColSettings,
+  saveColSettings,
   type ColKey,
   type SortKey,
   type SortState,
@@ -50,7 +52,9 @@ export default function App() {
   // ── Table state ───────────────────────────────────────────────────────────
   const [sortState, setSortState] = useState<SortState>(DEFAULT_SORT);
   const [filter, setFilter] = useState<FilterState>(DEFAULT_FILTER);
-  const [visibleCols, setVisibleCols] = useState<Set<ColKey>>(new Set(COL_PRESETS.investment));
+  const [visibleCols, setVisibleCols] = useState<Set<ColKey>>(
+    () => loadColSettings('personal') ?? new Set(COL_PRESETS.investment)
+  );
 
   // ── Portfolio switch with unsaved-changes guard ───────────────────────────
   const handleSwitchPortfolio = (newId: PortfolioId) => {
@@ -64,6 +68,8 @@ export default function App() {
     setSortState(DEFAULT_SORT);
     setFilter(DEFAULT_FILTER);
     setShowFailedList(false);
+    // Restore column settings saved for the new portfolio (fall back to investment preset)
+    setVisibleCols(loadColSettings(newId) ?? new Set(COL_PRESETS.investment));
   };
 
   const handleSort = (key: SortKey) => {
@@ -316,7 +322,10 @@ export default function App() {
       {showColSettings && (
         <ColumnSettingsModal
           visible={visibleCols}
-          onApply={setVisibleCols}
+          onApply={cols => {
+            setVisibleCols(cols);
+            saveColSettings(activePortfolioId, cols);
+          }}
           onClose={() => setShowColSettings(false)}
         />
       )}
