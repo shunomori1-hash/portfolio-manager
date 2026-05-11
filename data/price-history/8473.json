@@ -1,14 +1,8 @@
 {
   "code": "8473",
   "symbol": "8473.T",
-  "lastFetchedAt": "2026-05-10T04:45:49.070Z",
+  "lastFetchedAt": "2026-05-11T06:59:10.131Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 2245.5,
-      "adjClose": 2175.473388671875,
-      "valueForTechnical": 2175.473388671875
-    },
     {
       "date": "2025-06-05",
       "close": 2232.5,
@@ -1352,6 +1346,12 @@
       "close": 3031,
       "adjClose": 3031,
       "valueForTechnical": 3031
+    },
+    {
+      "date": "2026-05-11",
+      "close": 3055,
+      "adjClose": 3055,
+      "valueForTechnical": 3055
     }
   ]
 }

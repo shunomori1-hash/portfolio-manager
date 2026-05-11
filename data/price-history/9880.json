@@ -1,14 +1,8 @@
 {
   "code": "9880",
   "symbol": "9880.T",
-  "lastFetchedAt": "2026-05-10T04:45:34.646Z",
+  "lastFetchedAt": "2026-05-11T06:58:55.197Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 1338,
-      "adjClose": 1263.8837890625,
-      "valueForTechnical": 1263.8837890625
-    },
     {
       "date": "2025-06-05",
       "close": 1342,
@@ -1352,6 +1346,12 @@
       "close": 3220,
       "adjClose": 3220,
       "valueForTechnical": 3220
+    },
+    {
+      "date": "2026-05-11",
+      "close": 3385,
+      "adjClose": 3385,
+      "valueForTechnical": 3385
     }
   ]
 }

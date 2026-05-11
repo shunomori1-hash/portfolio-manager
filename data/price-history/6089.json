@@ -1,14 +1,8 @@
 {
   "code": "6089",
   "symbol": "6089.T",
-  "lastFetchedAt": "2026-05-10T04:45:46.191Z",
+  "lastFetchedAt": "2026-05-11T06:59:07.070Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 905,
-      "adjClose": 873.041748046875,
-      "valueForTechnical": 873.041748046875
-    },
     {
       "date": "2025-06-05",
       "close": 913,
@@ -1352,6 +1346,12 @@
       "close": 1109,
       "adjClose": 1109,
       "valueForTechnical": 1109
+    },
+    {
+      "date": "2026-05-11",
+      "close": 1102,
+      "adjClose": 1102,
+      "valueForTechnical": 1102
     }
   ]
 }

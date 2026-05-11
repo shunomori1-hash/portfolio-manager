@@ -1,14 +1,8 @@
 {
   "code": "4186",
   "symbol": "4186.T",
-  "lastFetchedAt": "2026-05-10T09:32:13.713Z",
+  "lastFetchedAt": "2026-05-11T06:59:15.150Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 3799,
-      "adjClose": 3742.91259765625,
-      "valueForTechnical": 3742.91259765625
-    },
     {
       "date": "2025-06-05",
       "close": 3771,
@@ -1352,6 +1346,12 @@
       "close": 9688,
       "adjClose": 9688,
       "valueForTechnical": 9688
+    },
+    {
+      "date": "2026-05-11",
+      "close": 11190,
+      "adjClose": 11190,
+      "valueForTechnical": 11190
     }
   ]
 }

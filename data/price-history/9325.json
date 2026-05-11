@@ -1,14 +1,8 @@
 {
   "code": "9325",
   "symbol": "9325.T",
-  "lastFetchedAt": "2026-05-10T04:45:49.572Z",
+  "lastFetchedAt": "2026-05-11T06:59:10.442Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 1146,
-      "adjClose": 1117.8634033203125,
-      "valueForTechnical": 1117.8634033203125
-    },
     {
       "date": "2025-06-05",
       "close": 1160,
@@ -1352,6 +1346,12 @@
       "close": 1349,
       "adjClose": 1349,
       "valueForTechnical": 1349
+    },
+    {
+      "date": "2026-05-11",
+      "close": 1291,
+      "adjClose": 1291,
+      "valueForTechnical": 1291
     }
   ]
 }

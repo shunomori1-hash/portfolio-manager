@@ -1,14 +1,8 @@
 {
   "code": "9722",
   "symbol": "9722.T",
-  "lastFetchedAt": "2026-05-10T04:45:50.211Z",
+  "lastFetchedAt": "2026-05-11T06:59:11.188Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 2072,
-      "adjClose": 2061.061767578125,
-      "valueForTechnical": 2061.061767578125
-    },
     {
       "date": "2025-06-05",
       "close": 2054,
@@ -1352,6 +1346,12 @@
       "close": 2013,
       "adjClose": 2013,
       "valueForTechnical": 2013
+    },
+    {
+      "date": "2026-05-11",
+      "close": 2040,
+      "adjClose": 2040,
+      "valueForTechnical": 2040
     }
   ]
 }

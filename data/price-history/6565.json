@@ -1,14 +1,8 @@
 {
   "code": "6565",
   "symbol": "6565.T",
-  "lastFetchedAt": "2026-05-10T04:45:40.265Z",
+  "lastFetchedAt": "2026-05-11T06:59:01.342Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 1438,
-      "adjClose": 1405.0982666015625,
-      "valueForTechnical": 1405.0982666015625
-    },
     {
       "date": "2025-06-05",
       "close": 1512,

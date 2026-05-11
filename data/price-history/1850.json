@@ -1,14 +1,8 @@
 {
   "code": "1850",
   "symbol": "1850.T",
-  "lastFetchedAt": "2026-05-10T04:45:41.233Z",
+  "lastFetchedAt": "2026-05-11T06:59:01.956Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 315,
-      "adjClose": 309.9900817871094,
-      "valueForTechnical": 309.9900817871094
-    },
     {
       "date": "2025-06-05",
       "close": 312,
@@ -1352,6 +1346,12 @@
       "close": 426,
       "adjClose": 426,
       "valueForTechnical": 426
+    },
+    {
+      "date": "2026-05-11",
+      "close": 432,
+      "adjClose": 432,
+      "valueForTechnical": 432
     }
   ]
 }

@@ -1,14 +1,8 @@
 {
   "code": "6540",
   "symbol": "6540.T",
-  "lastFetchedAt": "2026-05-10T04:45:47.171Z",
+  "lastFetchedAt": "2026-05-11T06:59:08.047Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 1430,
-      "adjClose": 1368.1796875,
-      "valueForTechnical": 1368.1796875
-    },
     {
       "date": "2025-06-05",
       "close": 1481,
@@ -1352,6 +1346,12 @@
       "close": 1654,
       "adjClose": 1654,
       "valueForTechnical": 1654
+    },
+    {
+      "date": "2026-05-11",
+      "close": 1662,
+      "adjClose": 1662,
+      "valueForTechnical": 1662
     }
   ]
 }

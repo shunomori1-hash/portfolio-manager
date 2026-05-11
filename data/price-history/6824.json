@@ -1,14 +1,8 @@
 {
   "code": "6824",
   "symbol": "6824.T",
-  "lastFetchedAt": "2026-05-10T04:45:48.039Z",
+  "lastFetchedAt": "2026-05-11T06:59:09.136Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 2502,
-      "adjClose": 2451.588623046875,
-      "valueForTechnical": 2451.588623046875
-    },
     {
       "date": "2025-06-05",
       "close": 2500,
@@ -1352,6 +1346,12 @@
       "close": 5790,
       "adjClose": 5790,
       "valueForTechnical": 5790
+    },
+    {
+      "date": "2026-05-11",
+      "close": 5910,
+      "adjClose": 5910,
+      "valueForTechnical": 5910
     }
   ]
 }

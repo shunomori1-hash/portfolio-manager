@@ -1,14 +1,8 @@
 {
   "code": "6072",
   "symbol": "6072.T",
-  "lastFetchedAt": "2026-05-10T04:45:32.641Z",
+  "lastFetchedAt": "2026-05-11T06:58:53.024Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 166,
-      "adjClose": 166,
-      "valueForTechnical": 166
-    },
     {
       "date": "2025-06-05",
       "close": 166,
@@ -1352,6 +1346,12 @@
       "close": 1046,
       "adjClose": 1046,
       "valueForTechnical": 1046
+    },
+    {
+      "date": "2026-05-11",
+      "close": 994,
+      "adjClose": 994,
+      "valueForTechnical": 994
     }
   ]
 }

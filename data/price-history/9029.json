@@ -1,14 +1,8 @@
 {
   "code": "9029",
   "symbol": "9029.T",
-  "lastFetchedAt": "2026-05-10T04:45:36.396Z",
+  "lastFetchedAt": "2026-05-11T06:58:57.060Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 1482,
-      "adjClose": 1436.0465087890625,
-      "valueForTechnical": 1436.0465087890625
-    },
     {
       "date": "2025-06-05",
       "close": 1494,
@@ -1352,6 +1346,12 @@
       "close": 1780,
       "adjClose": 1780,
       "valueForTechnical": 1780
+    },
+    {
+      "date": "2026-05-11",
+      "close": 2094,
+      "adjClose": 2094,
+      "valueForTechnical": 2094
     }
   ]
 }

@@ -1,14 +1,8 @@
 {
   "code": "2428",
   "symbol": "2428.T",
-  "lastFetchedAt": "2026-05-10T04:45:41.860Z",
+  "lastFetchedAt": "2026-05-11T06:59:02.630Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 758,
-      "adjClose": 714.5717163085938,
-      "valueForTechnical": 714.5717163085938
-    },
     {
       "date": "2025-06-05",
       "close": 760,
@@ -1352,6 +1346,12 @@
       "close": 626,
       "adjClose": 626,
       "valueForTechnical": 626
+    },
+    {
+      "date": "2026-05-11",
+      "close": 640,
+      "adjClose": 640,
+      "valueForTechnical": 640
     }
   ]
 }

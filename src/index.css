@@ -653,6 +653,43 @@ body {
   cursor: not-allowed;
 }
 
+/* ── API status bars ─────────────────────────── */
+.api-offline-bar {
+  background: #fef2f2;
+  border-bottom: 2px solid #f87171;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #b91c1c;
+  flex-shrink: 0;
+}
+
+.api-reconnected-bar {
+  background: #f0fdf4;
+  border-bottom: 2px solid #4ade80;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.api-restore-bar {
+  background: #fffbeb;
+  border-bottom: 2px solid #fbbf24;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #92400e;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
 /* ── Failed price bar ────────────────────────── */
 .failed-price-bar {
   background: #fef2f2;

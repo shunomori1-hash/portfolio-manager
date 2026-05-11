@@ -1,14 +1,8 @@
 {
   "code": "4691",
   "symbol": "4691.T",
-  "lastFetchedAt": "2026-05-10T04:45:36.709Z",
+  "lastFetchedAt": "2026-05-11T06:58:57.583Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 1338,
-      "adjClose": 1300.203369140625,
-      "valueForTechnical": 1300.203369140625
-    },
     {
       "date": "2025-06-05",
       "close": 1281,
@@ -1352,6 +1346,12 @@
       "close": 2455,
       "adjClose": 2455,
       "valueForTechnical": 2455
+    },
+    {
+      "date": "2026-05-11",
+      "close": 2484,
+      "adjClose": 2484,
+      "valueForTechnical": 2484
     }
   ]
 }

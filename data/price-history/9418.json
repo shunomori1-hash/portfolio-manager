@@ -1,14 +1,8 @@
 {
   "code": "9418",
   "symbol": "9418.T",
-  "lastFetchedAt": "2026-05-10T04:45:49.885Z",
+  "lastFetchedAt": "2026-05-11T06:59:10.829Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 2218,
-      "adjClose": 2198.9228515625,
-      "valueForTechnical": 2198.9228515625
-    },
     {
       "date": "2025-06-05",
       "close": 2251,
@@ -1352,6 +1346,12 @@
       "close": 1540,
       "adjClose": 1540,
       "valueForTechnical": 1540
+    },
+    {
+      "date": "2026-05-11",
+      "close": 1530,
+      "adjClose": 1530,
+      "valueForTechnical": 1530
     }
   ]
 }

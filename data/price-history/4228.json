@@ -1,14 +1,8 @@
 {
   "code": "4228",
   "symbol": "4228.T",
-  "lastFetchedAt": "2026-05-10T04:45:39.578Z",
+  "lastFetchedAt": "2026-05-11T06:59:00.636Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 328,
-      "adjClose": 317.0909118652344,
-      "valueForTechnical": 317.0909118652344
-    },
     {
       "date": "2025-06-05",
       "close": 325,
@@ -1352,6 +1346,12 @@
       "close": 476,
       "adjClose": 476,
       "valueForTechnical": 476
+    },
+    {
+      "date": "2026-05-11",
+      "close": 497,
+      "adjClose": 497,
+      "valueForTechnical": 497
     }
   ]
 }

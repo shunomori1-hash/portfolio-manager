@@ -1,14 +1,8 @@
 {
   "code": "1852",
   "symbol": "1852.T",
-  "lastFetchedAt": "2026-05-10T04:45:53.100Z",
+  "lastFetchedAt": "2026-05-11T06:59:13.221Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 750,
-      "adjClose": 715.4440307617188,
-      "valueForTechnical": 715.4440307617188
-    },
     {
       "date": "2025-06-05",
       "close": 737,
@@ -1349,6 +1343,12 @@
     },
     {
       "date": "2026-05-08",
+      "close": 929,
+      "adjClose": 929,
+      "valueForTechnical": 929
+    },
+    {
+      "date": "2026-05-11",
       "close": 929,
       "adjClose": 929,
       "valueForTechnical": 929

@@ -1,5 +1,27 @@
 [
   {
+    "updatedAt": "2026-05-11T07:12:57.321Z",
+    "portfolioId": "personal",
+    "code": "4368",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "3月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:31:38.071Z",
+    "portfolioId": "personal",
+    "code": "7199",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "3月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
     "updatedAt": "2026-05-11T05:02:44.801Z",
     "portfolioId": "company",
     "code": "4186",

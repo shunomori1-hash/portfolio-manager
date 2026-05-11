@@ -1,14 +1,8 @@
 {
   "code": "6078",
   "symbol": "6078.T",
-  "lastFetchedAt": "2026-05-10T04:45:45.826Z",
+  "lastFetchedAt": "2026-05-11T06:59:06.747Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 1616,
-      "adjClose": 1590.845947265625,
-      "valueForTechnical": 1590.845947265625
-    },
     {
       "date": "2025-06-05",
       "close": 1621,
@@ -1352,6 +1346,12 @@
       "close": 1408,
       "adjClose": 1408,
       "valueForTechnical": 1408
+    },
+    {
+      "date": "2026-05-11",
+      "close": 1389,
+      "adjClose": 1389,
+      "valueForTechnical": 1389
     }
   ]
 }

@@ -1,14 +1,8 @@
 {
   "code": "8137",
   "symbol": "8137.T",
-  "lastFetchedAt": "2026-05-10T04:45:54.680Z",
+  "lastFetchedAt": "2026-05-11T06:59:14.195Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 2277,
-      "adjClose": 2184.494873046875,
-      "valueForTechnical": 2184.494873046875
-    },
     {
       "date": "2025-06-05",
       "close": 2285,
@@ -1352,6 +1346,12 @@
       "close": 3255,
       "adjClose": 3255,
       "valueForTechnical": 3255
+    },
+    {
+      "date": "2026-05-11",
+      "close": 3955,
+      "adjClose": 3955,
+      "valueForTechnical": 3955
     }
   ]
 }

@@ -1,14 +1,8 @@
 {
   "code": "3543",
   "symbol": "3543.T",
-  "lastFetchedAt": "2026-05-10T04:45:43.449Z",
+  "lastFetchedAt": "2026-05-11T06:59:04.371Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 2820,
-      "adjClose": 2764.51806640625,
-      "valueForTechnical": 2764.51806640625
-    },
     {
       "date": "2025-06-05",
       "close": 2825,
@@ -1352,6 +1346,12 @@
       "close": 3030,
       "adjClose": 3030,
       "valueForTechnical": 3030
+    },
+    {
+      "date": "2026-05-11",
+      "close": 2995,
+      "adjClose": 2995,
+      "valueForTechnical": 2995
     }
   ]
 }

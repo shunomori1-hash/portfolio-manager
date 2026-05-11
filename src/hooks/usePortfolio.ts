@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import type {
   Portfolio, PortfolioItem, PriceFetchResponse,
   PriceUpdateLogEntry, PriceUpdateSummary,
@@ -8,6 +8,7 @@ import type {
   CompanyNameFetchResponse, CompanyNameLogEntry,
   ValuationFetchResponse,
 } from '../types';
+import { saveBackup, clearBackup } from '../utils/portfolioBackup';
 
 export const DEFAULT_HEDGE_FUTURES: HedgeFutures = {
   grossNikkei: { price: null, lots: null, multiplier: 100,   source: 'nikkei225jp',  symbol: 'c=138', lastUpdatedAt: null, updateStatus: 'unknown', updateError: null },
@@ -217,6 +218,19 @@ export function usePortfolio(portfolioId: PortfolioId) {
   const [isDirty, setIsDirty] = useState(false);
   const [priceUpdateSummary, setPriceUpdateSummary] = useState<PriceUpdateSummary | null>(null);
 
+  // ── Auto-backup dirty state to localStorage (2 s debounce) ───────────────
+  const autoBackupTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (!isDirty) return;
+    if (autoBackupTimer.current) clearTimeout(autoBackupTimer.current);
+    autoBackupTimer.current = setTimeout(() => {
+      saveBackup(portfolioId, portfolio, 'auto_dirty');
+    }, 2000);
+    return () => {
+      if (autoBackupTimer.current) clearTimeout(autoBackupTimer.current);
+    };
+  }, [portfolio, isDirty, portfolioId]);
+
   // ── Load (re-runs on portfolioId change) ──────────────────────────────────
   useEffect(() => {
     setLoading(true);
@@ -297,6 +311,15 @@ export function usePortfolio(portfolioId: PortfolioId) {
     setIsDirty(true);
   }, []);
 
+  // ── Restore from local backup ─────────────────────────────────────────────
+  const restorePortfolio = useCallback((data: Portfolio) => {
+    setPortfolio(normalizePortfolio(data));
+    setIsDirty(true);
+    clearBackup(portfolioId);
+    setSaveStatus('ブラウザ内バックアップから復元しました。保存ボタンで保存してください。');
+    setTimeout(() => setSaveStatus(null), 5000);
+  }, [portfolioId]);
+
   // ── Save ──────────────────────────────────────────────────────────────────
   const save = useCallback(async (current: Portfolio) => {
     setSaving(true);
@@ -309,10 +332,17 @@ export function usePortfolio(portfolioId: PortfolioId) {
       });
       setPortfolio(prev => ({ ...prev, lastSaved: data.lastSaved }));
       setIsDirty(false);
+      clearBackup(portfolioId); // saved to server — no longer need local backup
       setSaveStatus('保存しました');
       setTimeout(() => setSaveStatus(null), 3000);
     } catch (e) {
-      setSaveStatus('保存失敗: ' + String(e));
+      // Preserve data in localStorage so it isn't lost when the API is down
+      saveBackup(portfolioId, current, 'save_failed_api_offline');
+      setSaveStatus(
+        'APIサーバーが起動していないため保存できません。' +
+        'PF管理起動.bat を再実行後、もう一度保存してください。' +
+        '現在の変更内容はブラウザ内に一時保存しました。'
+      );
     } finally {
       setSaving(false);
     }
@@ -808,6 +838,7 @@ export function usePortfolio(portfolioId: PortfolioId) {
     addItem,
     removeItem,
     save,
+    restorePortfolio,
     fetchPrices,
     fetchSinglePrice,
     fetchFuturesPrices,

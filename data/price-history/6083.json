@@ -1,14 +1,8 @@
 {
   "code": "6083",
   "symbol": "6083.T",
-  "lastFetchedAt": "2026-05-10T04:45:38.688Z",
+  "lastFetchedAt": "2026-05-11T06:58:59.796Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 2107,
-      "adjClose": 2075.33740234375,
-      "valueForTechnical": 2075.33740234375
-    },
     {
       "date": "2025-06-05",
       "close": 2105,
@@ -1352,6 +1346,12 @@
       "close": 4255,
       "adjClose": 4255,
       "valueForTechnical": 4255
+    },
+    {
+      "date": "2026-05-11",
+      "close": 4250,
+      "adjClose": 4250,
+      "valueForTechnical": 4250
     }
   ]
 }

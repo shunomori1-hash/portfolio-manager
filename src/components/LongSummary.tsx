@@ -351,6 +351,16 @@ export function LongSummary({ portfolio, onUpdateSummary, onFetchFuturesPrices, 
                 <td className="num">{totalHedge > 0 ? fmt(totalHedge) : '—'}</td>
                 <td></td>
               </tr>
+              <tr>
+                <td style={{ fontWeight: 600 }}>売りポジ比率</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td className="num">
+                  {assetBase != null ? fmtPct(totalHedge / assetBase) : '—'}
+                </td>
+                <td></td>
+              </tr>
             </tbody>
           </table>
 

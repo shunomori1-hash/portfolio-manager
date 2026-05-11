@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { usePortfolio } from './hooks/usePortfolio';
+import { useApiHealth } from './hooks/useApiHealth';
+import { loadBackup, clearBackup } from './utils/portfolioBackup';
 import { PortfolioTable } from './components/PortfolioTable';
 import { LongSummary } from './components/LongSummary';
 import { FilterBar } from './components/FilterBar';
@@ -35,9 +37,30 @@ export default function App() {
     fetchingTechnicals, technicalUpdateSummary,
     error, saveStatus, isDirty, priceUpdateSummary,
     updateItem, updatePriceManually, resetPlannedShares, updateSummary,
-    addItem, removeItem, save, fetchPrices, fetchSinglePrice,
+    addItem, removeItem, save, restorePortfolio, fetchPrices, fetchSinglePrice,
     fetchFuturesPrices, fetchingFutures, fetchTechnicals, importItems,
   } = usePortfolio(activePortfolioId);
+
+  // ── API health monitoring ─────────────────────────────────────────────────
+  const { apiStatus, justReconnected, acknowledgeReconnect } = useApiHealth();
+
+  // ── Local backup restore prompt ──────────────────────────────────────────
+  // Check for a local backup whenever the active portfolio changes.
+  const [pendingRestoreAt, setPendingRestoreAt] = useState<string | null>(null);
+  useEffect(() => {
+    const backup = loadBackup(activePortfolioId);
+    setPendingRestoreAt(backup ? backup.savedAt : null);
+  }, [activePortfolioId]);
+
+  const handleRestore = () => {
+    const backup = loadBackup(activePortfolioId);
+    if (backup) restorePortfolio(backup.data);
+    setPendingRestoreAt(null);
+  };
+  const handleDiscardBackup = () => {
+    clearBackup(activePortfolioId);
+    setPendingRestoreAt(null);
+  };
 
   // ── UI state ─────────────────────────────────────────────────────────────
   const [density, setDensity] = useState<'compact' | 'standard'>('compact');
@@ -232,6 +255,38 @@ export default function App() {
           </button>
         </div>
       </header>
+
+      {/* ── API offline banner ──────────────────────────────────────────── */}
+      {apiStatus === 'offline' && (
+        <div className="api-offline-bar">
+          ⚠️ APIサーバー停止中。PF管理起動.bat を再実行してください。
+          未保存データはブラウザ内に一時保存されています。
+        </div>
+      )}
+
+      {/* ── API reconnected notice ──────────────────────────────────────── */}
+      {justReconnected && (
+        <div className="api-reconnected-bar">
+          ✅ APIサーバーに再接続しました。未保存データを保存できます。
+          <button className="btn btn-save" style={{ marginLeft: 12, padding: '2px 10px', fontSize: 12 }}
+            onClick={() => { save(portfolio); acknowledgeReconnect(); }}>
+            今すぐ保存
+          </button>
+          <button className="btn-filter-clear" style={{ marginLeft: 6 }}
+            onClick={acknowledgeReconnect}>閉じる</button>
+        </div>
+      )}
+
+      {/* ── Local backup restore prompt ─────────────────────────────────── */}
+      {pendingRestoreAt && (
+        <div className="api-restore-bar">
+          💾 前回保存できなかった未保存データがあります（{new Date(pendingRestoreAt).toLocaleString('ja-JP')}）。復元しますか？
+          <button className="btn btn-save" style={{ marginLeft: 12, padding: '2px 10px', fontSize: 12 }}
+            onClick={handleRestore}>復元する</button>
+          <button className="btn-filter-clear" style={{ marginLeft: 6 }}
+            onClick={handleDiscardBackup}>破棄する</button>
+        </div>
+      )}
 
       {/* ── Failed items list (collapsible) ─────────────────────────────── */}
       {showFailedList && priceUpdateSummary && priceUpdateSummary.failedItems.length > 0 && (

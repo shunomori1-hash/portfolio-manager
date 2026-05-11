@@ -1,14 +1,8 @@
 {
   "code": "2805",
   "symbol": "2805.T",
-  "lastFetchedAt": "2026-05-10T04:45:38.073Z",
+  "lastFetchedAt": "2026-05-11T06:58:58.999Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 2992,
-      "adjClose": 2956.677001953125,
-      "valueForTechnical": 2956.677001953125
-    },
     {
       "date": "2025-06-05",
       "close": 3000,
@@ -1352,6 +1346,12 @@
       "close": 4450,
       "adjClose": 4450,
       "valueForTechnical": 4450
+    },
+    {
+      "date": "2026-05-11",
+      "close": 4520,
+      "adjClose": 4520,
+      "valueForTechnical": 4520
     }
   ]
 }

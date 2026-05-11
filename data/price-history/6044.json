@@ -1,14 +1,8 @@
 {
   "code": "6044",
   "symbol": "6044.T",
-  "lastFetchedAt": "2026-05-10T04:45:44.785Z",
+  "lastFetchedAt": "2026-05-11T06:59:05.676Z",
   "prices": [
-    {
-      "date": "2025-06-04",
-      "close": 1107,
-      "adjClose": 1107,
-      "valueForTechnical": 1107
-    },
     {
       "date": "2025-06-05",
       "close": 1103,
@@ -1352,6 +1346,12 @@
       "close": 1705,
       "adjClose": 1705,
       "valueForTechnical": 1705
+    },
+    {
+      "date": "2026-05-11",
+      "close": 1718,
+      "adjClose": 1718,
+      "valueForTechnical": 1718
     }
   ]
 }

@@ -1,5 +1,335 @@
 [
   {
+    "updatedAt": "2026-05-11T07:12:57.462Z",
+    "portfolioId": "personal",
+    "code": "1852",
+    "previousName": "淺沼組",
+    "newName": "淺沼組",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T07:12:57.462Z",
+    "portfolioId": "personal",
+    "code": "6570",
+    "previousName": "共和コーポレーション",
+    "newName": "共和コーポレーション",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T07:12:57.462Z",
+    "portfolioId": "personal",
+    "code": "9731",
+    "previousName": "白洋舎",
+    "newName": "白洋舎",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T07:12:57.462Z",
+    "portfolioId": "personal",
+    "code": "8137",
+    "previousName": "サンワテクノス",
+    "newName": "サンワテクノス",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T07:12:57.462Z",
+    "portfolioId": "personal",
+    "code": "6629",
+    "previousName": "テクノホライゾン",
+    "newName": "テクノホライゾン",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T07:12:57.462Z",
+    "portfolioId": "personal",
+    "code": "4186",
+    "previousName": "東京応化工業",
+    "newName": "東京応化工業",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T07:12:57.462Z",
+    "portfolioId": "personal",
+    "code": "7199",
+    "previousName": "プレミアグループ",
+    "newName": "プレミアグループ",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T07:12:57.462Z",
+    "portfolioId": "personal",
+    "code": "4368",
+    "previousName": "",
+    "newName": "扶桑化学工業",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T06:55:11.462Z",
+    "portfolioId": "company",
+    "code": "4966",
+    "previousName": "上村工業",
+    "newName": "上村工業",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T06:55:11.462Z",
+    "portfolioId": "company",
+    "code": "9325",
+    "previousName": "ファイズホールディングス",
+    "newName": "ファイズホールディングス",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T06:55:11.462Z",
+    "portfolioId": "company",
+    "code": "4914",
+    "previousName": "高砂香料工業",
+    "newName": "高砂香料工業",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T06:55:11.462Z",
+    "portfolioId": "company",
+    "code": "3097",
+    "previousName": "物語コーポレーション",
+    "newName": "物語コーポレーション",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T06:55:11.462Z",
+    "portfolioId": "company",
+    "code": "4186",
+    "previousName": "東京応化工業",
+    "newName": "東京応化工業",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T06:24:30.728Z",
+    "portfolioId": "personal",
+    "code": "1852",
+    "previousName": "淺沼組",
+    "newName": "淺沼組",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T06:24:30.728Z",
+    "portfolioId": "personal",
+    "code": "6570",
+    "previousName": "共和コーポレーション",
+    "newName": "共和コーポレーション",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T06:24:30.728Z",
+    "portfolioId": "personal",
+    "code": "9731",
+    "previousName": "白洋舎",
+    "newName": "白洋舎",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T06:24:30.728Z",
+    "portfolioId": "personal",
+    "code": "8137",
+    "previousName": "サンワテクノス",
+    "newName": "サンワテクノス",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T06:24:30.728Z",
+    "portfolioId": "personal",
+    "code": "6629",
+    "previousName": "テクノホライゾン",
+    "newName": "テクノホライゾン",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T06:24:30.728Z",
+    "portfolioId": "personal",
+    "code": "4186",
+    "previousName": "東京応化工業",
+    "newName": "東京応化工業",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T06:24:30.728Z",
+    "portfolioId": "personal",
+    "code": "7199",
+    "previousName": "プレミアグループ",
+    "newName": "プレミアグループ",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:31:38.788Z",
+    "portfolioId": "personal",
+    "code": "1852",
+    "previousName": "淺沼組",
+    "newName": "淺沼組",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:31:38.788Z",
+    "portfolioId": "personal",
+    "code": "6570",
+    "previousName": "共和コーポレーション",
+    "newName": "共和コーポレーション",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:31:38.788Z",
+    "portfolioId": "personal",
+    "code": "9731",
+    "previousName": "白洋舎",
+    "newName": "白洋舎",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:31:38.788Z",
+    "portfolioId": "personal",
+    "code": "8137",
+    "previousName": "サンワテクノス",
+    "newName": "サンワテクノス",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:31:38.788Z",
+    "portfolioId": "personal",
+    "code": "6629",
+    "previousName": "テクノホライゾン",
+    "newName": "テクノホライゾン",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:31:38.788Z",
+    "portfolioId": "personal",
+    "code": "4186",
+    "previousName": "東京応化工業",
+    "newName": "東京応化工業",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:31:38.788Z",
+    "portfolioId": "personal",
+    "code": "7199",
+    "previousName": "",
+    "newName": "プレミアグループ",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:29:12.501Z",
+    "portfolioId": "personal",
+    "code": "1852",
+    "previousName": "淺沼組",
+    "newName": "淺沼組",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:29:12.501Z",
+    "portfolioId": "personal",
+    "code": "6570",
+    "previousName": "共和コーポレーション",
+    "newName": "共和コーポレーション",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:29:12.501Z",
+    "portfolioId": "personal",
+    "code": "9731",
+    "previousName": "白洋舎",
+    "newName": "白洋舎",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:29:12.501Z",
+    "portfolioId": "personal",
+    "code": "8137",
+    "previousName": "サンワテクノス",
+    "newName": "サンワテクノス",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:29:12.501Z",
+    "portfolioId": "personal",
+    "code": "6629",
+    "previousName": "テクノホライゾン",
+    "newName": "テクノホライゾン",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T05:29:12.501Z",
+    "portfolioId": "personal",
+    "code": "4186",
+    "previousName": "東京応化工業",
+    "newName": "東京応化工業",
+    "status": "success",
+    "source": "jpx",
+    "error": null
+  },
+  {
     "updatedAt": "2026-05-11T05:02:44.931Z",
     "portfolioId": "company",
     "code": "4966",
