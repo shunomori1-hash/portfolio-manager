@@ -1,20 +1,8 @@
 {
   "code": "6547",
   "symbol": "6547.T",
-  "lastFetchedAt": "2026-05-07T05:05:43.585Z",
+  "lastFetchedAt": "2026-05-10T04:45:47.658Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 2238,
-      "adjClose": 2201.380126953125,
-      "valueForTechnical": 2201.380126953125
-    },
-    {
-      "date": "2025-06-03",
-      "close": 2225,
-      "adjClose": 2188.5927734375,
-      "valueForTechnical": 2188.5927734375
-    },
     {
       "date": "2025-06-04",
       "close": 2227,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 2308,
-      "adjClose": 2308,
-      "valueForTechnical": 2308
+      "close": 2312,
+      "adjClose": 2312,
+      "valueForTechnical": 2312
+    },
+    {
+      "date": "2026-05-08",
+      "close": 2332,
+      "adjClose": 2332,
+      "valueForTechnical": 2332
     }
   ]
 }

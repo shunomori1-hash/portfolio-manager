@@ -1,20 +1,8 @@
 {
   "code": "3415",
   "symbol": "3415.T",
-  "lastFetchedAt": "2026-05-07T05:05:30.839Z",
+  "lastFetchedAt": "2026-05-10T04:45:35.467Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 330,
-      "adjClose": 325.3411865234375,
-      "valueForTechnical": 325.3411865234375
-    },
-    {
-      "date": "2025-06-03",
-      "close": 334,
-      "adjClose": 329.2846984863281,
-      "valueForTechnical": 329.2846984863281
-    },
     {
       "date": "2025-06-04",
       "close": 391,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 406,
-      "adjClose": 406,
-      "valueForTechnical": 406
+      "close": 400,
+      "adjClose": 400,
+      "valueForTechnical": 400
+    },
+    {
+      "date": "2026-05-08",
+      "close": 376,
+      "adjClose": 376,
+      "valueForTechnical": 376
     }
   ]
 }

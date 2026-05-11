@@ -1,20 +1,8 @@
 {
   "code": "9880",
   "symbol": "9880.T",
-  "lastFetchedAt": "2026-05-07T05:05:30.197Z",
+  "lastFetchedAt": "2026-05-10T04:45:34.646Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 1326,
-      "adjClose": 1252.5484619140625,
-      "valueForTechnical": 1252.5484619140625
-    },
-    {
-      "date": "2025-06-03",
-      "close": 1330,
-      "adjClose": 1256.326904296875,
-      "valueForTechnical": 1256.326904296875
-    },
     {
       "date": "2025-06-04",
       "close": 1338,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 3215,
-      "adjClose": 3215,
-      "valueForTechnical": 3215
+      "close": 3225,
+      "adjClose": 3225,
+      "valueForTechnical": 3225
+    },
+    {
+      "date": "2026-05-08",
+      "close": 3220,
+      "adjClose": 3220,
+      "valueForTechnical": 3220
     }
   ]
 }

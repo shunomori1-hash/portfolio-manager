@@ -1,20 +1,8 @@
 {
   "code": "2751",
   "symbol": "2751.T",
-  "lastFetchedAt": "2026-05-07T05:05:38.058Z",
+  "lastFetchedAt": "2026-05-10T04:45:42.525Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 3435,
-      "adjClose": 3426.6220703125,
-      "valueForTechnical": 3426.6220703125
-    },
-    {
-      "date": "2025-06-03",
-      "close": 3415,
-      "adjClose": 3406.670654296875,
-      "valueForTechnical": 3406.670654296875
-    },
     {
       "date": "2025-06-04",
       "close": 3415,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 3565,
-      "adjClose": 3565,
-      "valueForTechnical": 3565
+      "close": 3555,
+      "adjClose": 3555,
+      "valueForTechnical": 3555
+    },
+    {
+      "date": "2026-05-08",
+      "close": 3505,
+      "adjClose": 3505,
+      "valueForTechnical": 3505
     }
   ]
 }

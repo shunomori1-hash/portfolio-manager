@@ -1,7 +1,7 @@
 {
   "code": "556A",
   "symbol": "556A.T",
-  "lastFetchedAt": "2026-05-07T05:05:36.050Z",
+  "lastFetchedAt": "2026-05-10T04:45:40.930Z",
   "prices": [
     {
       "date": "2026-04-23",
@@ -41,9 +41,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 3345,
-      "adjClose": 3345,
-      "valueForTechnical": 3345
+      "close": 3295,
+      "adjClose": 3295,
+      "valueForTechnical": 3295
+    },
+    {
+      "date": "2026-05-08",
+      "close": 3405,
+      "adjClose": 3405,
+      "valueForTechnical": 3405
     }
   ]
 }

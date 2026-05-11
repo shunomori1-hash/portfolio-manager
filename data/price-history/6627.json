@@ -1,20 +1,8 @@
 {
   "code": "6627",
   "symbol": "6627.T",
-  "lastFetchedAt": "2026-05-07T05:05:35.752Z",
+  "lastFetchedAt": "2026-05-10T04:45:40.631Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 2773,
-      "adjClose": 2725.039306640625,
-      "valueForTechnical": 2725.039306640625
-    },
-    {
-      "date": "2025-06-03",
-      "close": 2750,
-      "adjClose": 2702.43701171875,
-      "valueForTechnical": 2702.43701171875
-    },
     {
       "date": "2025-06-04",
       "close": 2826,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 11320,
-      "adjClose": 11320,
-      "valueForTechnical": 11320
+      "close": 11300,
+      "adjClose": 11300,
+      "valueForTechnical": 11300
+    },
+    {
+      "date": "2026-05-08",
+      "close": 11530,
+      "adjClose": 11530,
+      "valueForTechnical": 11530
     }
   ]
 }

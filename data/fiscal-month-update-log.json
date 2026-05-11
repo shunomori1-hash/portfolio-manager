@@ -1,5 +1,126 @@
 [
   {
+    "updatedAt": "2026-05-11T00:56:50.120Z",
+    "portfolioId": "company",
+    "code": "4914",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "3月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T00:50:17.098Z",
+    "portfolioId": "company",
+    "code": "3097",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "6月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T00:16:49.251Z",
+    "portfolioId": "personal",
+    "code": "6629",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "3月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-11T00:06:30.464Z",
+    "portfolioId": "personal",
+    "code": "8203",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "2月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-10T12:26:13.503Z",
+    "portfolioId": "company",
+    "code": "4914",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "3月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-10T08:08:16.517Z",
+    "portfolioId": "company",
+    "code": "4186",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "12月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-10T08:07:38.239Z",
+    "portfolioId": "personal",
+    "code": "4186",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "12月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-10T04:35:33.856Z",
+    "portfolioId": "company",
+    "code": "9325",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "3月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-09T14:10:20.636Z",
+    "portfolioId": "company",
+    "code": "8137",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "3月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-09T12:41:45.151Z",
+    "portfolioId": "personal",
+    "code": "8137",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "3月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
+    "updatedAt": "2026-05-08T00:02:54.761Z",
+    "portfolioId": "company",
+    "code": "4966",
+    "name": "",
+    "previousFiscalMonth": "",
+    "newFiscalMonth": "3月",
+    "status": "success",
+    "source": "yahoo-finance",
+    "error": null
+  },
+  {
     "updatedAt": "2026-05-07T14:10:31.639Z",
     "portfolioId": "personal",
     "code": "6076",

@@ -1,20 +1,8 @@
 {
   "code": "5870",
   "symbol": "5870.T",
-  "lastFetchedAt": "2026-05-07T05:05:31.353Z",
+  "lastFetchedAt": "2026-05-10T04:45:36.083Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 651,
-      "adjClose": 633.5970458984375,
-      "valueForTechnical": 633.5970458984375
-    },
-    {
-      "date": "2025-06-03",
-      "close": 664,
-      "adjClose": 646.24951171875,
-      "valueForTechnical": 646.24951171875
-    },
     {
       "date": "2025-06-04",
       "close": 654,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 1003,
-      "adjClose": 1003,
-      "valueForTechnical": 1003
+      "close": 1005,
+      "adjClose": 1005,
+      "valueForTechnical": 1005
+    },
+    {
+      "date": "2026-05-08",
+      "close": 1006,
+      "adjClose": 1006,
+      "valueForTechnical": 1006
     }
   ]
 }

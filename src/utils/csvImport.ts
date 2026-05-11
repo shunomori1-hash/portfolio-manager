@@ -63,6 +63,12 @@ const HEADER_MAP: Record<string, keyof PortfolioItem | 'skip' | 'calc'> = {
   'PER': 'per',
   'Per': 'per',
   'per': 'per',
+  'PBR': 'pbr',
+  'Pbr': 'pbr',
+  'pbr': 'pbr',
+  'ROE': 'roe',
+  'Roe': 'roe',
+  'roe': 'roe',
   'pera': 'skip',
   'PERA': 'skip',
   '経営者': 'management',
@@ -96,7 +102,7 @@ const PERIOD_FIELDS = new Set<keyof PortfolioItem>(['targetPeriod']);
 const PERIOD_VALUES = new Set(['3ヶ月', '半年', '1年', '2年', '']);
 const NUMERIC_FIELDS = new Set<keyof PortfolioItem>([
   'price', 'shares', 'plannedShares', 'plannedDelta', 'borderPrice', 'targetPrice',
-  'per', 'netCash', 'marchDividend', 'dividend', 'benefit',
+  'per', 'pbr', 'roe', 'netCash', 'marchDividend', 'dividend', 'benefit',
 ]);
 
 async function readFileWithEncoding(file: File): Promise<string> {
@@ -316,6 +322,11 @@ export async function parseCsvFile(file: File): Promise<CsvParseResult> {
       nameUpdateStatus: 'unknown',
       nameUpdateError: null,
       nameUpdatedAt: null,
+      pbr: null,
+      roe: null,
+      valuationUpdatedAt: null,
+      valuationUpdateStatus: 'unknown',
+      valuationUpdateError: null,
     };
 
     for (let colIdx = 0; colIdx < mappings.length; colIdx++) {

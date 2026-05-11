@@ -1,20 +1,8 @@
 {
   "code": "2157",
   "symbol": "2157.T",
-  "lastFetchedAt": "2026-05-07T05:05:36.957Z",
+  "lastFetchedAt": "2026-05-10T04:45:41.553Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 1123,
-      "adjClose": 1101.2752685546875,
-      "valueForTechnical": 1101.2752685546875
-    },
-    {
-      "date": "2025-06-03",
-      "close": 1149,
-      "adjClose": 1126.7723388671875,
-      "valueForTechnical": 1126.7723388671875
-    },
     {
       "date": "2025-06-04",
       "close": 1165,
@@ -1355,6 +1343,12 @@
     },
     {
       "date": "2026-05-07",
+      "close": 999,
+      "adjClose": 999,
+      "valueForTechnical": 999
+    },
+    {
+      "date": "2026-05-08",
       "close": 1001,
       "adjClose": 1001,
       "valueForTechnical": 1001

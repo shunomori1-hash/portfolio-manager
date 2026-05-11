@@ -1,20 +1,8 @@
 {
   "code": "6742",
   "symbol": "6742.T",
-  "lastFetchedAt": "2026-05-07T05:05:30.528Z",
+  "lastFetchedAt": "2026-05-10T04:45:35.136Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 483,
-      "adjClose": 465.59783935546875,
-      "valueForTechnical": 465.59783935546875
-    },
-    {
-      "date": "2025-06-03",
-      "close": 482,
-      "adjClose": 464.63385009765625,
-      "valueForTechnical": 464.63385009765625
-    },
     {
       "date": "2025-06-04",
       "close": 488,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 738,
-      "adjClose": 738,
-      "valueForTechnical": 738
+      "close": 734,
+      "adjClose": 734,
+      "valueForTechnical": 734
+    },
+    {
+      "date": "2026-05-08",
+      "close": 749,
+      "adjClose": 749,
+      "valueForTechnical": 749
     }
   ]
 }

@@ -1,20 +1,8 @@
 {
   "code": "4554",
   "symbol": "4554.T",
-  "lastFetchedAt": "2026-05-07T05:05:28.793Z",
+  "lastFetchedAt": "2026-05-10T04:45:33.034Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 1312,
-      "adjClose": 1279.00537109375,
-      "valueForTechnical": 1279.00537109375
-    },
-    {
-      "date": "2025-06-03",
-      "close": 1286,
-      "adjClose": 1253.6591796875,
-      "valueForTechnical": 1253.6591796875
-    },
     {
       "date": "2025-06-04",
       "close": 1291,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 2233,
-      "adjClose": 2233,
-      "valueForTechnical": 2233
+      "close": 2232,
+      "adjClose": 2232,
+      "valueForTechnical": 2232
+    },
+    {
+      "date": "2026-05-08",
+      "close": 2244,
+      "adjClose": 2244,
+      "valueForTechnical": 2244
     }
   ]
 }

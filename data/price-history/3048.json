@@ -1,20 +1,8 @@
 {
   "code": "3048",
   "symbol": "3048.T",
-  "lastFetchedAt": "2026-05-07T05:05:38.576Z",
+  "lastFetchedAt": "2026-05-10T04:45:42.844Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 1490,
-      "adjClose": 1452.6016845703125,
-      "valueForTechnical": 1452.6016845703125
-    },
-    {
-      "date": "2025-06-03",
-      "close": 1532,
-      "adjClose": 1493.5474853515625,
-      "valueForTechnical": 1493.5474853515625
-    },
     {
       "date": "2025-06-04",
       "close": 1530,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 1600.5,
-      "adjClose": 1600.5,
-      "valueForTechnical": 1600.5
+      "close": 1604,
+      "adjClose": 1604,
+      "valueForTechnical": 1604
+    },
+    {
+      "date": "2026-05-08",
+      "close": 1617,
+      "adjClose": 1617,
+      "valueForTechnical": 1617
     }
   ]
 }

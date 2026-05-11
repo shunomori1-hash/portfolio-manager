@@ -1,20 +1,8 @@
 {
   "code": "4755",
   "symbol": "4755.T",
-  "lastFetchedAt": "2026-05-07T05:05:40.502Z",
+  "lastFetchedAt": "2026-05-10T04:45:44.480Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 820.7000122070312,
-      "adjClose": 820.7000122070312,
-      "valueForTechnical": 820.7000122070312
-    },
-    {
-      "date": "2025-06-03",
-      "close": 816,
-      "adjClose": 816,
-      "valueForTechnical": 816
-    },
     {
       "date": "2025-06-04",
       "close": 809.2000122070312,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 752.2999877929688,
-      "adjClose": 752.2999877929688,
-      "valueForTechnical": 752.2999877929688
+      "close": 751,
+      "adjClose": 751,
+      "valueForTechnical": 751
+    },
+    {
+      "date": "2026-05-08",
+      "close": 747.9000244140625,
+      "adjClose": 747.9000244140625,
+      "valueForTechnical": 747.9000244140625
     }
   ]
 }

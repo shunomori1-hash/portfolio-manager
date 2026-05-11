@@ -1,20 +1,8 @@
 {
   "code": "3097",
   "symbol": "3097.T",
-  "lastFetchedAt": "2026-05-07T05:05:38.902Z",
+  "lastFetchedAt": "2026-05-10T04:45:43.152Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 3575,
-      "adjClose": 3542.5625,
-      "valueForTechnical": 3542.5625
-    },
-    {
-      "date": "2025-06-03",
-      "close": 3545,
-      "adjClose": 3512.834716796875,
-      "valueForTechnical": 3512.834716796875
-    },
     {
       "date": "2025-06-04",
       "close": 3545,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 4260,
-      "adjClose": 4260,
-      "valueForTechnical": 4260
+      "close": 4250,
+      "adjClose": 4250,
+      "valueForTechnical": 4250
+    },
+    {
+      "date": "2026-05-08",
+      "close": 4205,
+      "adjClose": 4205,
+      "valueForTechnical": 4205
     }
   ]
 }

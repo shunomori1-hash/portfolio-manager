@@ -7,7 +7,7 @@ export type ColKey =
   | 'plannedDelta' | 'afterAmount' | 'afterRatio'
   | 'settlement' | 'tech' | 'topix'
   | 'border' | 'divergence' | 'targetPrice' | 'targetPeriod' | 'upside'
-  | 'fx' | 'inflation' | 'ir' | 'per'
+  | 'fx' | 'inflation' | 'ir' | 'per' | 'pbr' | 'roe'
   | 'management' | 'competitiveness' | 'governance'
   | 'netCash' | 'netPer'
   | 'marchDiv' | 'dividend' | 'divAmount' | 'divYield'
@@ -21,8 +21,8 @@ export interface ColDef {
 }
 
 export const ALL_COLS: ColDef[] = [
-  { key: 'code',              label: 'コード',      width: 52 },
-  { key: 'name',              label: '銘柄名',      width: 90 },
+  { key: 'code',              label: 'コード',      width: 48 },
+  { key: 'name',              label: '銘柄名',      width: 92 },
   { key: 'price',             label: '株価',        width: 60 },
   { key: 'shares',            label: '株数',        width: 52 },
   { key: 'holding',           label: '保有金額',    width: 78 },
@@ -35,18 +35,20 @@ export const ALL_COLS: ColDef[] = [
   { key: 'plannedDelta',      label: '増減株数',    width: 54 },
   { key: 'afterAmount',       label: '増減後額',    width: 76 },
   { key: 'afterRatio',        label: '増減後%',     width: 54 },
-  { key: 'settlement',        label: '決算',        width: 44 },
+  { key: 'settlement',        label: '決算',        width: 38 },
   { key: 'tech',              label: 'テク',        width: 38 },
   { key: 'topix',             label: 'TOPIX',       width: 38 },
-  { key: 'border',            label: 'ボーダー',    width: 64 },
+  { key: 'border',            label: 'ボーダー',    width: 56 },
   { key: 'divergence',        label: '乖離率',      width: 54 },
-  { key: 'targetPrice',       label: '目標株価',    width: 66 },
+  { key: 'targetPrice',       label: '目標株価',    width: 58 },
   { key: 'targetPeriod',      label: '目標期間',    width: 52 },
   { key: 'upside',            label: '上値余地',    width: 54 },
   { key: 'fx',                label: '為替',        width: 46 },
   { key: 'inflation',         label: 'インフレ',    width: 38 },
   { key: 'ir',                label: 'IR',          width: 38 },
-  { key: 'per',               label: 'PER',         width: 46 },
+  { key: 'per',               label: 'PER',         width: 44 },
+  { key: 'pbr',               label: 'PBR',         width: 44 },
+  { key: 'roe',               label: 'ROE',         width: 54 },
   { key: 'management',        label: '経営者',      width: 38 },
   { key: 'competitiveness',   label: '競争力',      width: 38 },
   { key: 'governance',        label: 'ガバ',        width: 38 },
@@ -76,7 +78,7 @@ export const COL_PRESETS: Record<PresetName, Set<ColKey>> = {
     'plannedShares', 'plannedMarketValue', 'plannedWeight',
     'settlement', 'tech', 'topix',
     'border', 'divergence', 'targetPrice', 'targetPeriod', 'upside',
-    'fx', 'inflation', 'ir', 'per',
+    'fx', 'inflation', 'ir', 'per', 'pbr', 'roe',
     'management', 'competitiveness', 'governance',
     'memo',
   ]),

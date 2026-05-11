@@ -7,6 +7,7 @@ export type FiscalMonthUpdateStatus = 'success' | 'failed' | 'manual' | 'unknown
 export type TechUpdateStatus = 'success' | 'failed' | 'insufficient_data' | 'cached' | 'unknown';
 export type NameUpdateStatus = 'success' | 'failed' | 'manual' | 'unknown';
 export type NameSource = 'manual' | 'import' | 'override' | 'jpx' | 'master' | 'yahoo' | 'unknown';
+export type ValuationUpdateStatus = 'success' | 'partial' | 'failed' | 'unknown';
 export type PortfolioId = 'personal' | 'company';
 export const PORTFOLIO_LABELS: Record<PortfolioId, string> = { personal: '個人用', company: '会社用' };
 
@@ -59,6 +60,12 @@ export interface PortfolioItem {
   nameUpdateStatus: NameUpdateStatus;
   nameUpdateError: string | null;
   nameUpdatedAt: string | null;
+  // valuation (PBR / ROE) — per already exists above
+  pbr: number | null;
+  roe: number | null;           // stored as percentage value (e.g. 12.5 = 12.5%)
+  valuationUpdatedAt: string | null;
+  valuationUpdateStatus: ValuationUpdateStatus;
+  valuationUpdateError: string | null;
 }
 
 // ─── Futures hedge data ──────────────────────────────────────────────────────
@@ -103,6 +110,21 @@ export interface PriceFetchResult {
   error: string | null;
 }
 
+export interface ValuationFetchResult {
+  code: string;
+  per: number | null;
+  pbr: number | null;
+  roe: number | null;    // percentage value (e.g. 12.5 = 12.5%)
+  status: 'success' | 'partial' | 'failed';
+  error: string | null;
+  rawFields?: Record<string, unknown>;
+}
+
+export interface ValuationFetchResponse {
+  results: ValuationFetchResult[];
+  fetchedAt: string;
+}
+
 export interface PriceFetchResponse {
   results: PriceFetchResult[];
   updatedAt: string;
@@ -135,6 +157,11 @@ export interface PriceUpdateSummary {
     correctionCount: number;   // yahoo-named → corrected by override/master
     unregisteredCount: number; // blank → stayed blank (not in override/master)
     skippedCount: number;      // had name already (not writable)
+  };
+  valuation?: {
+    successCount: number;
+    partialCount: number;
+    failedCount: number;
   };
 }
 

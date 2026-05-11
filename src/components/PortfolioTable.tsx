@@ -197,7 +197,7 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRemove, visib
   function commitEdit(id: string, key: keyof PortfolioItem) {
     const numericKeys = [
       'price', 'shares', 'plannedShares', 'plannedDelta', 'borderPrice', 'targetPrice',
-      'per', 'netCash', 'marchDividend', 'dividend', 'benefit',
+      'per', 'pbr', 'roe', 'netCash', 'marchDividend', 'dividend', 'benefit',
     ];
     let value: string | number | null = editValue.trim();
     if (numericKeys.includes(key)) {
@@ -265,7 +265,7 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRemove, visib
     );
   }
 
-  function renderNumCell(item: PortfolioItem, key: keyof PortfolioItem, value: number | null, colKey: ColKey, extraClass = '') {
+  function renderNumCell(item: PortfolioItem, key: keyof PortfolioItem, value: number | null, colKey: ColKey, extraClass = '', decimals = 0) {
     if (!vis(colKey)) return null;
     const w = W[colKey];
     const isEditing = editingCell?.id === item.id && editingCell?.key === key;
@@ -279,10 +279,11 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRemove, visib
         </td>
       );
     }
+    const display = fmt(value, decimals);
     return (
       <td className={`editable num ${extraClass}`} style={{ minWidth: w }}
         onClick={() => startEdit(item.id, key, value != null ? String(value) : '')}>
-        {fmt(value)}
+        {display || <span className="empty-cell">—</span>}
       </td>
     );
   }
@@ -344,6 +345,8 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRemove, visib
             {vis('inflation')   && <th style={{ minWidth: W.inflation }}>インフレ</th>}
             {vis('ir')          && <th style={{ minWidth: W.ir }}>IR</th>}
             {vis('per')         && <th style={{ minWidth: W.per }}>PER</th>}
+            {vis('pbr')         && <th style={{ minWidth: W.pbr }}>PBR</th>}
+            {vis('roe')         && <th style={{ minWidth: W.roe }}>ROE</th>}
             {vis('management')  && <th style={{ minWidth: W.management }}>経営者</th>}
             {vis('competitiveness') && <th style={{ minWidth: W.competitiveness }}>競争力</th>}
             {vis('governance')  && <th style={{ minWidth: W.governance }}>ガバ</th>}
@@ -390,7 +393,7 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRemove, visib
                 </td>
 
                 {/* 銘柄名 sticky + ellipsis */}
-                <td className="sticky-col sticky-col-2 editable" style={{ minWidth: W.name, maxWidth: 140 }}
+                <td className="sticky-col sticky-col-2 editable" style={{ minWidth: W.name, maxWidth: W.name }}
                   onClick={() => { if (!(editingCell?.id === item.id && editingCell?.key === 'name')) startEdit(item.id, 'name', item.name); }}>
                   {editingCell?.id === item.id && editingCell?.key === 'name' ? (
                     <input ref={inputRef} className="cell-input" value={editValue}
@@ -487,7 +490,30 @@ export function PortfolioTable({ items, onUpdate, onUpdatePrice, onRemove, visib
                 {renderSelectCell(item, 'fx', FX_OPTIONS, item.fx, 'fx')}
                 {renderSelectCell(item, 'inflation', TAG_OPTIONS, item.inflation, 'inflation')}
                 {renderSelectCell(item, 'ir', TAG_OPTIONS, item.ir, 'ir')}
-                {renderNumCell(item, 'per', item.per, 'per')}
+                {renderNumCell(item, 'per', item.per, 'per', '', 1)}
+                {renderNumCell(item, 'pbr', item.pbr, 'pbr', '', 1)}
+                {vis('roe') && (() => {
+                  const roeVal = item.roe;
+                  const w = W.roe;
+                  const isEditing = editingCell?.id === item.id && editingCell?.key === 'roe';
+                  if (isEditing) {
+                    return (
+                      <td key="roe" style={{ minWidth: w, padding: 0 }}>
+                        <input ref={inputRef} className="cell-input cell-input-num"
+                          value={editValue} onChange={e => setEditValue(e.target.value)}
+                          onBlur={() => commitEdit(item.id, 'roe')}
+                          onKeyDown={e => handleKeyDown(e, item.id, 'roe')} />
+                      </td>
+                    );
+                  }
+                  const display = roeVal != null && isFinite(roeVal) ? `${roeVal.toFixed(1)}%` : '';
+                  return (
+                    <td key="roe" className="editable num" style={{ minWidth: w }}
+                      onClick={() => startEdit(item.id, 'roe', roeVal != null ? String(roeVal) : '')}>
+                      {display || <span className="empty-cell">—</span>}
+                    </td>
+                  );
+                })()}
                 {renderSelectCell(item, 'management', TAG_OPTIONS, item.management, 'management')}
                 {renderSelectCell(item, 'competitiveness', TAG_OPTIONS, item.competitiveness, 'competitiveness')}
                 {renderSelectCell(item, 'governance', TAG_OPTIONS, item.governance, 'governance')}

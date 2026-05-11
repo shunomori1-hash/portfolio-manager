@@ -6,6 +6,7 @@ import type {
   FiscalMonthFetchResponse, FiscalMonthLogEntry,
   TechnicalUpdateSummary,
   CompanyNameFetchResponse, CompanyNameLogEntry,
+  ValuationFetchResponse,
 } from '../types';
 
 export const DEFAULT_HEDGE_FUTURES: HedgeFutures = {
@@ -98,6 +99,12 @@ function normalizeItem(raw: Partial<PortfolioItem>): PortfolioItem {
     techUpdatedAt: raw.techUpdatedAt ?? null,
     techUpdateStatus: raw.techUpdateStatus ?? 'unknown',
     techUpdateError: raw.techUpdateError ?? null,
+    // valuation (PBR / ROE) — default to null for old data
+    pbr: raw.pbr ?? null,
+    roe: raw.roe ?? null,
+    valuationUpdatedAt: raw.valuationUpdatedAt ?? null,
+    valuationUpdateStatus: raw.valuationUpdateStatus ?? 'unknown',
+    valuationUpdateError: raw.valuationUpdateError ?? null,
   };
 }
 
@@ -135,6 +142,20 @@ function normalizePortfolio(raw: Partial<Portfolio>): Portfolio {
     },
     lastSaved: raw.lastSaved ?? null,
   };
+}
+
+async function apiJson<T>(url: string, init?: RequestInit): Promise<T> {
+  let r: Response;
+  try {
+    r = await fetch(url, init);
+  } catch {
+    throw new Error('APIサーバーが起動していません。PF管理起動.bat を再実行してください。');
+  }
+  const ct = r.headers.get('content-type') ?? '';
+  if (!ct.includes('application/json')) {
+    throw new Error('APIサーバーが起動していません。PF管理起動.bat を再実行してください。');
+  }
+  return r.json() as Promise<T>;
 }
 
 // Fire-and-forget log post
@@ -205,9 +226,8 @@ export function usePortfolio(portfolioId: PortfolioId) {
     setSaveStatus(null);
     setPriceUpdateSummary(null);
 
-    fetch(`/api/portfolio/${portfolioId}`)
-      .then(r => r.json())
-      .then((raw: Partial<Portfolio>) => {
+    apiJson<Partial<Portfolio>>(`/api/portfolio/${portfolioId}`)
+      .then((raw) => {
         setPortfolio(normalizePortfolio(raw));
         setLoading(false);
       })
@@ -282,12 +302,11 @@ export function usePortfolio(portfolioId: PortfolioId) {
     setSaving(true);
     setSaveStatus(null);
     try {
-      const r = await fetch(`/api/portfolio/${portfolioId}`, {
+      const data = await apiJson<{ ok: boolean; lastSaved: string }>(`/api/portfolio/${portfolioId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(current),
       });
-      const data = await r.json() as { ok: boolean; lastSaved: string };
       setPortfolio(prev => ({ ...prev, lastSaved: data.lastSaved }));
       setIsDirty(false);
       setSaveStatus('保存しました');
@@ -311,13 +330,11 @@ export function usePortfolio(portfolioId: PortfolioId) {
     await new Promise<void>(resolve => setTimeout(resolve, 0));
     try {
       if (!newPortfolio) throw new Error('state error');
-      const r = await fetch(`/api/portfolio/${portfolioId}`, {
+      const data = await apiJson<{ ok: boolean; lastSaved: string }>(`/api/portfolio/${portfolioId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newPortfolio),
       });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const data = await r.json() as { ok: boolean; lastSaved: string };
       setPortfolio(prev => ({ ...prev, lastSaved: data.lastSaved }));
       setIsDirty(false);
       setSaveStatus('インポート完了');
@@ -348,12 +365,11 @@ export function usePortfolio(portfolioId: PortfolioId) {
     let updatedAt = new Date().toISOString();
 
     try {
-      const r = await fetch('/api/prices/fetch', {
+      const data = await apiJson<PriceFetchResponse>('/api/prices/fetch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ codes }),
       });
-      const data = await r.json() as PriceFetchResponse;
       priceResults = data.results;
       updatedAt = data.updatedAt;
     } catch (e) {
@@ -419,12 +435,11 @@ export function usePortfolio(portfolioId: PortfolioId) {
     if (blankMonthItems.length > 0) {
       const fmCodes = blankMonthItems.map(i => i.code);
       try {
-        const fmR = await fetch('/api/fiscal-months/fetch', {
+        const fmData = await apiJson<FiscalMonthFetchResponse>('/api/fiscal-months/fetch', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ codes: fmCodes }),
         });
-        const fmData = await fmR.json() as FiscalMonthFetchResponse;
         const fmFetchedAt = fmData.fetchedAt;
 
         fmSuccessCount = fmData.results.filter(r => r.monthStr != null).length;
@@ -488,12 +503,11 @@ export function usePortfolio(portfolioId: PortfolioId) {
     if (writableItems.length > 0) {
       const cnCodes = writableItems.map(i => i.code);
       try {
-        const cnR = await fetch('/api/company-names/fetch', {
+        const cnData = await apiJson<CompanyNameFetchResponse>('/api/company-names/fetch', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ codes: cnCodes }),
         });
-        const cnData = await cnR.json() as CompanyNameFetchResponse;
         const cnFetchedAt = cnData.fetchedAt;
 
         newItems = newItems.map(item => {
@@ -529,7 +543,46 @@ export function usePortfolio(portfolioId: PortfolioId) {
 
     postCompanyNameLog(cnLogEntries);
 
-    // 7. Set summary
+    // 7. Valuation fetch (PER / PBR / ROE) — non-fatal
+    let valSuccessCount = 0;
+    let valPartialCount = 0;
+    let valFailedCount = 0;
+    const valuationCodes = targets.map(i => i.code);
+    try {
+      const valData = await apiJson<ValuationFetchResponse>('/api/valuation/fetch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ codes: valuationCodes }),
+      });
+      const valFetchedAt = valData.fetchedAt;
+
+      newItems = newItems.map(item => {
+        if (!item.code.trim()) return item;
+        const result = valData.results.find(r => r.code === item.code);
+        if (!result) return item;
+
+        const updates: Partial<PortfolioItem> = {
+          valuationUpdatedAt: valFetchedAt,
+          valuationUpdateStatus: result.status as 'success' | 'partial' | 'failed',
+          valuationUpdateError: result.error ?? null,
+        };
+
+        // Only update if new value is a valid finite number (protect existing values)
+        if (result.per != null && isFinite(result.per)) updates.per = result.per;
+        if (result.pbr != null && isFinite(result.pbr)) updates.pbr = result.pbr;
+        if (result.roe != null && isFinite(result.roe)) updates.roe = result.roe;
+
+        if (result.status === 'success') valSuccessCount++;
+        else if (result.status === 'partial') valPartialCount++;
+        else valFailedCount++;
+
+        return { ...item, ...updates };
+      });
+    } catch (e) {
+      console.warn('[fetchPrices] valuation fetch failed (non-fatal):', e);
+    }
+
+    // 8. Set summary
     const summary: PriceUpdateSummary = {
       updatedAt,
       successCount: finalPriceSuccess,
@@ -552,6 +605,11 @@ export function usePortfolio(portfolioId: PortfolioId) {
         unregisteredCount: cnUnregisteredCount,
         skippedCount: cnSkippedCount,
       },
+      valuation: {
+        successCount: valSuccessCount,
+        partialCount: valPartialCount,
+        failedCount: valFailedCount,
+      },
     };
     setPriceUpdateSummary(summary);
 
@@ -566,12 +624,11 @@ export function usePortfolio(portfolioId: PortfolioId) {
     // 8. Auto-save
     setTimeout(async () => {
       try {
-        const r = await fetch(`/api/portfolio/${portfolioId}`, {
+        const saveData = await apiJson<{ ok: boolean; lastSaved: string }>(`/api/portfolio/${portfolioId}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(updatedPortfolio),
         });
-        const saveData = await r.json() as { ok: boolean; lastSaved: string };
         setPortfolio(p => ({ ...p, lastSaved: saveData.lastSaved }));
         setIsDirty(false);
 
@@ -588,6 +645,11 @@ export function usePortfolio(portfolioId: PortfolioId) {
           if (cnUnregisteredCount > 0) statusMsg += ` 未登録${cnUnregisteredCount}件`;
           statusMsg += ` スキップ${cnSkippedCount}件`;
         }
+        if (valSuccessCount + valPartialCount + valFailedCount > 0) {
+          statusMsg += ` / 指標更新 成功${valSuccessCount}件`;
+          if (valPartialCount > 0) statusMsg += ` 一部成功${valPartialCount}件`;
+          if (valFailedCount > 0) statusMsg += ` 失敗${valFailedCount}件`;
+        }
         setSaveStatus(statusMsg);
         setTimeout(() => setSaveStatus(null), 6000);
       } catch { /* auto-save failure is non-fatal */ }
@@ -602,12 +664,11 @@ export function usePortfolio(portfolioId: PortfolioId) {
     setFetchingPriceItemId(itemId);
 
     try {
-      const r = await fetch('/api/prices/fetch', {
+      const data = await apiJson<PriceFetchResponse>('/api/prices/fetch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ codes: [code] }),
       });
-      const data = await r.json() as PriceFetchResponse;
       const result = data.results[0];
 
       setPortfolio(prev => {
@@ -668,9 +729,7 @@ export function usePortfolio(portfolioId: PortfolioId) {
     setFetchingFutures(true);
     const now = new Date().toISOString();
     try {
-      const r = await fetch('/api/futures-prices/update', { method: 'POST' });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const data = await r.json() as FuturesUpdateResponse;
+      const data = await apiJson<FuturesUpdateResponse>('/api/futures-prices/update', { method: 'POST' });
 
       setPortfolio(prev => {
         const hf = { ...prev.summary.hedgeFutures };
@@ -705,14 +764,11 @@ export function usePortfolio(portfolioId: PortfolioId) {
     setFetchingTechnicals(true);
     setTechnicalUpdateSummary(null);
     try {
-      const r = await fetch(`/api/portfolio/${portfolioId}/update-technicals`, { method: 'POST' });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const data = await r.json() as TechnicalUpdateSummary;
+      const data = await apiJson<TechnicalUpdateSummary>(`/api/portfolio/${portfolioId}/update-technicals`, { method: 'POST' });
       setTechnicalUpdateSummary(data);
 
       // Reload portfolio to reflect server-side changes
-      const reloadR = await fetch(`/api/portfolio/${portfolioId}`);
-      const reloaded = await reloadR.json() as Partial<Portfolio>;
+      const reloaded = await apiJson<Partial<Portfolio>>(`/api/portfolio/${portfolioId}`);
       setPortfolio(normalizePortfolio(reloaded));
       setIsDirty(false);
 

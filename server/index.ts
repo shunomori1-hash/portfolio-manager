@@ -26,6 +26,7 @@ const COMPANY_NAME_LOG_FILE = path.join(ROOT, 'data', 'company-name-update-log.j
 const COMPANY_NAME_LOG_MAX = 500;
 const COMPANY_NAME_OVERRIDES_FILE = path.join(ROOT, 'data', 'company-name-overrides.json');
 const COMPANY_NAME_MASTER_FILE   = path.join(ROOT, 'data', 'company-name-master.json');
+const VALUATION_CACHE_DIR = path.join(ROOT, 'data', 'valuation-cache');
 
 // yahoo-finance2 instance (suppress survey notice)
 const yf = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
@@ -34,7 +35,7 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 
 // ─── Directory setup ──────────────────────────────────────────────────────────
 
-for (const dir of [path.join(ROOT, 'data'), PORTFOLIOS_DIR, BACKUPS_DIR, PRICE_HISTORY_DIR]) {
+for (const dir of [path.join(ROOT, 'data'), PORTFOLIOS_DIR, BACKUPS_DIR, PRICE_HISTORY_DIR, VALUATION_CACHE_DIR]) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
@@ -473,6 +474,241 @@ app.post('/api/prices/log', (req, res) => {
     res.json({ ok: true });
   } catch (e) {
     res.json({ ok: false, error: String(e) });
+  }
+});
+
+// ── Valuation (PER / PBR / ROE) — Yahoo Finance Japan scraper ────────────
+
+// ── Valuation cache ──────────────────────────────────────────────────────────
+
+interface ValuationCacheEntry {
+  date: string;  // YYYY-MM-DD
+  per: number | null;
+  pbr: number | null;
+  roe: number | null;
+}
+
+function getTodayString(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+function readValuationCache(code: string): ValuationCacheEntry | null {
+  const file = path.join(VALUATION_CACHE_DIR, `${code}.json`);
+  if (!fs.existsSync(file)) return null;
+  try {
+    const entry = JSON.parse(fs.readFileSync(file, 'utf-8')) as ValuationCacheEntry;
+    if (entry.date === getTodayString()) return entry;
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function writeValuationCache(code: string, data: ValuationCacheEntry): void {
+  const file = path.join(VALUATION_CACHE_DIR, `${code}.json`);
+  try {
+    fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf-8');
+  } catch { /* ignore */ }
+}
+
+// ── Yahoo Finance Japan HTML scraper ─────────────────────────────────────────
+
+// Convert HTML to searchable plain text (strips tags, normalizes whitespace).
+function htmlToPlainText(html: string): string {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&#[\d]+;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Find a numeric metric in plain text after the first matching label variant.
+// Skips non-numeric text (e.g., "用語") between the label and the value.
+function extractMetricFromText(plainText: string, labelVariants: string[]): number | null {
+  for (const label of labelVariants) {
+    const idx = plainText.indexOf(label);
+    if (idx === -1) continue;
+
+    const after = plainText.slice(idx + label.length, idx + label.length + 80);
+
+    // Match a real number (possibly negative) OR a missing-data marker like "---"
+    const match = after.match(/(-?\d[\d.]*)\s*[倍%]?|(-{2,})/);
+    if (!match) return null;
+
+    if (match[2]) return null;  // missing-data marker "---" etc.
+
+    const val = parseFloat(match[1]);
+    if (!isFinite(val) || isNaN(val)) return null;
+    return val;
+  }
+  return null;
+}
+
+// Fetch PER（会社予想）/ PBR（実績）/ ROE（実績）from Yahoo Finance Japan for one code.
+async function fetchValuationFromYahooJapan(code: string): Promise<{
+  per: number | null;
+  pbr: number | null;
+  roe: number | null;
+  rawTextSnippet: string;
+  error: string | null;
+}> {
+  const symbol = code.trim().endsWith('.T') ? code.trim() : `${code.trim()}.T`;
+  const url = `https://finance.yahoo.co.jp/quote/${symbol}`;
+
+  const doFetch = async (): Promise<string> => {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': UA,
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'ja,en-US;q=0.7,en;q=0.3',
+      },
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return response.text();
+  };
+
+  let html: string;
+  try {
+    html = await doFetch();
+  } catch (e) {
+    // One retry after 1 s
+    await new Promise(r => setTimeout(r, 1000));
+    try {
+      html = await doFetch();
+    } catch (e2) {
+      const msg = e2 instanceof Error ? e2.message : String(e2);
+      return { per: null, pbr: null, roe: null, rawTextSnippet: '', error: msg };
+    }
+  }
+
+  // Convert HTML to plain text once; search labels within it
+  const plainText = htmlToPlainText(html);
+
+  // Snippet for debugging — 200 chars of plain text starting from first "PER"
+  const perIdx = plainText.indexOf('PER');
+  const rawTextSnippet = perIdx !== -1 ? plainText.slice(perIdx, perIdx + 200) : '(PER not found in plain text)';
+
+  // Yahoo Finance Japan sometimes has a space before （: "PER （会社予想）"
+  const per = extractMetricFromText(plainText, ['PER（会社予想）', 'PER （会社予想）']);
+  const pbr = extractMetricFromText(plainText, ['PBR（実績）', 'PBR （実績）']);
+  const roe = extractMetricFromText(plainText, ['ROE（実績）', 'ROE （実績）']);
+
+  const gotCount = [per, pbr, roe].filter(v => v !== null).length;
+  const error = gotCount === 0
+    ? 'PER/PBR/ROEが取得できませんでした（ページ構造が変わった可能性があります）'
+    : null;
+
+  return { per, pbr, roe, rawTextSnippet, error };
+}
+
+// Batch fetch valuations from Yahoo Finance Japan with cache + rate limiting.
+async function fetchValuationsFromYahooJapan(
+  codes: string[]
+): Promise<Map<string, { per: number | null; pbr: number | null; roe: number | null; rawTextSnippet: string; error: string | null }>> {
+  const result = new Map<string, { per: number | null; pbr: number | null; roe: number | null; rawTextSnippet: string; error: string | null }>();
+
+  let firstRequest = true;
+  for (const code of codes) {
+    // Use today's cache if available
+    const cached = readValuationCache(code);
+    if (cached) {
+      result.set(code, { per: cached.per, pbr: cached.pbr, roe: cached.roe, rawTextSnippet: '(cached)', error: null });
+      console.log(`[valuation-fetch] cache hit code=${code} per=${cached.per} pbr=${cached.pbr} roe=${cached.roe}`);
+      continue;
+    }
+
+    // Rate limit: 350 ms between live requests
+    if (!firstRequest) await new Promise(r => setTimeout(r, 350));
+    firstRequest = false;
+
+    const val = await fetchValuationFromYahooJapan(code);
+    result.set(code, val);
+
+    // Cache if at least one field was fetched
+    if (val.per !== null || val.pbr !== null || val.roe !== null) {
+      writeValuationCache(code, { date: getTodayString(), per: val.per, pbr: val.pbr, roe: val.roe });
+    }
+
+    console.log(`[valuation-fetch] code=${code} per=${val.per} pbr=${val.pbr} roe=${val.roe}${val.error ? ' error=' + val.error : ''}`);
+  }
+
+  return result;
+}
+
+// POST /api/valuation/fetch — batch PER/PBR/ROE for portfolio (Yahoo Finance Japan)
+app.post('/api/valuation/fetch', async (req, res) => {
+  const { codes } = req.body as { codes: string[] };
+  if (!codes || codes.length === 0) {
+    res.json({ results: [], fetchedAt: new Date().toISOString() });
+    return;
+  }
+
+  const validCodes = codes.map((c: string) => c.trim()).filter(Boolean);
+  const fetchedAt = new Date().toISOString();
+
+  let valMap: Map<string, { per: number | null; pbr: number | null; roe: number | null; rawTextSnippet: string; error: string | null }>;
+  try {
+    valMap = await fetchValuationsFromYahooJapan(validCodes);
+  } catch (e) {
+    const errMsg = e instanceof Error ? e.message : String(e);
+    console.error('[valuation-fetch] fatal error:', errMsg);
+    res.json({
+      results: validCodes.map((code: string) => ({
+        code, per: null, pbr: null, roe: null, status: 'failed', error: errMsg,
+      })),
+      fetchedAt,
+    });
+    return;
+  }
+
+  const results = validCodes.map((code: string) => {
+    const v = valMap.get(code) ?? { per: null, pbr: null, roe: null, rawTextSnippet: '', error: 'データなし' };
+    const gotCount = [v.per, v.pbr, v.roe].filter(x => x != null).length;
+    const status = gotCount === 3 ? 'success' : gotCount === 0 ? 'failed' : 'partial';
+    return { code, per: v.per, pbr: v.pbr, roe: v.roe, status, error: v.error };
+  });
+
+  const success = results.filter(r => r.status === 'success').length;
+  const partial = results.filter(r => r.status === 'partial').length;
+  const failed  = results.filter(r => r.status === 'failed').length;
+  console.log(`[valuation-fetch] done: success=${success} partial=${partial} failed=${failed}`);
+
+  res.json({ results, fetchedAt });
+});
+
+// GET /api/valuation/test/:code — debug: fetch valuations from Yahoo Finance Japan
+app.get('/api/valuation/test/:code', async (req, res) => {
+  const { code } = req.params;
+  const symbol = code.trim().endsWith('.T') ? code.trim() : `${code.trim()}.T`;
+  const yahooJapanUrl = `https://finance.yahoo.co.jp/quote/${symbol}`;
+
+  try {
+    const val = await fetchValuationFromYahooJapan(code);
+    res.json({
+      code,
+      symbol,
+      yahooJapanUrl,
+      success: val.per !== null || val.pbr !== null || val.roe !== null,
+      per: val.per,
+      pbr: val.pbr,
+      roe: val.roe,
+      rawTextSnippet: val.rawTextSnippet,
+      source: 'yahoo-japan-finance',
+      error: val.error,
+      stack: null,
+    });
+  } catch (e) {
+    const errMsg = e instanceof Error ? e.message : String(e);
+    const stack  = e instanceof Error ? e.stack : undefined;
+    console.error(`[valuation/test] error code=${code}:`, errMsg);
+    res.json({ code, symbol, yahooJapanUrl, success: false, per: null, pbr: null, roe: null, rawTextSnippet: '', source: 'yahoo-japan-finance', error: errMsg, stack });
   }
 });
 

@@ -1,20 +1,8 @@
 {
   "code": "5038",
   "symbol": "5038.T",
-  "lastFetchedAt": "2026-05-07T04:42:17.637Z",
+  "lastFetchedAt": "2026-05-10T04:45:32.328Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 2567,
-      "adjClose": 2551.32373046875,
-      "valueForTechnical": 2551.32373046875
-    },
-    {
-      "date": "2025-06-03",
-      "close": 2549,
-      "adjClose": 2533.43359375,
-      "valueForTechnical": 2533.43359375
-    },
     {
       "date": "2025-06-04",
       "close": 2536,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 2031,
-      "adjClose": 2031,
-      "valueForTechnical": 2031
+      "close": 2036,
+      "adjClose": 2036,
+      "valueForTechnical": 2036
+    },
+    {
+      "date": "2026-05-08",
+      "close": 2070,
+      "adjClose": 2070,
+      "valueForTechnical": 2070
     }
   ]
 }

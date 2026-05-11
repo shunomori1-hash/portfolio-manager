@@ -1,20 +1,8 @@
 {
   "code": "4966",
   "symbol": "4966.T",
-  "lastFetchedAt": "2026-05-07T05:05:48.119Z",
+  "lastFetchedAt": "2026-05-10T04:45:51.541Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 9130,
-      "adjClose": 9009.044921875,
-      "valueForTechnical": 9009.044921875
-    },
-    {
-      "date": "2025-06-03",
-      "close": 8980,
-      "adjClose": 8861.0322265625,
-      "valueForTechnical": 8861.0322265625
-    },
     {
       "date": "2025-06-04",
       "close": 8980,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 23460,
-      "adjClose": 23460,
-      "valueForTechnical": 23460
+      "close": 23800,
+      "adjClose": 23800,
+      "valueForTechnical": 23800
+    },
+    {
+      "date": "2026-05-08",
+      "close": 23710,
+      "adjClose": 23710,
+      "valueForTechnical": 23710
     }
   ]
 }

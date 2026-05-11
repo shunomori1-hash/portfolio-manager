@@ -1,357 +1,942 @@
 [
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "5038",
-    "name": "ewell",
-    "prevPrice": 2036,
-    "newPrice": 2036,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "6072",
-    "name": "地盤ネット",
-    "prevPrice": 1058,
-    "newPrice": 1058,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:56:49.999Z",
     "code": "4554",
     "name": "富士製薬",
-    "prevPrice": 2232,
-    "newPrice": 2232,
+    "prevPrice": 2398,
+    "newPrice": 2402,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:56:49.999Z",
     "code": "2780",
     "name": "コメ兵",
-    "prevPrice": 5390,
-    "newPrice": 5390,
+    "prevPrice": 5650,
+    "newPrice": 5650,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "5038",
+    "name": "ewell",
+    "prevPrice": 2056,
+    "newPrice": 2053,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "6072",
+    "name": "地盤ネット",
+    "prevPrice": 964,
+    "newPrice": 965,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
     "code": "6134",
     "name": "FUJI",
-    "prevPrice": 6272,
-    "newPrice": 6272,
+    "prevPrice": 6616,
+    "newPrice": 6639,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "9029",
+    "name": "ヒガシ21",
+    "prevPrice": 2000,
+    "newPrice": 2000,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
     "code": "3180",
     "name": "Bガレ",
-    "prevPrice": 1548,
-    "newPrice": 1548,
+    "prevPrice": 1572,
+    "newPrice": 1571,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "6779",
-    "name": "日本電波",
-    "prevPrice": 2101,
-    "newPrice": 2101,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "9880",
-    "name": "イノテック",
-    "prevPrice": 3225,
-    "newPrice": 3225,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:56:49.999Z",
     "code": "6742",
     "name": "京三製作所",
-    "prevPrice": 734,
-    "newPrice": 734,
+    "prevPrice": 763,
+    "newPrice": 767,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:56:49.999Z",
     "code": "3415",
     "name": "トウキョウベース",
-    "prevPrice": 400,
-    "newPrice": 400,
+    "prevPrice": 382,
+    "newPrice": 383,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "8411",
-    "name": "みずほ",
-    "prevPrice": 6926,
-    "newPrice": 6926,
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "6226",
+    "name": "守谷輸送",
+    "prevPrice": 2043,
+    "newPrice": 2034,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "5870",
-    "name": "ナルネット",
-    "prevPrice": 1005,
-    "newPrice": 1005,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "9029",
-    "name": "ヒガシ",
-    "prevPrice": 1806,
-    "newPrice": 1806,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "4691",
-    "name": "ワシントンホテル",
-    "prevPrice": 2300,
-    "newPrice": 2300,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "4914",
-    "name": "高砂香料工業",
-    "prevPrice": 1194,
-    "newPrice": 1194,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "3315",
-    "name": "日本コークス",
-    "prevPrice": 102,
-    "newPrice": 102,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "3529",
-    "name": "アツギ",
-    "prevPrice": 1140,
-    "newPrice": 1140,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "2805",
-    "name": "エスビー",
-    "prevPrice": 4570,
-    "newPrice": 4570,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "5537",
-    "name": "アルバリンク",
-    "prevPrice": 2161,
-    "newPrice": 2161,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:56:49.999Z",
     "code": "6083",
     "name": "ERI",
-    "prevPrice": 4170,
-    "newPrice": 4170,
+    "prevPrice": 4255,
+    "newPrice": 4270,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "9880",
+    "name": "イノテック",
+    "prevPrice": 3310,
+    "newPrice": 3300,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "1850",
+    "name": "南海辰村",
+    "prevPrice": 427,
+    "newPrice": 428,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "5537",
+    "name": "アルバリンク",
+    "prevPrice": 2129,
+    "newPrice": 2129,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "5870",
+    "name": "ナルネット",
+    "prevPrice": 1006,
+    "newPrice": 1006,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "5332",
+    "name": "TOTO",
+    "prevPrice": 7167,
+    "newPrice": 7172,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "4966",
+    "name": "上村工業",
+    "prevPrice": 23950,
+    "newPrice": 23880,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "8137",
+    "name": "サンワテクノス",
+    "prevPrice": 3955,
+    "newPrice": 3955,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "9325",
+    "name": "ファイズホールディングス",
+    "prevPrice": 1333,
+    "newPrice": 1332,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "4186",
+    "name": "東京応化工業",
+    "prevPrice": 10235,
+    "newPrice": 10180,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "4914",
+    "name": "高砂香料工業",
+    "prevPrice": 1208,
+    "newPrice": 1205,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "3097",
+    "name": "物語コーポレーション",
+    "prevPrice": 4905,
+    "newPrice": 4905,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:56:49.999Z",
+    "code": "4914",
+    "name": "",
+    "prevPrice": null,
+    "newPrice": 1205,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "4554",
+    "name": "富士製薬",
+    "prevPrice": 2398,
+    "newPrice": 2398,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "2780",
+    "name": "コメ兵",
+    "prevPrice": 5650,
+    "newPrice": 5650,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "5038",
+    "name": "ewell",
+    "prevPrice": 2056,
+    "newPrice": 2056,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "6072",
+    "name": "地盤ネット",
+    "prevPrice": 961,
+    "newPrice": 964,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "6134",
+    "name": "FUJI",
+    "prevPrice": 6631,
+    "newPrice": 6616,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "9029",
+    "name": "ヒガシ21",
+    "prevPrice": 2001,
+    "newPrice": 2000,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "3180",
+    "name": "Bガレ",
+    "prevPrice": 1572,
+    "newPrice": 1572,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "6742",
+    "name": "京三製作所",
+    "prevPrice": 763,
+    "newPrice": 763,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "3415",
+    "name": "トウキョウベース",
+    "prevPrice": 382,
+    "newPrice": 382,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "6226",
+    "name": "守谷輸送",
+    "prevPrice": 2052,
+    "newPrice": 2043,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "6083",
+    "name": "ERI",
+    "prevPrice": 4255,
+    "newPrice": 4255,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "9880",
+    "name": "イノテック",
+    "prevPrice": 3310,
+    "newPrice": 3310,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "1850",
+    "name": "南海辰村",
+    "prevPrice": 427,
+    "newPrice": 427,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "5537",
+    "name": "アルバリンク",
+    "prevPrice": 2129,
+    "newPrice": 2129,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "5870",
+    "name": "ナルネット",
+    "prevPrice": 1006,
+    "newPrice": 1006,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "5332",
+    "name": "TOTO",
+    "prevPrice": 7150,
+    "newPrice": 7167,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "4966",
+    "name": "上村工業",
+    "prevPrice": 23950,
+    "newPrice": 23950,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "8137",
+    "name": "サンワテクノス",
+    "prevPrice": 3955,
+    "newPrice": 3955,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "9325",
+    "name": "ファイズホールディングス",
+    "prevPrice": 1333,
+    "newPrice": 1333,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "4186",
+    "name": "東京応化工業",
+    "prevPrice": 10240,
+    "newPrice": 10235,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "4914",
+    "name": "高砂香料工業",
+    "prevPrice": 1207,
+    "newPrice": 1208,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:50:16.978Z",
+    "code": "3097",
+    "name": "",
+    "prevPrice": null,
+    "newPrice": 4905,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "4554",
+    "name": "富士製薬",
+    "prevPrice": 2244,
+    "newPrice": 2398,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "2780",
+    "name": "コメ兵",
+    "prevPrice": 5330,
+    "newPrice": 5650,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "5038",
+    "name": "ewell",
+    "prevPrice": 2070,
+    "newPrice": 2056,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "6072",
+    "name": "地盤ネット",
+    "prevPrice": 1046,
+    "newPrice": 961,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "6134",
+    "name": "FUJI",
+    "prevPrice": 6615,
+    "newPrice": 6631,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "9029",
+    "name": "ヒガシ21",
+    "prevPrice": 1780,
+    "newPrice": 2001,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "3180",
+    "name": "Bガレ",
+    "prevPrice": 1577,
+    "newPrice": 1572,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "6742",
+    "name": "京三製作所",
+    "prevPrice": 749,
+    "newPrice": 763,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "3415",
+    "name": "トウキョウベース",
+    "prevPrice": 376,
+    "newPrice": 382,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "6226",
+    "name": "守谷輸送",
+    "prevPrice": 2045,
+    "newPrice": 2052,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "6083",
+    "name": "ERI",
+    "prevPrice": 4255,
+    "newPrice": 4255,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "9880",
+    "name": "イノテック",
+    "prevPrice": 3220,
+    "newPrice": 3310,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "1850",
+    "name": "南海辰村",
+    "prevPrice": 426,
+    "newPrice": 427,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "5537",
+    "name": "アルバリンク",
+    "prevPrice": 2166,
+    "newPrice": 2129,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "5870",
+    "name": "ナルネット",
+    "prevPrice": 1006,
+    "newPrice": 1006,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "5332",
+    "name": "TOTO",
+    "prevPrice": 7083,
+    "newPrice": 7150,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "4966",
+    "name": "上村工業",
+    "prevPrice": 23710,
+    "newPrice": 23950,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "8137",
+    "name": "サンワテクノス",
+    "prevPrice": 3255,
+    "newPrice": 3955,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "9325",
+    "name": "ファイズホールディングス",
+    "prevPrice": 1349,
+    "newPrice": 1333,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "4186",
+    "name": "東京応化工業",
+    "prevPrice": 9688,
+    "newPrice": 10240,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:49:32.515Z",
+    "code": "4914",
+    "name": "高砂香料工業",
+    "prevPrice": 1180,
+    "newPrice": 1207,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "5038",
+    "name": "ewell",
+    "prevPrice": 2044,
+    "newPrice": 2044,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "6072",
+    "name": "地盤ネット",
+    "prevPrice": 1013,
+    "newPrice": 1010,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "4554",
+    "name": "富士製薬",
+    "prevPrice": 2301,
+    "newPrice": 2359,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "2780",
+    "name": "コメ兵",
+    "prevPrice": 5330,
+    "newPrice": 5520,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "6134",
+    "name": "FUJI",
+    "prevPrice": 6788,
+    "newPrice": 6709,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "3180",
+    "name": "Bガレ",
+    "prevPrice": 1574,
+    "newPrice": 1574,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "6779",
+    "name": "日本電波",
+    "prevPrice": 2188,
+    "newPrice": 2188,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "9880",
+    "name": "イノテック",
+    "prevPrice": 3220,
+    "newPrice": 3315,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "6742",
+    "name": "京三製作所",
+    "prevPrice": 753,
+    "newPrice": 753,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "3415",
+    "name": "トウキョウベース",
+    "prevPrice": 382,
+    "newPrice": 382,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "8411",
+    "name": "みずほ",
+    "prevPrice": 6817,
+    "newPrice": 6846,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "5870",
+    "name": "ナルネット",
+    "prevPrice": 1006,
+    "newPrice": 1000,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "9029",
+    "name": "ヒガシ",
+    "prevPrice": 1780,
+    "newPrice": 1780,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "4691",
+    "name": "ワシントンホテル",
+    "prevPrice": 2435,
+    "newPrice": 2435,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "4914",
+    "name": "高砂香料工業",
+    "prevPrice": 1185,
+    "newPrice": 1190,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "3315",
+    "name": "日本コークス",
+    "prevPrice": 100,
+    "newPrice": 100,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "3529",
+    "name": "アツギ",
+    "prevPrice": 1135,
+    "newPrice": 1132,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "2805",
+    "name": "エスビー",
+    "prevPrice": 4465,
+    "newPrice": 4465,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "5537",
+    "name": "アルバリンク",
+    "prevPrice": 2150,
+    "newPrice": 2116,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "6083",
+    "name": "ERI",
+    "prevPrice": 4255,
+    "newPrice": 4255,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "4461",
     "name": "第一工業",
-    "prevPrice": 8950,
-    "newPrice": 8950,
+    "prevPrice": 8930,
+    "newPrice": 9150,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "4228",
     "name": "積水化成品",
-    "prevPrice": 473,
-    "newPrice": 473,
+    "prevPrice": 476,
+    "newPrice": 476,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "5201",
     "name": "AGC",
-    "prevPrice": 5683,
-    "newPrice": 5683,
+    "prevPrice": 5593,
+    "newPrice": 5588,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "6565",
     "name": "ABホテル",
     "prevPrice": 1388,
-    "newPrice": 1388,
-    "status": "success",
-    "error": null
+    "newPrice": null,
+    "status": "failed",
+    "error": "シンボル未取得"
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "6627",
-    "name": "テラプロープ",
-    "prevPrice": 11300,
-    "newPrice": 11300,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "556A",
     "name": "犬猫生活",
-    "prevPrice": 3295,
-    "newPrice": 3295,
+    "prevPrice": 3555,
+    "newPrice": 3440,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "1850",
     "name": "南海辰村",
-    "prevPrice": 431,
-    "newPrice": 431,
+    "prevPrice": 428,
+    "newPrice": 429,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "2157",
     "name": "コシダカ",
-    "prevPrice": 999,
-    "newPrice": 999,
+    "prevPrice": 1001,
+    "newPrice": 1001,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "2428",
     "name": "ウェルネット",
-    "prevPrice": 623,
-    "newPrice": 623,
+    "prevPrice": 635,
+    "newPrice": 639,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "2652",
     "name": "まんだらけ",
-    "prevPrice": 343,
-    "newPrice": 343,
+    "prevPrice": 350,
+    "newPrice": 350,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "2751",
     "name": "テンポス",
-    "prevPrice": 3555,
-    "newPrice": 3555,
+    "prevPrice": 3520,
+    "newPrice": 3550,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "3048",
     "name": "ビックカメラ",
-    "prevPrice": 1604,
-    "newPrice": 1604,
+    "prevPrice": 1622.5,
+    "newPrice": 1621.5,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "3097",
     "name": "物語",
-    "prevPrice": 4250,
-    "newPrice": 4250,
+    "prevPrice": 4205,
+    "newPrice": 4205,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "3543",
     "name": "コメダ",
-    "prevPrice": 2996,
-    "newPrice": 2996,
+    "prevPrice": 3025,
+    "newPrice": 3025,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "3673",
     "name": "ブロードリーフ",
-    "prevPrice": 896,
-    "newPrice": 896,
+    "prevPrice": 899,
+    "newPrice": 903,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "4680",
     "name": "ラウンドワン",
-    "prevPrice": 854.4,
-    "newPrice": 854.4,
+    "prevPrice": 865.5,
+    "newPrice": 869.7,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "4755",
     "name": "楽天",
-    "prevPrice": 751,
-    "newPrice": 751,
+    "prevPrice": 754.5,
+    "newPrice": 756.3,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "6044",
     "name": "三機サービス",
-    "prevPrice": 1710,
-    "newPrice": 1710,
+    "prevPrice": 1720,
+    "newPrice": 1720,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "6071",
     "name": "IBJ",
-    "prevPrice": 720,
-    "newPrice": 720,
+    "prevPrice": 745,
+    "newPrice": 754,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "6076",
     "name": "アメイズ",
     "prevPrice": 1257,
@@ -360,592 +945,565 @@
     "error": "シンボル未取得"
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "6078",
     "name": "バリューHR",
-    "prevPrice": 1416,
-    "newPrice": 1416,
+    "prevPrice": 1404,
+    "newPrice": 1404,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "6089",
     "name": "ウィルグループ",
-    "prevPrice": 1122,
-    "newPrice": 1122,
+    "prevPrice": 1105,
+    "newPrice": 1105,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "6099",
     "name": "エラン",
-    "prevPrice": 693,
-    "newPrice": 693,
+    "prevPrice": 700,
+    "newPrice": 699,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "6226",
     "name": "守谷輸送",
-    "prevPrice": 2046,
-    "newPrice": 2046,
+    "prevPrice": 2040,
+    "newPrice": 2045,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "6540",
     "name": "船場",
-    "prevPrice": 1665,
-    "newPrice": 1665,
+    "prevPrice": 1661,
+    "newPrice": 1660,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "6547",
     "name": "グリーンズ",
-    "prevPrice": 2312,
-    "newPrice": 2312,
+    "prevPrice": 2346,
+    "newPrice": 2344,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "6824",
     "name": "新コスモス電機",
-    "prevPrice": 5830,
-    "newPrice": 5830,
+    "prevPrice": 5880,
+    "newPrice": 5880,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "7453",
     "name": "良品計画",
-    "prevPrice": 3654,
-    "newPrice": 3654,
+    "prevPrice": 3645,
+    "newPrice": 3650,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "7513",
     "name": "コジマ",
-    "prevPrice": 1176,
-    "newPrice": 1176,
+    "prevPrice": 1180,
+    "newPrice": 1180,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "8473",
     "name": "SBI",
-    "prevPrice": 3071,
-    "newPrice": 3071,
+    "prevPrice": 3014,
+    "newPrice": 3026,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "8848",
-    "name": "レオパレス",
-    "prevPrice": 650,
-    "newPrice": 650,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "9273",
-    "name": "コーア",
-    "prevPrice": 875,
-    "newPrice": 875,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "9325",
     "name": "ファイズ",
-    "prevPrice": 1221,
-    "newPrice": 1221,
+    "prevPrice": 1341,
+    "newPrice": 1340,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "9418",
     "name": "UNEXT",
-    "prevPrice": 1539,
-    "newPrice": 1539,
+    "prevPrice": 1551,
+    "newPrice": 1550,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "9722",
     "name": "藤田観光",
-    "prevPrice": 2060,
-    "newPrice": 2060,
+    "prevPrice": 2055,
+    "newPrice": 2044,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "9936",
     "name": "王将",
-    "prevPrice": 2896,
-    "newPrice": 2896,
+    "prevPrice": 2843,
+    "newPrice": 2836,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "9887",
     "name": "松屋フーズ",
-    "prevPrice": 5200,
-    "newPrice": 5200,
+    "prevPrice": 5090,
+    "newPrice": 5100,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "5332",
     "name": "TOTO",
-    "prevPrice": 6740,
-    "newPrice": 6740,
+    "prevPrice": 7083,
+    "newPrice": 7268,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "4966",
     "name": "上村工業",
-    "prevPrice": 23800,
-    "newPrice": 23800,
+    "prevPrice": 24040,
+    "newPrice": 24080,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "7564",
     "name": "ワークマン",
-    "prevPrice": 7710,
-    "newPrice": 7710,
+    "prevPrice": 7790,
+    "newPrice": 7790,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "547A",
-    "name": "ムニノバホールディングス",
-    "prevPrice": 458,
-    "newPrice": 458,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "8203",
-    "name": "ＭｒＭａｘＨＤ",
-    "prevPrice": 700,
-    "newPrice": 700,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "1852",
     "name": "淺沼組",
-    "prevPrice": 931,
-    "newPrice": 931,
+    "prevPrice": 919,
+    "newPrice": 921,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "6570",
     "name": "共和コーポレーション",
-    "prevPrice": 1271,
-    "newPrice": 1271,
+    "prevPrice": 1237,
+    "newPrice": 1237,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:10:30.714Z",
-    "code": "9612",
-    "name": "",
-    "prevPrice": null,
-    "newPrice": 1445,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:10:30.714Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
     "code": "9731",
-    "name": "",
-    "prevPrice": null,
+    "name": "白洋舎",
+    "prevPrice": 3390,
     "newPrice": 3390,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "8137",
+    "name": "サンワテクノス",
+    "prevPrice": 3255,
+    "newPrice": 3255,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "8203",
+    "name": "ＭｒＭａｘＨＤ",
+    "prevPrice": 695,
+    "newPrice": 695,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:18:01.503Z",
+    "code": "6629",
+    "name": "テクノホライゾン",
+    "prevPrice": 1400,
+    "newPrice": 1386,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "5038",
     "name": "ewell",
-    "prevPrice": 2036,
-    "newPrice": 2036,
+    "prevPrice": 2070,
+    "newPrice": 2044,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6072",
     "name": "地盤ネット",
-    "prevPrice": 1058,
-    "newPrice": 1058,
+    "prevPrice": 1046,
+    "newPrice": 1013,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "4554",
     "name": "富士製薬",
-    "prevPrice": 2232,
-    "newPrice": 2232,
+    "prevPrice": 2244,
+    "newPrice": 2301,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "2780",
     "name": "コメ兵",
-    "prevPrice": 5390,
-    "newPrice": 5390,
+    "prevPrice": 5330,
+    "newPrice": 5330,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6134",
     "name": "FUJI",
-    "prevPrice": 6272,
-    "newPrice": 6272,
+    "prevPrice": 6615,
+    "newPrice": 6788,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "3180",
     "name": "Bガレ",
-    "prevPrice": 1548,
-    "newPrice": 1548,
+    "prevPrice": 1577,
+    "newPrice": 1574,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6779",
     "name": "日本電波",
-    "prevPrice": 2101,
-    "newPrice": 2101,
+    "prevPrice": 2188,
+    "newPrice": 2188,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "9880",
     "name": "イノテック",
-    "prevPrice": 3225,
-    "newPrice": 3225,
+    "prevPrice": 3220,
+    "newPrice": 3220,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6742",
     "name": "京三製作所",
-    "prevPrice": 734,
-    "newPrice": 734,
+    "prevPrice": 749,
+    "newPrice": 753,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "3415",
     "name": "トウキョウベース",
-    "prevPrice": 400,
-    "newPrice": 400,
+    "prevPrice": 376,
+    "newPrice": 382,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "8411",
     "name": "みずほ",
-    "prevPrice": 6926,
-    "newPrice": 6926,
+    "prevPrice": 6771,
+    "newPrice": 6817,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "5870",
     "name": "ナルネット",
-    "prevPrice": 1005,
-    "newPrice": 1005,
+    "prevPrice": 1006,
+    "newPrice": 1006,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "9029",
     "name": "ヒガシ",
-    "prevPrice": 1806,
-    "newPrice": 1806,
+    "prevPrice": 1780,
+    "newPrice": 1780,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "4691",
     "name": "ワシントンホテル",
-    "prevPrice": 2300,
-    "newPrice": 2300,
+    "prevPrice": 2455,
+    "newPrice": 2435,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "4914",
     "name": "高砂香料工業",
-    "prevPrice": 1194,
-    "newPrice": 1194,
+    "prevPrice": 1180,
+    "newPrice": 1185,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "3315",
     "name": "日本コークス",
     "prevPrice": 102,
-    "newPrice": 102,
+    "newPrice": 100,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "3529",
     "name": "アツギ",
-    "prevPrice": 1140,
-    "newPrice": 1140,
+    "prevPrice": 1125,
+    "newPrice": 1135,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "2805",
     "name": "エスビー",
-    "prevPrice": 4570,
-    "newPrice": 4570,
+    "prevPrice": 4450,
+    "newPrice": 4465,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "5537",
     "name": "アルバリンク",
-    "prevPrice": 2161,
-    "newPrice": 2161,
+    "prevPrice": 2166,
+    "newPrice": 2150,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6083",
     "name": "ERI",
-    "prevPrice": 4170,
-    "newPrice": 4170,
+    "prevPrice": 4255,
+    "newPrice": 4255,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "4461",
     "name": "第一工業",
-    "prevPrice": 8950,
-    "newPrice": 8950,
+    "prevPrice": 8930,
+    "newPrice": 8930,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "4228",
     "name": "積水化成品",
-    "prevPrice": 473,
-    "newPrice": 473,
+    "prevPrice": 476,
+    "newPrice": 476,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "5201",
     "name": "AGC",
-    "prevPrice": 5683,
-    "newPrice": 5683,
+    "prevPrice": 5580,
+    "newPrice": 5593,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6565",
     "name": "ABホテル",
     "prevPrice": 1388,
-    "newPrice": 1388,
-    "status": "success",
-    "error": null
+    "newPrice": null,
+    "status": "failed",
+    "error": "シンボル未取得"
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "6627",
-    "name": "テラプロープ",
-    "prevPrice": 11300,
-    "newPrice": 11300,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "556A",
     "name": "犬猫生活",
-    "prevPrice": 3295,
-    "newPrice": 3295,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "1850",
-    "name": "南海辰村",
-    "prevPrice": 431,
-    "newPrice": 431,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "2157",
-    "name": "コシダカ",
-    "prevPrice": 999,
-    "newPrice": 999,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "2428",
-    "name": "ウェルネット",
-    "prevPrice": 623,
-    "newPrice": 623,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "2652",
-    "name": "まんだらけ",
-    "prevPrice": 343,
-    "newPrice": 343,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "2751",
-    "name": "テンポス",
-    "prevPrice": 3555,
+    "prevPrice": 3405,
     "newPrice": 3555,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "1850",
+    "name": "南海辰村",
+    "prevPrice": 426,
+    "newPrice": 428,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "2157",
+    "name": "コシダカ",
+    "prevPrice": 1001,
+    "newPrice": 1001,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "2428",
+    "name": "ウェルネット",
+    "prevPrice": 626,
+    "newPrice": 635,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "2652",
+    "name": "まんだらけ",
+    "prevPrice": 350,
+    "newPrice": 350,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "2751",
+    "name": "テンポス",
+    "prevPrice": 3505,
+    "newPrice": 3520,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "3048",
     "name": "ビックカメラ",
-    "prevPrice": 1604,
-    "newPrice": 1604,
+    "prevPrice": 1617,
+    "newPrice": 1622.5,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "3097",
     "name": "物語",
-    "prevPrice": 4250,
-    "newPrice": 4250,
+    "prevPrice": 4205,
+    "newPrice": 4205,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "3543",
     "name": "コメダ",
-    "prevPrice": 2996,
-    "newPrice": 2996,
+    "prevPrice": 3030,
+    "newPrice": 3025,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "3673",
     "name": "ブロードリーフ",
-    "prevPrice": 896,
-    "newPrice": 896,
+    "prevPrice": 899,
+    "newPrice": 899,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "4680",
     "name": "ラウンドワン",
-    "prevPrice": 854.4,
-    "newPrice": 854.4,
+    "prevPrice": 865.5,
+    "newPrice": 865.5,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "4755",
     "name": "楽天",
-    "prevPrice": 751,
-    "newPrice": 751,
+    "prevPrice": 747.9,
+    "newPrice": 754.5,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6044",
     "name": "三機サービス",
-    "prevPrice": 1710,
-    "newPrice": 1710,
+    "prevPrice": 1705,
+    "newPrice": 1720,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6071",
     "name": "IBJ",
-    "prevPrice": 720,
-    "newPrice": 720,
+    "prevPrice": 744,
+    "newPrice": 745,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6076",
     "name": "アメイズ",
     "prevPrice": 1257,
@@ -954,925 +1512,358 @@
     "error": "シンボル未取得"
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6078",
     "name": "バリューHR",
-    "prevPrice": 1416,
-    "newPrice": 1416,
+    "prevPrice": 1408,
+    "newPrice": 1404,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6089",
     "name": "ウィルグループ",
-    "prevPrice": 1122,
-    "newPrice": 1122,
+    "prevPrice": 1109,
+    "newPrice": 1105,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6099",
     "name": "エラン",
-    "prevPrice": 693,
-    "newPrice": 693,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "6226",
-    "name": "守谷輸送",
-    "prevPrice": 2046,
-    "newPrice": 2046,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "6540",
-    "name": "船場",
-    "prevPrice": 1665,
-    "newPrice": 1665,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "6547",
-    "name": "グリーンズ",
-    "prevPrice": 2312,
-    "newPrice": 2312,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "6824",
-    "name": "新コスモス電機",
-    "prevPrice": 5830,
-    "newPrice": 5830,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "7453",
-    "name": "良品計画",
-    "prevPrice": 3654,
-    "newPrice": 3654,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "7513",
-    "name": "コジマ",
-    "prevPrice": 1176,
-    "newPrice": 1176,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "8473",
-    "name": "SBI",
-    "prevPrice": 3071,
-    "newPrice": 3071,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "8848",
-    "name": "レオパレス",
-    "prevPrice": 650,
-    "newPrice": 650,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "9273",
-    "name": "コーア",
-    "prevPrice": 875,
-    "newPrice": 875,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "9325",
-    "name": "ファイズ",
-    "prevPrice": 1221,
-    "newPrice": 1221,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "9418",
-    "name": "UNEXT",
-    "prevPrice": 1539,
-    "newPrice": 1539,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "9722",
-    "name": "藤田観光",
-    "prevPrice": 2060,
-    "newPrice": 2060,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "9936",
-    "name": "王将",
-    "prevPrice": 2896,
-    "newPrice": 2896,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "9887",
-    "name": "松屋フーズ",
-    "prevPrice": 5200,
-    "newPrice": 5200,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "5332",
-    "name": "TOTO",
-    "prevPrice": 6740,
-    "newPrice": 6740,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "4966",
-    "name": "上村工業",
-    "prevPrice": 23800,
-    "newPrice": 23800,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "7564",
-    "name": "ワークマン",
-    "prevPrice": 7710,
-    "newPrice": 7710,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "547A",
-    "name": "ムニノバホールディングス",
-    "prevPrice": 458,
-    "newPrice": 458,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:08:48.233Z",
-    "code": "8203",
-    "name": "ＭｒＭａｘＨＤ",
-    "prevPrice": 700,
+    "prevPrice": 690,
     "newPrice": 700,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "6226",
+    "name": "守谷輸送",
+    "prevPrice": 2045,
+    "newPrice": 2040,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "6540",
+    "name": "船場",
+    "prevPrice": 1654,
+    "newPrice": 1661,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "6547",
+    "name": "グリーンズ",
+    "prevPrice": 2332,
+    "newPrice": 2346,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "6824",
+    "name": "新コスモス電機",
+    "prevPrice": 5790,
+    "newPrice": 5880,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "7453",
+    "name": "良品計画",
+    "prevPrice": 3650,
+    "newPrice": 3645,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "7513",
+    "name": "コジマ",
+    "prevPrice": 1172,
+    "newPrice": 1180,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "8473",
+    "name": "SBI",
+    "prevPrice": 3031,
+    "newPrice": 3014,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "9325",
+    "name": "ファイズ",
+    "prevPrice": 1349,
+    "newPrice": 1341,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "9418",
+    "name": "UNEXT",
+    "prevPrice": 1540,
+    "newPrice": 1551,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "9722",
+    "name": "藤田観光",
+    "prevPrice": 2013,
+    "newPrice": 2055,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "9936",
+    "name": "王将",
+    "prevPrice": 2850,
+    "newPrice": 2843,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "9887",
+    "name": "松屋フーズ",
+    "prevPrice": 5110,
+    "newPrice": 5090,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "5332",
+    "name": "TOTO",
+    "prevPrice": 7083,
+    "newPrice": 7083,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "4966",
+    "name": "上村工業",
+    "prevPrice": 23710,
+    "newPrice": 24040,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "7564",
+    "name": "ワークマン",
+    "prevPrice": 7860,
+    "newPrice": 7790,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "1852",
     "name": "淺沼組",
-    "prevPrice": 931,
-    "newPrice": 931,
+    "prevPrice": 929,
+    "newPrice": 919,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:08:48.233Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "6570",
-    "name": "",
-    "prevPrice": null,
-    "newPrice": 1271,
+    "name": "共和コーポレーション",
+    "prevPrice": 1256,
+    "newPrice": 1237,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "5038",
-    "name": "ewell",
-    "prevPrice": 2036,
-    "newPrice": 2036,
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "9731",
+    "name": "白洋舎",
+    "prevPrice": 3395,
+    "newPrice": 3390,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6072",
-    "name": "地盤ネット",
-    "prevPrice": 1058,
-    "newPrice": 1058,
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "8137",
+    "name": "サンワテクノス",
+    "prevPrice": 3255,
+    "newPrice": 3255,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "4554",
-    "name": "富士製薬",
-    "prevPrice": 2232,
-    "newPrice": 2232,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "2780",
-    "name": "コメ兵",
-    "prevPrice": 5390,
-    "newPrice": 5390,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6134",
-    "name": "FUJI",
-    "prevPrice": 6272,
-    "newPrice": 6272,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "3180",
-    "name": "Bガレ",
-    "prevPrice": 1548,
-    "newPrice": 1548,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6779",
-    "name": "日本電波",
-    "prevPrice": 2101,
-    "newPrice": 2101,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "9880",
-    "name": "イノテック",
-    "prevPrice": 3225,
-    "newPrice": 3225,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6742",
-    "name": "京三製作所",
-    "prevPrice": 734,
-    "newPrice": 734,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "3415",
-    "name": "トウキョウベース",
-    "prevPrice": 400,
-    "newPrice": 400,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "8411",
-    "name": "みずほ",
-    "prevPrice": 6926,
-    "newPrice": 6926,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "5870",
-    "name": "ナルネット",
-    "prevPrice": 1005,
-    "newPrice": 1005,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "9029",
-    "name": "ヒガシ",
-    "prevPrice": 1806,
-    "newPrice": 1806,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "4691",
-    "name": "ワシントンホテル",
-    "prevPrice": 2300,
-    "newPrice": 2300,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "4914",
-    "name": "高砂香料工業",
-    "prevPrice": 1194,
-    "newPrice": 1194,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "3315",
-    "name": "日本コークス",
-    "prevPrice": 102,
-    "newPrice": 102,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "3529",
-    "name": "アツギ",
-    "prevPrice": 1140,
-    "newPrice": 1140,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "2805",
-    "name": "エスビー",
-    "prevPrice": 4570,
-    "newPrice": 4570,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "5537",
-    "name": "アルバリンク",
-    "prevPrice": 2161,
-    "newPrice": 2161,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6083",
-    "name": "ERI",
-    "prevPrice": 4170,
-    "newPrice": 4170,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "4461",
-    "name": "第一工業",
-    "prevPrice": 8950,
-    "newPrice": 8950,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "4228",
-    "name": "積水化成品",
-    "prevPrice": 473,
-    "newPrice": 473,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "5201",
-    "name": "AGC",
-    "prevPrice": 5683,
-    "newPrice": 5683,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6565",
-    "name": "ABホテル",
-    "prevPrice": 1388,
-    "newPrice": 1388,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6627",
-    "name": "テラプロープ",
-    "prevPrice": 11300,
-    "newPrice": 11300,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "556A",
-    "name": "犬猫生活",
-    "prevPrice": 3295,
-    "newPrice": 3295,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "1850",
-    "name": "南海辰村",
-    "prevPrice": 431,
-    "newPrice": 431,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "2157",
-    "name": "コシダカ",
-    "prevPrice": 999,
-    "newPrice": 999,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "2428",
-    "name": "ウェルネット",
-    "prevPrice": 623,
-    "newPrice": 623,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "2652",
-    "name": "まんだらけ",
-    "prevPrice": 343,
-    "newPrice": 343,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "2751",
-    "name": "テンポス",
-    "prevPrice": 3555,
-    "newPrice": 3555,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "3048",
-    "name": "ビックカメラ",
-    "prevPrice": 1604,
-    "newPrice": 1604,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "3097",
-    "name": "物語",
-    "prevPrice": 4250,
-    "newPrice": 4250,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "3543",
-    "name": "コメダ",
-    "prevPrice": 2996,
-    "newPrice": 2996,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "3673",
-    "name": "ブロードリーフ",
-    "prevPrice": 896,
-    "newPrice": 896,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "4680",
-    "name": "ラウンドワン",
-    "prevPrice": 854.4,
-    "newPrice": 854.4,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "4755",
-    "name": "楽天",
-    "prevPrice": 751,
-    "newPrice": 751,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6044",
-    "name": "三機サービス",
-    "prevPrice": 1710,
-    "newPrice": 1710,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6071",
-    "name": "IBJ",
-    "prevPrice": 720,
-    "newPrice": 720,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6076",
-    "name": "アメイズ",
-    "prevPrice": 1400,
-    "newPrice": null,
-    "status": "failed",
-    "error": "シンボル未取得"
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6078",
-    "name": "バリューHR",
-    "prevPrice": 1416,
-    "newPrice": 1416,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6089",
-    "name": "ウィルグループ",
-    "prevPrice": 1122,
-    "newPrice": 1122,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6099",
-    "name": "エラン",
-    "prevPrice": 693,
-    "newPrice": 693,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6226",
-    "name": "守谷輸送",
-    "prevPrice": 2046,
-    "newPrice": 2046,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6540",
-    "name": "船場",
-    "prevPrice": 1665,
-    "newPrice": 1665,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6547",
-    "name": "グリーンズ",
-    "prevPrice": 2312,
-    "newPrice": 2312,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "6824",
-    "name": "新コスモス電機",
-    "prevPrice": 5830,
-    "newPrice": 5830,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "7453",
-    "name": "良品計画",
-    "prevPrice": 3654,
-    "newPrice": 3654,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "7513",
-    "name": "コジマ",
-    "prevPrice": 1176,
-    "newPrice": 1176,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "8473",
-    "name": "SBI",
-    "prevPrice": 3071,
-    "newPrice": 3071,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "8848",
-    "name": "レオパレス",
-    "prevPrice": 650,
-    "newPrice": 650,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "9273",
-    "name": "コーア",
-    "prevPrice": 875,
-    "newPrice": 875,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "9325",
-    "name": "ファイズ",
-    "prevPrice": 1221,
-    "newPrice": 1221,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "9418",
-    "name": "UNEXT",
-    "prevPrice": 1539,
-    "newPrice": 1539,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "9722",
-    "name": "藤田観光",
-    "prevPrice": 2060,
-    "newPrice": 2060,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "9936",
-    "name": "王将",
-    "prevPrice": 2896,
-    "newPrice": 2896,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "9887",
-    "name": "松屋フーズ",
-    "prevPrice": 5200,
-    "newPrice": 5200,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "5332",
-    "name": "TOTO",
-    "prevPrice": 6740,
-    "newPrice": 6740,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "4966",
-    "name": "上村工業",
-    "prevPrice": 23800,
-    "newPrice": 23800,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "7564",
-    "name": "ワークマン",
-    "prevPrice": 7710,
-    "newPrice": 7710,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "547A",
-    "name": "ムニノバホールディングス",
-    "prevPrice": 458,
-    "newPrice": 458,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:17.625Z",
+    "timestamp": "2026-05-11T00:16:48.116Z",
     "code": "8203",
     "name": "ＭｒＭａｘＨＤ",
-    "prevPrice": 700,
-    "newPrice": 700,
+    "prevPrice": 695,
+    "newPrice": 695,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:17.625Z",
-    "code": "1852",
+    "timestamp": "2026-05-11T00:16:48.116Z",
+    "code": "6629",
     "name": "",
     "prevPrice": null,
-    "newPrice": 931,
+    "newPrice": 1400,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "5038",
     "name": "ewell",
-    "prevPrice": 2036,
-    "newPrice": 2036,
+    "prevPrice": 2070,
+    "newPrice": 2070,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6072",
     "name": "地盤ネット",
-    "prevPrice": 1058,
-    "newPrice": 1058,
+    "prevPrice": 1046,
+    "newPrice": 1046,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "4554",
     "name": "富士製薬",
-    "prevPrice": 2232,
-    "newPrice": 2232,
+    "prevPrice": 2244,
+    "newPrice": 2244,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "2780",
     "name": "コメ兵",
-    "prevPrice": 5390,
-    "newPrice": 5390,
+    "prevPrice": 5330,
+    "newPrice": 5330,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6134",
     "name": "FUJI",
-    "prevPrice": 6272,
-    "newPrice": 6272,
+    "prevPrice": 6615,
+    "newPrice": 6615,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "3180",
     "name": "Bガレ",
-    "prevPrice": 1548,
-    "newPrice": 1548,
+    "prevPrice": 1577,
+    "newPrice": 1577,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6779",
     "name": "日本電波",
-    "prevPrice": 2101,
-    "newPrice": 2101,
+    "prevPrice": 2188,
+    "newPrice": 2188,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "9880",
     "name": "イノテック",
-    "prevPrice": 3225,
-    "newPrice": 3225,
+    "prevPrice": 3220,
+    "newPrice": 3220,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6742",
     "name": "京三製作所",
-    "prevPrice": 734,
-    "newPrice": 734,
+    "prevPrice": 749,
+    "newPrice": 749,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "3415",
     "name": "トウキョウベース",
-    "prevPrice": 400,
-    "newPrice": 400,
+    "prevPrice": 376,
+    "newPrice": 376,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "8411",
     "name": "みずほ",
-    "prevPrice": 6926,
-    "newPrice": 6926,
+    "prevPrice": 6771,
+    "newPrice": 6771,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "5870",
     "name": "ナルネット",
-    "prevPrice": 1005,
-    "newPrice": 1005,
+    "prevPrice": 1006,
+    "newPrice": 1006,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "9029",
     "name": "ヒガシ",
-    "prevPrice": 1806,
-    "newPrice": 1806,
+    "prevPrice": 1780,
+    "newPrice": 1780,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "4691",
     "name": "ワシントンホテル",
-    "prevPrice": 2300,
-    "newPrice": 2300,
+    "prevPrice": 2455,
+    "newPrice": 2455,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "4914",
     "name": "高砂香料工業",
-    "prevPrice": 1194,
-    "newPrice": 1194,
+    "prevPrice": 1180,
+    "newPrice": 1180,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "3315",
     "name": "日本コークス",
     "prevPrice": 102,
@@ -1881,556 +1872,556 @@
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "3529",
     "name": "アツギ",
-    "prevPrice": 1140,
-    "newPrice": 1140,
+    "prevPrice": 1125,
+    "newPrice": 1125,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "2805",
     "name": "エスビー",
-    "prevPrice": 4570,
-    "newPrice": 4570,
+    "prevPrice": 4450,
+    "newPrice": 4450,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "5537",
     "name": "アルバリンク",
-    "prevPrice": 2161,
-    "newPrice": 2161,
+    "prevPrice": 2166,
+    "newPrice": 2166,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6083",
     "name": "ERI",
-    "prevPrice": 4170,
-    "newPrice": 4170,
+    "prevPrice": 4255,
+    "newPrice": 4255,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "4461",
     "name": "第一工業",
-    "prevPrice": 8950,
-    "newPrice": 8950,
+    "prevPrice": 8930,
+    "newPrice": 8930,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "4228",
     "name": "積水化成品",
-    "prevPrice": 473,
-    "newPrice": 473,
+    "prevPrice": 476,
+    "newPrice": 476,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "5201",
     "name": "AGC",
-    "prevPrice": 5683,
-    "newPrice": 5683,
+    "prevPrice": 5580,
+    "newPrice": 5580,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6565",
     "name": "ABホテル",
     "prevPrice": 1388,
-    "newPrice": 1388,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "6627",
-    "name": "テラプロープ",
-    "prevPrice": 11300,
-    "newPrice": 11300,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "556A",
-    "name": "犬猫生活",
-    "prevPrice": 3295,
-    "newPrice": 3295,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "1850",
-    "name": "南海辰村",
-    "prevPrice": 431,
-    "newPrice": 431,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "2157",
-    "name": "コシダカ",
-    "prevPrice": 999,
-    "newPrice": 999,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "2428",
-    "name": "ウェルネット",
-    "prevPrice": 623,
-    "newPrice": 623,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "2652",
-    "name": "まんだらけ",
-    "prevPrice": 343,
-    "newPrice": 343,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "2751",
-    "name": "テンポス",
-    "prevPrice": 3555,
-    "newPrice": 3555,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "3048",
-    "name": "ビックカメラ",
-    "prevPrice": 1604,
-    "newPrice": 1604,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "3097",
-    "name": "物語",
-    "prevPrice": 4250,
-    "newPrice": 4250,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "3543",
-    "name": "コメダ",
-    "prevPrice": 2996,
-    "newPrice": 2996,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "3673",
-    "name": "ブロードリーフ",
-    "prevPrice": 896,
-    "newPrice": 896,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "4680",
-    "name": "ラウンドワン",
-    "prevPrice": 854.4,
-    "newPrice": 854.4,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "4755",
-    "name": "楽天",
-    "prevPrice": 751,
-    "newPrice": 751,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "6044",
-    "name": "三機サービス",
-    "prevPrice": 1710,
-    "newPrice": 1710,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "6071",
-    "name": "IBJ",
-    "prevPrice": 720,
-    "newPrice": 720,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "6076",
-    "name": "アメイズ",
-    "prevPrice": 1400,
     "newPrice": null,
     "status": "failed",
     "error": "シンボル未取得"
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "556A",
+    "name": "犬猫生活",
+    "prevPrice": 3405,
+    "newPrice": 3405,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "1850",
+    "name": "南海辰村",
+    "prevPrice": 426,
+    "newPrice": 426,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "2157",
+    "name": "コシダカ",
+    "prevPrice": 1001,
+    "newPrice": 1001,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "2428",
+    "name": "ウェルネット",
+    "prevPrice": 626,
+    "newPrice": 626,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "2652",
+    "name": "まんだらけ",
+    "prevPrice": 350,
+    "newPrice": 350,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "2751",
+    "name": "テンポス",
+    "prevPrice": 3505,
+    "newPrice": 3505,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "3048",
+    "name": "ビックカメラ",
+    "prevPrice": 1617,
+    "newPrice": 1617,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "3097",
+    "name": "物語",
+    "prevPrice": 4205,
+    "newPrice": 4205,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "3543",
+    "name": "コメダ",
+    "prevPrice": 3030,
+    "newPrice": 3030,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "3673",
+    "name": "ブロードリーフ",
+    "prevPrice": 899,
+    "newPrice": 899,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "4680",
+    "name": "ラウンドワン",
+    "prevPrice": 865.5,
+    "newPrice": 865.5,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "4755",
+    "name": "楽天",
+    "prevPrice": 747.9,
+    "newPrice": 747.9,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "6044",
+    "name": "三機サービス",
+    "prevPrice": 1705,
+    "newPrice": 1705,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "6071",
+    "name": "IBJ",
+    "prevPrice": 744,
+    "newPrice": 744,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "6076",
+    "name": "アメイズ",
+    "prevPrice": 1257,
+    "newPrice": null,
+    "status": "failed",
+    "error": "シンボル未取得"
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6078",
     "name": "バリューHR",
-    "prevPrice": 1416,
-    "newPrice": 1416,
+    "prevPrice": 1408,
+    "newPrice": 1408,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6089",
     "name": "ウィルグループ",
-    "prevPrice": 1122,
-    "newPrice": 1122,
+    "prevPrice": 1109,
+    "newPrice": 1109,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6099",
     "name": "エラン",
-    "prevPrice": 693,
-    "newPrice": 693,
+    "prevPrice": 690,
+    "newPrice": 690,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6226",
     "name": "守谷輸送",
-    "prevPrice": 2046,
-    "newPrice": 2046,
+    "prevPrice": 2045,
+    "newPrice": 2045,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6540",
     "name": "船場",
-    "prevPrice": 1665,
-    "newPrice": 1665,
+    "prevPrice": 1654,
+    "newPrice": 1654,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6547",
     "name": "グリーンズ",
-    "prevPrice": 2312,
-    "newPrice": 2312,
+    "prevPrice": 2332,
+    "newPrice": 2332,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "6824",
     "name": "新コスモス電機",
-    "prevPrice": 5830,
-    "newPrice": 5830,
+    "prevPrice": 5790,
+    "newPrice": 5790,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "7453",
     "name": "良品計画",
-    "prevPrice": 3654,
-    "newPrice": 3654,
+    "prevPrice": 3650,
+    "newPrice": 3650,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "7513",
     "name": "コジマ",
-    "prevPrice": 1176,
-    "newPrice": 1176,
+    "prevPrice": 1172,
+    "newPrice": 1172,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "8473",
     "name": "SBI",
-    "prevPrice": 3071,
-    "newPrice": 3071,
+    "prevPrice": 3031,
+    "newPrice": 3031,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "8848",
-    "name": "レオパレス",
-    "prevPrice": 650,
-    "newPrice": 650,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "9273",
-    "name": "コーア",
-    "prevPrice": 875,
-    "newPrice": 875,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "9325",
     "name": "ファイズ",
-    "prevPrice": 1221,
-    "newPrice": 1221,
+    "prevPrice": 1349,
+    "newPrice": 1349,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "9418",
     "name": "UNEXT",
-    "prevPrice": 1539,
-    "newPrice": 1539,
+    "prevPrice": 1540,
+    "newPrice": 1540,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "9722",
     "name": "藤田観光",
-    "prevPrice": 2060,
-    "newPrice": 2060,
+    "prevPrice": 2013,
+    "newPrice": 2013,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "9936",
     "name": "王将",
-    "prevPrice": 2896,
-    "newPrice": 2896,
+    "prevPrice": 2850,
+    "newPrice": 2850,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "9887",
     "name": "松屋フーズ",
-    "prevPrice": 5200,
-    "newPrice": 5200,
+    "prevPrice": 5110,
+    "newPrice": 5110,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "5332",
     "name": "TOTO",
-    "prevPrice": 6740,
-    "newPrice": 6740,
+    "prevPrice": 7083,
+    "newPrice": 7083,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "4966",
     "name": "上村工業",
-    "prevPrice": 23800,
-    "newPrice": 23800,
+    "prevPrice": 23710,
+    "newPrice": 23710,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "7564",
     "name": "ワークマン",
-    "prevPrice": 7710,
-    "newPrice": 7710,
+    "prevPrice": 7860,
+    "newPrice": 7860,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
-    "code": "547A",
-    "name": "ムニノバホールディングス",
-    "prevPrice": 458,
-    "newPrice": 458,
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "1852",
+    "name": "淺沼組",
+    "prevPrice": 929,
+    "newPrice": 929,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:07:01.587Z",
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "6570",
+    "name": "共和コーポレーション",
+    "prevPrice": 1256,
+    "newPrice": 1256,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "9731",
+    "name": "白洋舎",
+    "prevPrice": 3395,
+    "newPrice": 3395,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
+    "code": "8137",
+    "name": "サンワテクノス",
+    "prevPrice": 3255,
+    "newPrice": 3255,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-11T00:06:29.082Z",
     "code": "8203",
     "name": "",
     "prevPrice": null,
-    "newPrice": 700,
+    "newPrice": 695,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "5038",
     "name": "ewell",
-    "prevPrice": 2036,
-    "newPrice": 2036,
+    "prevPrice": 2070,
+    "newPrice": 2070,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "6072",
     "name": "地盤ネット",
-    "prevPrice": 1058,
-    "newPrice": 1058,
+    "prevPrice": 1046,
+    "newPrice": 1046,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "4554",
     "name": "富士製薬",
-    "prevPrice": 2232,
-    "newPrice": 2232,
+    "prevPrice": 2244,
+    "newPrice": 2244,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "2780",
     "name": "コメ兵",
-    "prevPrice": 5390,
-    "newPrice": 5390,
+    "prevPrice": 5330,
+    "newPrice": 5330,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "6134",
     "name": "FUJI",
-    "prevPrice": 6272,
-    "newPrice": 6272,
+    "prevPrice": 6615,
+    "newPrice": 6615,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "3180",
     "name": "Bガレ",
-    "prevPrice": 1548,
-    "newPrice": 1548,
+    "prevPrice": 1577,
+    "newPrice": 1577,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "6779",
     "name": "日本電波",
-    "prevPrice": 2101,
-    "newPrice": 2101,
+    "prevPrice": 2188,
+    "newPrice": 2188,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "9880",
     "name": "イノテック",
-    "prevPrice": 3225,
-    "newPrice": 3225,
+    "prevPrice": 3220,
+    "newPrice": 3220,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "6742",
     "name": "京三製作所",
-    "prevPrice": 734,
-    "newPrice": 734,
+    "prevPrice": 749,
+    "newPrice": 749,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "3415",
     "name": "トウキョウベース",
-    "prevPrice": 400,
-    "newPrice": 400,
+    "prevPrice": 376,
+    "newPrice": 376,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "8411",
     "name": "みずほ",
-    "prevPrice": 6926,
-    "newPrice": 6926,
+    "prevPrice": 6771,
+    "newPrice": 6771,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "5870",
     "name": "ナルネット",
-    "prevPrice": 1005,
-    "newPrice": 1005,
+    "prevPrice": 1006,
+    "newPrice": 1006,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "9029",
     "name": "ヒガシ",
-    "prevPrice": 1806,
-    "newPrice": 1806,
+    "prevPrice": 1780,
+    "newPrice": 1780,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "4691",
     "name": "ワシントンホテル",
-    "prevPrice": 2300,
-    "newPrice": 2300,
+    "prevPrice": 2455,
+    "newPrice": 2455,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "4914",
     "name": "高砂香料工業",
-    "prevPrice": 1194,
-    "newPrice": 1194,
+    "prevPrice": 1180,
+    "newPrice": 1180,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "3315",
     "name": "日本コークス",
     "prevPrice": 102,
@@ -2439,1645 +2430,943 @@
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "3529",
     "name": "アツギ",
-    "prevPrice": 1140,
-    "newPrice": 1140,
+    "prevPrice": 1125,
+    "newPrice": 1125,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "2805",
     "name": "エスビー",
-    "prevPrice": 4570,
-    "newPrice": 4570,
+    "prevPrice": 4450,
+    "newPrice": 4450,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "5537",
     "name": "アルバリンク",
-    "prevPrice": 2161,
-    "newPrice": 2161,
+    "prevPrice": 2166,
+    "newPrice": 2166,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "6083",
     "name": "ERI",
-    "prevPrice": 4170,
-    "newPrice": 4170,
+    "prevPrice": 4255,
+    "newPrice": 4255,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "4461",
     "name": "第一工業",
-    "prevPrice": 8950,
-    "newPrice": 8950,
+    "prevPrice": 8930,
+    "newPrice": 8930,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "4228",
     "name": "積水化成品",
-    "prevPrice": 473,
-    "newPrice": 473,
+    "prevPrice": 476,
+    "newPrice": 476,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "5201",
     "name": "AGC",
-    "prevPrice": 5683,
-    "newPrice": 5683,
+    "prevPrice": 5580,
+    "newPrice": 5580,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "6565",
     "name": "ABホテル",
     "prevPrice": 1388,
-    "newPrice": 1388,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "6627",
-    "name": "テラプロープ",
-    "prevPrice": 11300,
-    "newPrice": 11300,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "556A",
-    "name": "犬猫生活",
-    "prevPrice": 3295,
-    "newPrice": 3295,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "1850",
-    "name": "南海辰村",
-    "prevPrice": 431,
-    "newPrice": 431,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "2157",
-    "name": "コシダカ",
-    "prevPrice": 999,
-    "newPrice": 999,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "2428",
-    "name": "ウェルネット",
-    "prevPrice": 623,
-    "newPrice": 623,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "2652",
-    "name": "まんだらけ",
-    "prevPrice": 343,
-    "newPrice": 343,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "2751",
-    "name": "テンポス",
-    "prevPrice": 3555,
-    "newPrice": 3555,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "3048",
-    "name": "ビックカメラ",
-    "prevPrice": 1604,
-    "newPrice": 1604,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "3097",
-    "name": "物語",
-    "prevPrice": 4250,
-    "newPrice": 4250,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "3543",
-    "name": "コメダ",
-    "prevPrice": 2996,
-    "newPrice": 2996,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "3673",
-    "name": "ブロードリーフ",
-    "prevPrice": 896,
-    "newPrice": 896,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "4680",
-    "name": "ラウンドワン",
-    "prevPrice": 854.4,
-    "newPrice": 854.4,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "4755",
-    "name": "楽天",
-    "prevPrice": 751,
-    "newPrice": 751,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "6044",
-    "name": "三機サービス",
-    "prevPrice": 1710,
-    "newPrice": 1710,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "6071",
-    "name": "IBJ",
-    "prevPrice": 720,
-    "newPrice": 720,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "6076",
-    "name": "アメイズ",
-    "prevPrice": 1400,
     "newPrice": null,
     "status": "failed",
     "error": "シンボル未取得"
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "556A",
+    "name": "犬猫生活",
+    "prevPrice": 3405,
+    "newPrice": 3405,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "1850",
+    "name": "南海辰村",
+    "prevPrice": 426,
+    "newPrice": 426,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "2157",
+    "name": "コシダカ",
+    "prevPrice": 1001,
+    "newPrice": 1001,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "2428",
+    "name": "ウェルネット",
+    "prevPrice": 626,
+    "newPrice": 626,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "2652",
+    "name": "まんだらけ",
+    "prevPrice": 350,
+    "newPrice": 350,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "2751",
+    "name": "テンポス",
+    "prevPrice": 3505,
+    "newPrice": 3505,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "3048",
+    "name": "ビックカメラ",
+    "prevPrice": 1617,
+    "newPrice": 1617,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "3097",
+    "name": "物語",
+    "prevPrice": 4205,
+    "newPrice": 4205,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "3543",
+    "name": "コメダ",
+    "prevPrice": 3030,
+    "newPrice": 3030,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "3673",
+    "name": "ブロードリーフ",
+    "prevPrice": 899,
+    "newPrice": 899,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "4680",
+    "name": "ラウンドワン",
+    "prevPrice": 865.5,
+    "newPrice": 865.5,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "4755",
+    "name": "楽天",
+    "prevPrice": 747.9,
+    "newPrice": 747.9,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "6044",
+    "name": "三機サービス",
+    "prevPrice": 1705,
+    "newPrice": 1705,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "6071",
+    "name": "IBJ",
+    "prevPrice": 744,
+    "newPrice": 744,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "6076",
+    "name": "アメイズ",
+    "prevPrice": 1257,
+    "newPrice": null,
+    "status": "failed",
+    "error": "シンボル未取得"
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
     "code": "6078",
     "name": "バリューHR",
+    "prevPrice": 1408,
+    "newPrice": 1408,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "6089",
+    "name": "ウィルグループ",
+    "prevPrice": 1109,
+    "newPrice": 1109,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "6099",
+    "name": "エラン",
+    "prevPrice": 690,
+    "newPrice": 690,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "6226",
+    "name": "守谷輸送",
+    "prevPrice": 2045,
+    "newPrice": 2045,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "6540",
+    "name": "船場",
+    "prevPrice": 1654,
+    "newPrice": 1654,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "6547",
+    "name": "グリーンズ",
+    "prevPrice": 2332,
+    "newPrice": 2332,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "6824",
+    "name": "新コスモス電機",
+    "prevPrice": 5790,
+    "newPrice": 5790,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "7453",
+    "name": "良品計画",
+    "prevPrice": 3650,
+    "newPrice": 3650,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "7513",
+    "name": "コジマ",
+    "prevPrice": 1172,
+    "newPrice": 1172,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "8473",
+    "name": "SBI",
+    "prevPrice": 3031,
+    "newPrice": 3031,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "9325",
+    "name": "ファイズ",
+    "prevPrice": 1349,
+    "newPrice": 1349,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "9418",
+    "name": "UNEXT",
+    "prevPrice": 1540,
+    "newPrice": 1540,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "9722",
+    "name": "藤田観光",
+    "prevPrice": 2013,
+    "newPrice": 2013,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "9936",
+    "name": "王将",
+    "prevPrice": 2850,
+    "newPrice": 2850,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "9887",
+    "name": "松屋フーズ",
+    "prevPrice": 5110,
+    "newPrice": 5110,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "5332",
+    "name": "TOTO",
+    "prevPrice": 7083,
+    "newPrice": 7083,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "4966",
+    "name": "上村工業",
+    "prevPrice": 23710,
+    "newPrice": 23710,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "7564",
+    "name": "ワークマン",
+    "prevPrice": 7860,
+    "newPrice": 7860,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "547A",
+    "name": "ムニノバホールディングス",
+    "prevPrice": 453,
+    "newPrice": 453,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "8203",
+    "name": "ＭｒＭａｘＨＤ",
+    "prevPrice": 695,
+    "newPrice": 695,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "1852",
+    "name": "淺沼組",
+    "prevPrice": 929,
+    "newPrice": 929,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "6570",
+    "name": "共和コーポレーション",
+    "prevPrice": 1256,
+    "newPrice": 1256,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "9612",
+    "name": "ラックランド",
     "prevPrice": 1416,
     "newPrice": 1416,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "6089",
-    "name": "ウィルグループ",
-    "prevPrice": 1122,
-    "newPrice": 1122,
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "9731",
+    "name": "白洋舎",
+    "prevPrice": 3395,
+    "newPrice": 3395,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "6099",
-    "name": "エラン",
-    "prevPrice": 693,
-    "newPrice": 693,
+    "timestamp": "2026-05-10T15:00:11.048Z",
+    "code": "8137",
+    "name": "サンワテクノス",
+    "prevPrice": 3255,
+    "newPrice": 3255,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "6226",
-    "name": "守谷輸送",
-    "prevPrice": 2046,
-    "newPrice": 2046,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "6540",
-    "name": "船場",
-    "prevPrice": 1665,
-    "newPrice": 1665,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "6547",
-    "name": "グリーンズ",
-    "prevPrice": 2312,
-    "newPrice": 2312,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "6824",
-    "name": "新コスモス電機",
-    "prevPrice": 5830,
-    "newPrice": 5830,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "7453",
-    "name": "良品計画",
-    "prevPrice": 3654,
-    "newPrice": 3654,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "7513",
-    "name": "コジマ",
-    "prevPrice": 1176,
-    "newPrice": 1176,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "8473",
-    "name": "SBI",
-    "prevPrice": 3071,
-    "newPrice": 3071,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "8848",
-    "name": "レオパレス",
-    "prevPrice": 650,
-    "newPrice": 650,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "9273",
-    "name": "コーア",
-    "prevPrice": 875,
-    "newPrice": 875,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "9325",
-    "name": "ファイズ",
-    "prevPrice": 1221,
-    "newPrice": 1221,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "9418",
-    "name": "UNEXT",
-    "prevPrice": 1539,
-    "newPrice": 1539,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "9722",
-    "name": "藤田観光",
-    "prevPrice": 2060,
-    "newPrice": 2060,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "9936",
-    "name": "王将",
-    "prevPrice": 2896,
-    "newPrice": 2896,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "9887",
-    "name": "松屋フーズ",
-    "prevPrice": 5200,
-    "newPrice": 5200,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "5332",
-    "name": "TOTO",
-    "prevPrice": 6740,
-    "newPrice": 6740,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "4966",
-    "name": "上村工業",
-    "prevPrice": 23800,
-    "newPrice": 23800,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "7564",
-    "name": "ワークマン",
-    "prevPrice": 7710,
-    "newPrice": 7710,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T14:06:21.077Z",
-    "code": "547A",
-    "name": "",
-    "prevPrice": 458,
-    "newPrice": 458,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "5038",
-    "name": "ewell",
-    "prevPrice": 2036,
-    "newPrice": 2036,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6072",
-    "name": "地盤ネット",
-    "prevPrice": 1058,
-    "newPrice": 1058,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
+    "timestamp": "2026-05-10T12:26:12.377Z",
     "code": "4554",
     "name": "富士製薬",
-    "prevPrice": 2232,
-    "newPrice": 2232,
+    "prevPrice": 2244,
+    "newPrice": 2244,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:58:24.641Z",
+    "timestamp": "2026-05-10T12:26:12.377Z",
     "code": "2780",
     "name": "コメ兵",
-    "prevPrice": 5390,
-    "newPrice": 5390,
+    "prevPrice": 5330,
+    "newPrice": 5330,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6134",
-    "name": "FUJI",
-    "prevPrice": 6272,
-    "newPrice": 6272,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "3180",
-    "name": "Bガレ",
-    "prevPrice": 1548,
-    "newPrice": 1548,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6779",
-    "name": "日本電波",
-    "prevPrice": 2101,
-    "newPrice": 2101,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "9880",
-    "name": "イノテック",
-    "prevPrice": 3225,
-    "newPrice": 3225,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6742",
-    "name": "京三製作所",
-    "prevPrice": 734,
-    "newPrice": 734,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "3415",
-    "name": "トウキョウベース",
-    "prevPrice": 400,
-    "newPrice": 400,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "8411",
-    "name": "みずほ",
-    "prevPrice": 6926,
-    "newPrice": 6926,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "5870",
-    "name": "ナルネット",
-    "prevPrice": 1005,
-    "newPrice": 1005,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "9029",
-    "name": "ヒガシ",
-    "prevPrice": 1806,
-    "newPrice": 1806,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "4691",
-    "name": "ワシントンホテル",
-    "prevPrice": 2300,
-    "newPrice": 2300,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "4914",
-    "name": "高砂香料工業",
-    "prevPrice": 1194,
-    "newPrice": 1194,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "3315",
-    "name": "日本コークス",
-    "prevPrice": 102,
-    "newPrice": 102,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "3529",
-    "name": "アツギ",
-    "prevPrice": 1140,
-    "newPrice": 1140,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "2805",
-    "name": "エスビー",
-    "prevPrice": 4570,
-    "newPrice": 4570,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "5537",
-    "name": "アルバリンク",
-    "prevPrice": 2161,
-    "newPrice": 2161,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6083",
-    "name": "ERI",
-    "prevPrice": 4170,
-    "newPrice": 4170,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "4461",
-    "name": "第一工業",
-    "prevPrice": 8950,
-    "newPrice": 8950,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "4228",
-    "name": "積水化成品",
-    "prevPrice": 473,
-    "newPrice": 473,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "5201",
-    "name": "AGC",
-    "prevPrice": 5683,
-    "newPrice": 5683,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6565",
-    "name": "ABホテル",
-    "prevPrice": 1388,
-    "newPrice": 1388,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6627",
-    "name": "テラプロープ",
-    "prevPrice": 11300,
-    "newPrice": 11300,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "556A",
-    "name": "犬猫生活",
-    "prevPrice": 3295,
-    "newPrice": 3295,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "1850",
-    "name": "南海辰村",
-    "prevPrice": 431,
-    "newPrice": 431,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "2157",
-    "name": "コシダカ",
-    "prevPrice": 999,
-    "newPrice": 999,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "2428",
-    "name": "ウェルネット",
-    "prevPrice": 623,
-    "newPrice": 623,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "2652",
-    "name": "まんだらけ",
-    "prevPrice": 343,
-    "newPrice": 343,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "2751",
-    "name": "テンポス",
-    "prevPrice": 3555,
-    "newPrice": 3555,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "3048",
-    "name": "ビックカメラ",
-    "prevPrice": 1604,
-    "newPrice": 1604,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "3097",
-    "name": "物語",
-    "prevPrice": 4250,
-    "newPrice": 4250,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "3543",
-    "name": "コメダ",
-    "prevPrice": 2996,
-    "newPrice": 2996,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "3673",
-    "name": "ブロードリーフ",
-    "prevPrice": 896,
-    "newPrice": 896,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "4680",
-    "name": "ラウンドワン",
-    "prevPrice": 854.4,
-    "newPrice": 854.4,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "4755",
-    "name": "楽天",
-    "prevPrice": 751,
-    "newPrice": 751,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6044",
-    "name": "三機サービス",
-    "prevPrice": 1710,
-    "newPrice": 1710,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6071",
-    "name": "IBJ",
-    "prevPrice": 720,
-    "newPrice": 720,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6076",
-    "name": "アメイズ",
-    "prevPrice": 1400,
-    "newPrice": null,
-    "status": "failed",
-    "error": "シンボル未取得"
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6078",
-    "name": "バリューHR",
-    "prevPrice": 1416,
-    "newPrice": 1416,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6089",
-    "name": "ウィルグループ",
-    "prevPrice": 1122,
-    "newPrice": 1122,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6099",
-    "name": "エラン",
-    "prevPrice": 693,
-    "newPrice": 693,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6226",
-    "name": "守谷輸送",
-    "prevPrice": 2046,
-    "newPrice": 2046,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6540",
-    "name": "船場",
-    "prevPrice": 1665,
-    "newPrice": 1665,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6547",
-    "name": "グリーンズ",
-    "prevPrice": 2312,
-    "newPrice": 2312,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "6824",
-    "name": "新コスモス電機",
-    "prevPrice": 5830,
-    "newPrice": 5830,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "7453",
-    "name": "良品計画",
-    "prevPrice": 3654,
-    "newPrice": 3654,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "7513",
-    "name": "コジマ",
-    "prevPrice": 1176,
-    "newPrice": 1176,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "8473",
-    "name": "SBI",
-    "prevPrice": 3071,
-    "newPrice": 3071,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "8848",
-    "name": "レオパレス",
-    "prevPrice": 650,
-    "newPrice": 650,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "9273",
-    "name": "コーア",
-    "prevPrice": 875,
-    "newPrice": 875,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "9325",
-    "name": "ファイズ",
-    "prevPrice": 1221,
-    "newPrice": 1221,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "9418",
-    "name": "UNEXT",
-    "prevPrice": 1539,
-    "newPrice": 1539,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "9722",
-    "name": "藤田観光",
-    "prevPrice": 2060,
-    "newPrice": 2060,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "9936",
-    "name": "王将",
-    "prevPrice": 2896,
-    "newPrice": 2896,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "9887",
-    "name": "松屋フーズ",
-    "prevPrice": 5200,
-    "newPrice": 5200,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "5332",
-    "name": "TOTO",
-    "prevPrice": 6740,
-    "newPrice": 6740,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "4966",
-    "name": "上村工業",
-    "prevPrice": 23800,
-    "newPrice": 23800,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "7564",
-    "name": "ワークマン",
-    "prevPrice": 7710,
-    "newPrice": 7710,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:58:24.641Z",
-    "code": "547A",
-    "name": "",
-    "prevPrice": 458,
-    "newPrice": 458,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
+    "timestamp": "2026-05-10T12:26:12.377Z",
     "code": "5038",
     "name": "ewell",
-    "prevPrice": 2036,
-    "newPrice": 2036,
+    "prevPrice": 2070,
+    "newPrice": 2070,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
+    "timestamp": "2026-05-10T12:26:12.377Z",
     "code": "6072",
     "name": "地盤ネット",
-    "prevPrice": 1058,
-    "newPrice": 1058,
+    "prevPrice": 1046,
+    "newPrice": 1046,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "4554",
-    "name": "富士製薬",
-    "prevPrice": 2232,
-    "newPrice": 2232,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "2780",
-    "name": "コメ兵",
-    "prevPrice": 5390,
-    "newPrice": 5390,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
+    "timestamp": "2026-05-10T12:26:12.377Z",
     "code": "6134",
     "name": "FUJI",
-    "prevPrice": 6272,
-    "newPrice": 6272,
+    "prevPrice": 6615,
+    "newPrice": 6615,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
+    "timestamp": "2026-05-10T12:26:12.377Z",
+    "code": "9029",
+    "name": "ヒガシ21",
+    "prevPrice": 1780,
+    "newPrice": 1780,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T12:26:12.377Z",
     "code": "3180",
     "name": "Bガレ",
-    "prevPrice": 1548,
-    "newPrice": 1548,
+    "prevPrice": 1577,
+    "newPrice": 1577,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6779",
-    "name": "日本電波",
-    "prevPrice": 2101,
-    "newPrice": 2101,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "9880",
-    "name": "イノテック",
-    "prevPrice": 3225,
-    "newPrice": 3225,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
+    "timestamp": "2026-05-10T12:26:12.377Z",
     "code": "6742",
     "name": "京三製作所",
-    "prevPrice": 734,
-    "newPrice": 734,
+    "prevPrice": 749,
+    "newPrice": 749,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
+    "timestamp": "2026-05-10T12:26:12.377Z",
     "code": "3415",
     "name": "トウキョウベース",
-    "prevPrice": 400,
-    "newPrice": 400,
+    "prevPrice": 376,
+    "newPrice": 376,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "8411",
-    "name": "みずほ",
-    "prevPrice": 6926,
-    "newPrice": 6926,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "5870",
-    "name": "ナルネット",
-    "prevPrice": 1005,
-    "newPrice": 1005,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "9029",
-    "name": "ヒガシ",
-    "prevPrice": 1806,
-    "newPrice": 1806,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "4691",
-    "name": "ワシントンホテル",
-    "prevPrice": 2300,
-    "newPrice": 2300,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "4914",
-    "name": "高砂香料工業",
-    "prevPrice": 1194,
-    "newPrice": 1194,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "3315",
-    "name": "日本コークス",
-    "prevPrice": 102,
-    "newPrice": 102,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "3529",
-    "name": "アツギ",
-    "prevPrice": 1140,
-    "newPrice": 1140,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "2805",
-    "name": "エスビー",
-    "prevPrice": 4570,
-    "newPrice": 4570,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "5537",
-    "name": "アルバリンク",
-    "prevPrice": 2161,
-    "newPrice": 2161,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6083",
-    "name": "ERI",
-    "prevPrice": 4170,
-    "newPrice": 4170,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "4461",
-    "name": "第一工業",
-    "prevPrice": 8950,
-    "newPrice": 8950,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "4228",
-    "name": "積水化成品",
-    "prevPrice": 473,
-    "newPrice": 473,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "5201",
-    "name": "AGC",
-    "prevPrice": 5683,
-    "newPrice": 5683,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6565",
-    "name": "ABホテル",
-    "prevPrice": 1388,
-    "newPrice": 1388,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6627",
-    "name": "テラプロープ",
-    "prevPrice": 11300,
-    "newPrice": 11300,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "556A",
-    "name": "犬猫生活",
-    "prevPrice": 3295,
-    "newPrice": 3295,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "1850",
-    "name": "南海辰村",
-    "prevPrice": 431,
-    "newPrice": 431,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "2157",
-    "name": "コシダカ",
-    "prevPrice": 999,
-    "newPrice": 999,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "2428",
-    "name": "ウェルネット",
-    "prevPrice": 623,
-    "newPrice": 623,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "2652",
-    "name": "まんだらけ",
-    "prevPrice": 343,
-    "newPrice": 343,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "2751",
-    "name": "テンポス",
-    "prevPrice": 3555,
-    "newPrice": 3555,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "3048",
-    "name": "ビックカメラ",
-    "prevPrice": 1604,
-    "newPrice": 1604,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "3097",
-    "name": "物語",
-    "prevPrice": 4250,
-    "newPrice": 4250,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "3543",
-    "name": "コメダ",
-    "prevPrice": 2996,
-    "newPrice": 2996,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "3673",
-    "name": "ブロードリーフ",
-    "prevPrice": 896,
-    "newPrice": 896,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "4680",
-    "name": "ラウンドワン",
-    "prevPrice": 854.4,
-    "newPrice": 854.4,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "4755",
-    "name": "楽天",
-    "prevPrice": 751,
-    "newPrice": 751,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6044",
-    "name": "三機サービス",
-    "prevPrice": 1710,
-    "newPrice": 1710,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6071",
-    "name": "IBJ",
-    "prevPrice": 720,
-    "newPrice": 720,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6076",
-    "name": "アメイズ",
-    "prevPrice": 1400,
-    "newPrice": null,
-    "status": "failed",
-    "error": "シンボル未取得"
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6078",
-    "name": "バリューHR",
-    "prevPrice": 1416,
-    "newPrice": 1416,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6089",
-    "name": "ウィルグループ",
-    "prevPrice": 1122,
-    "newPrice": 1122,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6099",
-    "name": "エラン",
-    "prevPrice": 693,
-    "newPrice": 693,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
+    "timestamp": "2026-05-10T12:26:12.377Z",
     "code": "6226",
     "name": "守谷輸送",
-    "prevPrice": 2046,
-    "newPrice": 2046,
+    "prevPrice": 2045,
+    "newPrice": 2045,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6540",
-    "name": "船場",
-    "prevPrice": 1665,
-    "newPrice": 1665,
+    "timestamp": "2026-05-10T12:26:12.377Z",
+    "code": "6083",
+    "name": "ERI",
+    "prevPrice": 4255,
+    "newPrice": 4255,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6547",
-    "name": "グリーンズ",
-    "prevPrice": 2312,
-    "newPrice": 2312,
+    "timestamp": "2026-05-10T12:26:12.377Z",
+    "code": "9880",
+    "name": "イノテック",
+    "prevPrice": 3220,
+    "newPrice": 3220,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "6824",
-    "name": "新コスモス電機",
-    "prevPrice": 5830,
-    "newPrice": 5830,
+    "timestamp": "2026-05-10T12:26:12.377Z",
+    "code": "1850",
+    "name": "南海辰村",
+    "prevPrice": 426,
+    "newPrice": 426,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "7453",
-    "name": "良品計画",
-    "prevPrice": 3654,
-    "newPrice": 3654,
+    "timestamp": "2026-05-10T12:26:12.377Z",
+    "code": "5537",
+    "name": "アルバリンク",
+    "prevPrice": 2166,
+    "newPrice": 2166,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "7513",
-    "name": "コジマ",
-    "prevPrice": 1176,
-    "newPrice": 1176,
+    "timestamp": "2026-05-10T12:26:12.377Z",
+    "code": "5870",
+    "name": "ナルネット",
+    "prevPrice": 1006,
+    "newPrice": 1006,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "8473",
-    "name": "SBI",
-    "prevPrice": 3071,
-    "newPrice": 3071,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "8848",
-    "name": "レオパレス",
-    "prevPrice": 650,
-    "newPrice": 650,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "9273",
-    "name": "コーア",
-    "prevPrice": 875,
-    "newPrice": 875,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "9325",
-    "name": "ファイズ",
-    "prevPrice": 1221,
-    "newPrice": 1221,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "9418",
-    "name": "UNEXT",
-    "prevPrice": 1539,
-    "newPrice": 1539,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "9722",
-    "name": "藤田観光",
-    "prevPrice": 2060,
-    "newPrice": 2060,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "9936",
-    "name": "王将",
-    "prevPrice": 2896,
-    "newPrice": 2896,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "9887",
-    "name": "松屋フーズ",
-    "prevPrice": 5200,
-    "newPrice": 5200,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:44:15.034Z",
+    "timestamp": "2026-05-10T12:26:12.377Z",
     "code": "5332",
     "name": "TOTO",
-    "prevPrice": 6740,
-    "newPrice": 6740,
+    "prevPrice": 7083,
+    "newPrice": 7083,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
+    "timestamp": "2026-05-10T12:26:12.377Z",
     "code": "4966",
     "name": "上村工業",
-    "prevPrice": 23800,
-    "newPrice": 23800,
+    "prevPrice": 23710,
+    "newPrice": 23710,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "7564",
-    "name": "ワークマン",
-    "prevPrice": 7710,
-    "newPrice": 7710,
+    "timestamp": "2026-05-10T12:26:12.377Z",
+    "code": "8137",
+    "name": "サンワテクノス",
+    "prevPrice": 3255,
+    "newPrice": 3255,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:44:15.034Z",
-    "code": "547A",
+    "timestamp": "2026-05-10T12:26:12.377Z",
+    "code": "9325",
+    "name": "ファイズホールディングス",
+    "prevPrice": 1349,
+    "newPrice": 1349,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T12:26:12.377Z",
+    "code": "4186",
+    "name": "東京応化工業",
+    "prevPrice": 9688,
+    "newPrice": 9688,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T12:26:12.377Z",
+    "code": "4914",
     "name": "",
     "prevPrice": null,
-    "newPrice": 458,
+    "newPrice": 1180,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "5038",
-    "name": "ewell",
-    "prevPrice": 2036,
-    "newPrice": 2036,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "6072",
-    "name": "地盤ネット",
-    "prevPrice": 1058,
-    "newPrice": 1058,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:08:16.252Z",
     "code": "4554",
     "name": "富士製薬",
-    "prevPrice": 2232,
-    "newPrice": 2232,
+    "prevPrice": 2244,
+    "newPrice": 2244,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:08:16.252Z",
     "code": "2780",
     "name": "コメ兵",
-    "prevPrice": 5390,
-    "newPrice": 5390,
+    "prevPrice": 5330,
+    "newPrice": 5330,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "5038",
+    "name": "ewell",
+    "prevPrice": 2070,
+    "newPrice": 2070,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "6072",
+    "name": "地盤ネット",
+    "prevPrice": 1046,
+    "newPrice": 1046,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:08:16.252Z",
     "code": "6134",
     "name": "FUJI",
-    "prevPrice": 6272,
-    "newPrice": 6272,
+    "prevPrice": 6615,
+    "newPrice": 6615,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "9029",
+    "name": "ヒガシ21",
+    "prevPrice": 1780,
+    "newPrice": 1780,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:08:16.252Z",
     "code": "3180",
     "name": "Bガレ",
-    "prevPrice": 1548,
-    "newPrice": 1548,
+    "prevPrice": 1577,
+    "newPrice": 1577,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "6779",
-    "name": "日本電波",
-    "prevPrice": 2101,
-    "newPrice": 2101,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "9880",
-    "name": "イノテック",
-    "prevPrice": 3225,
-    "newPrice": 3225,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:08:16.252Z",
     "code": "6742",
     "name": "京三製作所",
-    "prevPrice": 734,
-    "newPrice": 734,
+    "prevPrice": 749,
+    "newPrice": 749,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:08:16.252Z",
     "code": "3415",
     "name": "トウキョウベース",
-    "prevPrice": 400,
-    "newPrice": 400,
+    "prevPrice": 376,
+    "newPrice": 376,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "8411",
-    "name": "みずほ",
-    "prevPrice": 6926,
-    "newPrice": 6926,
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "6226",
+    "name": "守谷輸送",
+    "prevPrice": 2045,
+    "newPrice": 2045,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "6083",
+    "name": "ERI",
+    "prevPrice": 4255,
+    "newPrice": 4255,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "9880",
+    "name": "イノテック",
+    "prevPrice": 3220,
+    "newPrice": 3220,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "1850",
+    "name": "南海辰村",
+    "prevPrice": 426,
+    "newPrice": 426,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "5537",
+    "name": "アルバリンク",
+    "prevPrice": 2166,
+    "newPrice": 2166,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:08:16.252Z",
     "code": "5870",
     "name": "ナルネット",
-    "prevPrice": 1005,
-    "newPrice": 1005,
+    "prevPrice": 1006,
+    "newPrice": 1006,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "5332",
+    "name": "TOTO",
+    "prevPrice": 7083,
+    "newPrice": 7083,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "4966",
+    "name": "上村工業",
+    "prevPrice": 23710,
+    "newPrice": 23710,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "8137",
+    "name": "サンワテクノス",
+    "prevPrice": 3255,
+    "newPrice": 3255,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "9325",
+    "name": "ファイズホールディングス",
+    "prevPrice": 1349,
+    "newPrice": 1349,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:08:16.252Z",
+    "code": "4186",
+    "name": "",
+    "prevPrice": null,
+    "newPrice": 9688,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "5038",
+    "name": "ewell",
+    "prevPrice": 2070,
+    "newPrice": 2070,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6072",
+    "name": "地盤ネット",
+    "prevPrice": 1046,
+    "newPrice": 1046,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "4554",
+    "name": "富士製薬",
+    "prevPrice": 2244,
+    "newPrice": 2244,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "2780",
+    "name": "コメ兵",
+    "prevPrice": 5330,
+    "newPrice": 5330,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6134",
+    "name": "FUJI",
+    "prevPrice": 6615,
+    "newPrice": 6615,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "3180",
+    "name": "Bガレ",
+    "prevPrice": 1577,
+    "newPrice": 1577,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6779",
+    "name": "日本電波",
+    "prevPrice": 2188,
+    "newPrice": 2188,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "9880",
+    "name": "イノテック",
+    "prevPrice": 3220,
+    "newPrice": 3220,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6742",
+    "name": "京三製作所",
+    "prevPrice": 749,
+    "newPrice": 749,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "3415",
+    "name": "トウキョウベース",
+    "prevPrice": 376,
+    "newPrice": 376,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "8411",
+    "name": "みずほ",
+    "prevPrice": 6771,
+    "newPrice": 6771,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "5870",
+    "name": "ナルネット",
+    "prevPrice": 1006,
+    "newPrice": 1006,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "9029",
     "name": "ヒガシ",
-    "prevPrice": 1806,
-    "newPrice": 1806,
+    "prevPrice": 1780,
+    "newPrice": 1780,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "4691",
     "name": "ワシントンホテル",
-    "prevPrice": 2300,
-    "newPrice": 2300,
+    "prevPrice": 2455,
+    "newPrice": 2455,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "4914",
     "name": "高砂香料工業",
-    "prevPrice": 1194,
-    "newPrice": 1194,
+    "prevPrice": 1180,
+    "newPrice": 1180,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "3315",
     "name": "日本コークス",
     "prevPrice": 102,
@@ -4086,416 +3375,1127 @@
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "3529",
     "name": "アツギ",
-    "prevPrice": 1140,
-    "newPrice": 1140,
+    "prevPrice": 1125,
+    "newPrice": 1125,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "2805",
     "name": "エスビー",
-    "prevPrice": 4570,
-    "newPrice": 4570,
+    "prevPrice": 4450,
+    "newPrice": 4450,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "5537",
     "name": "アルバリンク",
-    "prevPrice": 2161,
-    "newPrice": 2161,
+    "prevPrice": 2166,
+    "newPrice": 2166,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "6083",
     "name": "ERI",
-    "prevPrice": 4170,
-    "newPrice": 4170,
+    "prevPrice": 4255,
+    "newPrice": 4255,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "4461",
     "name": "第一工業",
-    "prevPrice": 8950,
-    "newPrice": 8950,
+    "prevPrice": 8930,
+    "newPrice": 8930,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "4228",
     "name": "積水化成品",
-    "prevPrice": 473,
-    "newPrice": 473,
+    "prevPrice": 476,
+    "newPrice": 476,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "5201",
     "name": "AGC",
-    "prevPrice": 5683,
-    "newPrice": 5683,
+    "prevPrice": 5580,
+    "newPrice": 5580,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "6565",
     "name": "ABホテル",
     "prevPrice": 1388,
-    "newPrice": 1388,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "6627",
-    "name": "テラプロープ",
-    "prevPrice": 11300,
-    "newPrice": 11300,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "556A",
-    "name": "犬猫生活",
-    "prevPrice": 3295,
-    "newPrice": 3295,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "1850",
-    "name": "南海辰村",
-    "prevPrice": 431,
-    "newPrice": 431,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "2157",
-    "name": "コシダカ",
-    "prevPrice": 999,
-    "newPrice": 999,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "2428",
-    "name": "ウェルネット",
-    "prevPrice": 623,
-    "newPrice": 623,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "2652",
-    "name": "まんだらけ",
-    "prevPrice": 343,
-    "newPrice": 343,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "2751",
-    "name": "テンポス",
-    "prevPrice": 3555,
-    "newPrice": 3555,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "3048",
-    "name": "ビックカメラ",
-    "prevPrice": 1604,
-    "newPrice": 1604,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "3097",
-    "name": "物語",
-    "prevPrice": 4250,
-    "newPrice": 4250,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "3543",
-    "name": "コメダ",
-    "prevPrice": 2996,
-    "newPrice": 2996,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "3673",
-    "name": "ブロードリーフ",
-    "prevPrice": 896,
-    "newPrice": 896,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "4680",
-    "name": "ラウンドワン",
-    "prevPrice": 854.4,
-    "newPrice": 854.4,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "4755",
-    "name": "楽天",
-    "prevPrice": 751,
-    "newPrice": 751,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "6044",
-    "name": "三機サービス",
-    "prevPrice": 1710,
-    "newPrice": 1710,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "6071",
-    "name": "IBJ",
-    "prevPrice": 720,
-    "newPrice": 720,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "6076",
-    "name": "アメイズ",
-    "prevPrice": 1400,
     "newPrice": null,
     "status": "failed",
     "error": "シンボル未取得"
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6627",
+    "name": "テラプロープ",
+    "prevPrice": 11530,
+    "newPrice": 11530,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "556A",
+    "name": "犬猫生活",
+    "prevPrice": 3405,
+    "newPrice": 3405,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "1850",
+    "name": "南海辰村",
+    "prevPrice": 426,
+    "newPrice": 426,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "2157",
+    "name": "コシダカ",
+    "prevPrice": 1001,
+    "newPrice": 1001,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "2428",
+    "name": "ウェルネット",
+    "prevPrice": 626,
+    "newPrice": 626,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "2652",
+    "name": "まんだらけ",
+    "prevPrice": 350,
+    "newPrice": 350,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "2751",
+    "name": "テンポス",
+    "prevPrice": 3505,
+    "newPrice": 3505,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "3048",
+    "name": "ビックカメラ",
+    "prevPrice": 1617,
+    "newPrice": 1617,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "3097",
+    "name": "物語",
+    "prevPrice": 4205,
+    "newPrice": 4205,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "3543",
+    "name": "コメダ",
+    "prevPrice": 3030,
+    "newPrice": 3030,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "3673",
+    "name": "ブロードリーフ",
+    "prevPrice": 899,
+    "newPrice": 899,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "4680",
+    "name": "ラウンドワン",
+    "prevPrice": 865.5,
+    "newPrice": 865.5,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "4755",
+    "name": "楽天",
+    "prevPrice": 747.9,
+    "newPrice": 747.9,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6044",
+    "name": "三機サービス",
+    "prevPrice": 1705,
+    "newPrice": 1705,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6071",
+    "name": "IBJ",
+    "prevPrice": 744,
+    "newPrice": 744,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6076",
+    "name": "アメイズ",
+    "prevPrice": 1257,
+    "newPrice": null,
+    "status": "failed",
+    "error": "シンボル未取得"
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
     "code": "6078",
     "name": "バリューHR",
+    "prevPrice": 1408,
+    "newPrice": 1408,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6089",
+    "name": "ウィルグループ",
+    "prevPrice": 1109,
+    "newPrice": 1109,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6099",
+    "name": "エラン",
+    "prevPrice": 690,
+    "newPrice": 690,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6226",
+    "name": "守谷輸送",
+    "prevPrice": 2045,
+    "newPrice": 2045,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6540",
+    "name": "船場",
+    "prevPrice": 1654,
+    "newPrice": 1654,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6547",
+    "name": "グリーンズ",
+    "prevPrice": 2332,
+    "newPrice": 2332,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6824",
+    "name": "新コスモス電機",
+    "prevPrice": 5790,
+    "newPrice": 5790,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "7453",
+    "name": "良品計画",
+    "prevPrice": 3650,
+    "newPrice": 3650,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "7513",
+    "name": "コジマ",
+    "prevPrice": 1172,
+    "newPrice": 1172,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "8473",
+    "name": "SBI",
+    "prevPrice": 3031,
+    "newPrice": 3031,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "9325",
+    "name": "ファイズ",
+    "prevPrice": 1349,
+    "newPrice": 1349,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "9418",
+    "name": "UNEXT",
+    "prevPrice": 1540,
+    "newPrice": 1540,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "9722",
+    "name": "藤田観光",
+    "prevPrice": 2013,
+    "newPrice": 2013,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "9936",
+    "name": "王将",
+    "prevPrice": 2850,
+    "newPrice": 2850,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "9887",
+    "name": "松屋フーズ",
+    "prevPrice": 5110,
+    "newPrice": 5110,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "5332",
+    "name": "TOTO",
+    "prevPrice": 7083,
+    "newPrice": 7083,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "4966",
+    "name": "上村工業",
+    "prevPrice": 23710,
+    "newPrice": 23710,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "7564",
+    "name": "ワークマン",
+    "prevPrice": 7860,
+    "newPrice": 7860,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "547A",
+    "name": "ムニノバホールディングス",
+    "prevPrice": 453,
+    "newPrice": 453,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "8203",
+    "name": "ＭｒＭａｘＨＤ",
+    "prevPrice": 695,
+    "newPrice": 695,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "1852",
+    "name": "淺沼組",
+    "prevPrice": 929,
+    "newPrice": 929,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "6570",
+    "name": "共和コーポレーション",
+    "prevPrice": 1256,
+    "newPrice": 1256,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "9612",
+    "name": "ラックランド",
     "prevPrice": 1416,
     "newPrice": 1416,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "6089",
-    "name": "ウィルグループ",
-    "prevPrice": 1122,
-    "newPrice": 1122,
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "9731",
+    "name": "白洋舎",
+    "prevPrice": 3395,
+    "newPrice": 3395,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "6099",
-    "name": "エラン",
-    "prevPrice": 693,
-    "newPrice": 693,
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "8137",
+    "name": "サンワテクノス",
+    "prevPrice": 3255,
+    "newPrice": 3255,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "6226",
-    "name": "守谷輸送",
-    "prevPrice": 2046,
-    "newPrice": 2046,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "6540",
-    "name": "船場",
-    "prevPrice": 1665,
-    "newPrice": 1665,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "6547",
-    "name": "グリーンズ",
-    "prevPrice": 2312,
-    "newPrice": 2312,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "6824",
-    "name": "新コスモス電機",
-    "prevPrice": 5830,
-    "newPrice": 5830,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "7453",
-    "name": "良品計画",
-    "prevPrice": 3654,
-    "newPrice": 3654,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "7513",
-    "name": "コジマ",
-    "prevPrice": 1176,
-    "newPrice": 1176,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "8473",
-    "name": "SBI",
-    "prevPrice": 3071,
-    "newPrice": 3071,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "8848",
-    "name": "レオパレス",
-    "prevPrice": 650,
-    "newPrice": 650,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "9273",
-    "name": "コーア",
-    "prevPrice": 875,
-    "newPrice": 875,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "9325",
-    "name": "ファイズ",
-    "prevPrice": 1221,
-    "newPrice": 1221,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "9418",
-    "name": "UNEXT",
-    "prevPrice": 1539,
-    "newPrice": 1539,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "9722",
-    "name": "藤田観光",
-    "prevPrice": 2060,
-    "newPrice": 2060,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "9936",
-    "name": "王将",
-    "prevPrice": 2896,
-    "newPrice": 2896,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "9887",
-    "name": "松屋フーズ",
-    "prevPrice": 5200,
-    "newPrice": 5200,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "5332",
-    "name": "TOTO",
-    "prevPrice": 6740,
-    "newPrice": 6740,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "4966",
-    "name": "上村工業",
-    "prevPrice": 23800,
-    "newPrice": 23800,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "7564",
-    "name": "ワークマン",
-    "prevPrice": 7710,
-    "newPrice": 7710,
-    "status": "success",
-    "error": null
-  },
-  {
-    "timestamp": "2026-05-07T13:43:52.973Z",
-    "code": "547A",
+    "timestamp": "2026-05-10T08:07:36.875Z",
+    "code": "4186",
     "name": "",
-    "prevPrice": 458,
-    "newPrice": 458,
+    "prevPrice": null,
+    "newPrice": 9688,
     "status": "success",
     "error": null
   },
   {
-    "timestamp": "2026-05-07T13:35:12.689Z",
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "4554",
+    "name": "富士製薬",
+    "prevPrice": 2244,
+    "newPrice": 2244,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "2780",
+    "name": "コメ兵",
+    "prevPrice": 5330,
+    "newPrice": 5330,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
     "code": "5038",
     "name": "ewell",
-    "prevPrice": 2036,
-    "newPrice": 2036,
+    "prevPrice": 2070,
+    "newPrice": 2070,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "6072",
+    "name": "地盤ネット",
+    "prevPrice": 1046,
+    "newPrice": 1046,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "6134",
+    "name": "FUJI",
+    "prevPrice": 6615,
+    "newPrice": 6615,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "9029",
+    "name": "ヒガシ21",
+    "prevPrice": 1780,
+    "newPrice": 1780,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "3180",
+    "name": "Bガレ",
+    "prevPrice": 1577,
+    "newPrice": 1577,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "6742",
+    "name": "京三製作所",
+    "prevPrice": 749,
+    "newPrice": 749,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "3415",
+    "name": "トウキョウベース",
+    "prevPrice": 376,
+    "newPrice": 376,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "6226",
+    "name": "守谷輸送",
+    "prevPrice": 2045,
+    "newPrice": 2045,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "6083",
+    "name": "ERI",
+    "prevPrice": 4255,
+    "newPrice": 4255,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "9880",
+    "name": "イノテック",
+    "prevPrice": 3220,
+    "newPrice": 3220,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "1850",
+    "name": "南海辰村",
+    "prevPrice": 426,
+    "newPrice": 426,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "5537",
+    "name": "アルバリンク",
+    "prevPrice": 2166,
+    "newPrice": 2166,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "5870",
+    "name": "ナルネット",
+    "prevPrice": 1006,
+    "newPrice": 1006,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "5332",
+    "name": "TOTO",
+    "prevPrice": 7083,
+    "newPrice": 7083,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "4966",
+    "name": "上村工業",
+    "prevPrice": 23710,
+    "newPrice": 23710,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "8137",
+    "name": "サンワテクノス",
+    "prevPrice": 3255,
+    "newPrice": 3255,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-10T04:35:33.415Z",
+    "code": "9325",
+    "name": "",
+    "prevPrice": null,
+    "newPrice": 1349,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "4554",
+    "name": "富士製薬",
+    "prevPrice": 2244,
+    "newPrice": 2244,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "2780",
+    "name": "コメ兵",
+    "prevPrice": 5330,
+    "newPrice": 5330,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "5038",
+    "name": "ewell",
+    "prevPrice": 2070,
+    "newPrice": 2070,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "6072",
+    "name": "地盤ネット",
+    "prevPrice": 1046,
+    "newPrice": 1046,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "6134",
+    "name": "FUJI",
+    "prevPrice": 6615,
+    "newPrice": 6615,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "9029",
+    "name": "ヒガシ21",
+    "prevPrice": 1780,
+    "newPrice": 1780,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "3180",
+    "name": "Bガレ",
+    "prevPrice": 1577,
+    "newPrice": 1577,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "6742",
+    "name": "京三製作所",
+    "prevPrice": 749,
+    "newPrice": 749,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "3415",
+    "name": "トウキョウベース",
+    "prevPrice": 376,
+    "newPrice": 376,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "6226",
+    "name": "守谷輸送",
+    "prevPrice": 2045,
+    "newPrice": 2045,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "6083",
+    "name": "ERI",
+    "prevPrice": 4255,
+    "newPrice": 4255,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "9880",
+    "name": "イノテック",
+    "prevPrice": 3220,
+    "newPrice": 3220,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "1850",
+    "name": "南海辰村",
+    "prevPrice": 426,
+    "newPrice": 426,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "5537",
+    "name": "アルバリンク",
+    "prevPrice": 2166,
+    "newPrice": 2166,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "5870",
+    "name": "ナルネット",
+    "prevPrice": 1006,
+    "newPrice": 1006,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "5332",
+    "name": "TOTO",
+    "prevPrice": 7083,
+    "newPrice": 7083,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "4966",
+    "name": "上村工業",
+    "prevPrice": 23710,
+    "newPrice": 23710,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T14:10:20.136Z",
+    "code": "8137",
+    "name": "",
+    "prevPrice": null,
+    "newPrice": 3255,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "5038",
+    "name": "ewell",
+    "prevPrice": 2070,
+    "newPrice": 2070,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "6072",
+    "name": "地盤ネット",
+    "prevPrice": 1046,
+    "newPrice": 1046,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "4554",
+    "name": "富士製薬",
+    "prevPrice": 2244,
+    "newPrice": 2244,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "2780",
+    "name": "コメ兵",
+    "prevPrice": 5330,
+    "newPrice": 5330,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "6134",
+    "name": "FUJI",
+    "prevPrice": 6615,
+    "newPrice": 6615,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "3180",
+    "name": "Bガレ",
+    "prevPrice": 1577,
+    "newPrice": 1577,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "6779",
+    "name": "日本電波",
+    "prevPrice": 2188,
+    "newPrice": 2188,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "9880",
+    "name": "イノテック",
+    "prevPrice": 3220,
+    "newPrice": 3220,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "6742",
+    "name": "京三製作所",
+    "prevPrice": 749,
+    "newPrice": 749,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "3415",
+    "name": "トウキョウベース",
+    "prevPrice": 376,
+    "newPrice": 376,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "8411",
+    "name": "みずほ",
+    "prevPrice": 6771,
+    "newPrice": 6771,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "5870",
+    "name": "ナルネット",
+    "prevPrice": 1006,
+    "newPrice": 1006,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "9029",
+    "name": "ヒガシ",
+    "prevPrice": 1780,
+    "newPrice": 1780,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "4691",
+    "name": "ワシントンホテル",
+    "prevPrice": 2455,
+    "newPrice": 2455,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "4914",
+    "name": "高砂香料工業",
+    "prevPrice": 1180,
+    "newPrice": 1180,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "3315",
+    "name": "日本コークス",
+    "prevPrice": 102,
+    "newPrice": 102,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "3529",
+    "name": "アツギ",
+    "prevPrice": 1125,
+    "newPrice": 1125,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "2805",
+    "name": "エスビー",
+    "prevPrice": 4450,
+    "newPrice": 4450,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "5537",
+    "name": "アルバリンク",
+    "prevPrice": 2166,
+    "newPrice": 2166,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "6083",
+    "name": "ERI",
+    "prevPrice": 4255,
+    "newPrice": 4255,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "4461",
+    "name": "第一工業",
+    "prevPrice": 8930,
+    "newPrice": 8930,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "4228",
+    "name": "積水化成品",
+    "prevPrice": 476,
+    "newPrice": 476,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "5201",
+    "name": "AGC",
+    "prevPrice": 5580,
+    "newPrice": 5580,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "6565",
+    "name": "ABホテル",
+    "prevPrice": 1388,
+    "newPrice": null,
+    "status": "failed",
+    "error": "シンボル未取得"
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "6627",
+    "name": "テラプロープ",
+    "prevPrice": 11530,
+    "newPrice": 11530,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "556A",
+    "name": "犬猫生活",
+    "prevPrice": 3405,
+    "newPrice": 3405,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "1850",
+    "name": "南海辰村",
+    "prevPrice": 426,
+    "newPrice": 426,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "2157",
+    "name": "コシダカ",
+    "prevPrice": 1001,
+    "newPrice": 1001,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "2428",
+    "name": "ウェルネット",
+    "prevPrice": 626,
+    "newPrice": 626,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "2652",
+    "name": "まんだらけ",
+    "prevPrice": 350,
+    "newPrice": 350,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "2751",
+    "name": "テンポス",
+    "prevPrice": 3505,
+    "newPrice": 3505,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "3048",
+    "name": "ビックカメラ",
+    "prevPrice": 1617,
+    "newPrice": 1617,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "3097",
+    "name": "物語",
+    "prevPrice": 4205,
+    "newPrice": 4205,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "3543",
+    "name": "コメダ",
+    "prevPrice": 3030,
+    "newPrice": 3030,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "3673",
+    "name": "ブロードリーフ",
+    "prevPrice": 899,
+    "newPrice": 899,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "4680",
+    "name": "ラウンドワン",
+    "prevPrice": 865.5,
+    "newPrice": 865.5,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "4755",
+    "name": "楽天",
+    "prevPrice": 747.9,
+    "newPrice": 747.9,
+    "status": "success",
+    "error": null
+  },
+  {
+    "timestamp": "2026-05-09T12:41:43.573Z",
+    "code": "6044",
+    "name": "三機サービス",
+    "prevPrice": 1705,
+    "newPrice": 1705,
     "status": "success",
     "error": null
   }

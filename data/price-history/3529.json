@@ -1,20 +1,8 @@
 {
   "code": "3529",
   "symbol": "3529.T",
-  "lastFetchedAt": "2026-05-07T05:05:33.057Z",
+  "lastFetchedAt": "2026-05-10T04:45:37.741Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 1217,
-      "adjClose": 1217,
-      "valueForTechnical": 1217
-    },
-    {
-      "date": "2025-06-03",
-      "close": 1198,
-      "adjClose": 1198,
-      "valueForTechnical": 1198
-    },
     {
       "date": "2025-06-04",
       "close": 1236,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 1145,
-      "adjClose": 1145,
-      "valueForTechnical": 1145
+      "close": 1140,
+      "adjClose": 1140,
+      "valueForTechnical": 1140
+    },
+    {
+      "date": "2026-05-08",
+      "close": 1125,
+      "adjClose": 1125,
+      "valueForTechnical": 1125
     }
   ]
 }

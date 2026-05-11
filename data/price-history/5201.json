@@ -1,20 +1,8 @@
 {
   "code": "5201",
   "symbol": "5201.T",
-  "lastFetchedAt": "2026-05-07T05:05:35.051Z",
+  "lastFetchedAt": "2026-05-10T04:45:39.898Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 4250,
-      "adjClose": 4062.869384765625,
-      "valueForTechnical": 4062.869384765625
-    },
-    {
-      "date": "2025-06-03",
-      "close": 4274,
-      "adjClose": 4085.8125,
-      "valueForTechnical": 4085.8125
-    },
     {
       "date": "2025-06-04",
       "close": 4281,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 5702,
-      "adjClose": 5702,
-      "valueForTechnical": 5702
+      "close": 5683,
+      "adjClose": 5683,
+      "valueForTechnical": 5683
+    },
+    {
+      "date": "2026-05-08",
+      "close": 5580,
+      "adjClose": 5580,
+      "valueForTechnical": 5580
     }
   ]
 }

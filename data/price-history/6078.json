@@ -1,20 +1,8 @@
 {
   "code": "6078",
   "symbol": "6078.T",
-  "lastFetchedAt": "2026-05-07T05:05:41.739Z",
+  "lastFetchedAt": "2026-05-10T04:45:45.826Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 1630,
-      "adjClose": 1604.6280517578125,
-      "valueForTechnical": 1604.6280517578125
-    },
-    {
-      "date": "2025-06-03",
-      "close": 1581,
-      "adjClose": 1556.390869140625,
-      "valueForTechnical": 1556.390869140625
-    },
     {
       "date": "2025-06-04",
       "close": 1616,
@@ -24,14 +12,14 @@
     {
       "date": "2025-06-05",
       "close": 1621,
-      "adjClose": 1595.7681884765625,
-      "valueForTechnical": 1595.7681884765625
+      "adjClose": 1595.768310546875,
+      "valueForTechnical": 1595.768310546875
     },
     {
       "date": "2025-06-06",
       "close": 1624,
-      "adjClose": 1598.7215576171875,
-      "valueForTechnical": 1598.7215576171875
+      "adjClose": 1598.721435546875,
+      "valueForTechnical": 1598.721435546875
     },
     {
       "date": "2025-06-09",
@@ -42,8 +30,8 @@
     {
       "date": "2025-06-10",
       "close": 1617,
-      "adjClose": 1591.83056640625,
-      "valueForTechnical": 1591.83056640625
+      "adjClose": 1591.8304443359375,
+      "valueForTechnical": 1591.8304443359375
     },
     {
       "date": "2025-06-11",
@@ -66,8 +54,8 @@
     {
       "date": "2025-06-16",
       "close": 1590,
-      "adjClose": 1565.2508544921875,
-      "valueForTechnical": 1565.2508544921875
+      "adjClose": 1565.250732421875,
+      "valueForTechnical": 1565.250732421875
     },
     {
       "date": "2025-06-17",
@@ -108,8 +96,8 @@
     {
       "date": "2025-06-25",
       "close": 1644,
-      "adjClose": 1618.4102783203125,
-      "valueForTechnical": 1618.4102783203125
+      "adjClose": 1618.41015625,
+      "valueForTechnical": 1618.41015625
     },
     {
       "date": "2025-06-26",
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 1422,
-      "adjClose": 1422,
-      "valueForTechnical": 1422
+      "close": 1416,
+      "adjClose": 1416,
+      "valueForTechnical": 1416
+    },
+    {
+      "date": "2026-05-08",
+      "close": 1408,
+      "adjClose": 1408,
+      "valueForTechnical": 1408
     }
   ]
 }

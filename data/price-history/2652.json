@@ -1,20 +1,8 @@
 {
   "code": "2652",
   "symbol": "2652.T",
-  "lastFetchedAt": "2026-05-07T05:05:37.662Z",
+  "lastFetchedAt": "2026-05-10T04:45:42.187Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 287,
-      "adjClose": 286.0859680175781,
-      "valueForTechnical": 286.0859680175781
-    },
-    {
-      "date": "2025-06-03",
-      "close": 286,
-      "adjClose": 285.08917236328125,
-      "valueForTechnical": 285.08917236328125
-    },
     {
       "date": "2025-06-04",
       "close": 290,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 337,
-      "adjClose": 337,
-      "valueForTechnical": 337
+      "close": 343,
+      "adjClose": 343,
+      "valueForTechnical": 343
+    },
+    {
+      "date": "2026-05-08",
+      "close": 350,
+      "adjClose": 350,
+      "valueForTechnical": 350
     }
   ]
 }

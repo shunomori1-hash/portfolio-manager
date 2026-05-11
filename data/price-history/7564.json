@@ -1,20 +1,8 @@
 {
   "code": "7564",
   "symbol": "7564.T",
-  "lastFetchedAt": "2026-05-07T12:09:02.167Z",
+  "lastFetchedAt": "2026-05-10T04:45:51.862Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 5530,
-      "adjClose": 5465.8203125,
-      "valueForTechnical": 5465.8203125
-    },
-    {
-      "date": "2025-06-03",
-      "close": 5790,
-      "adjClose": 5722.802734375,
-      "valueForTechnical": 5722.802734375
-    },
     {
       "date": "2025-06-04",
       "close": 5940,
@@ -1358,6 +1346,12 @@
       "close": 7710,
       "adjClose": 7710,
       "valueForTechnical": 7710
+    },
+    {
+      "date": "2026-05-08",
+      "close": 7860,
+      "adjClose": 7860,
+      "valueForTechnical": 7860
     }
   ]
 }

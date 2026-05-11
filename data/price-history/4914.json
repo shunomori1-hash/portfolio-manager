@@ -1,20 +1,8 @@
 {
   "code": "4914",
   "symbol": "4914.T",
-  "lastFetchedAt": "2026-05-07T05:05:32.370Z",
+  "lastFetchedAt": "2026-05-10T04:45:37.047Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 1312,
-      "adjClose": 1263.152099609375,
-      "valueForTechnical": 1263.152099609375
-    },
-    {
-      "date": "2025-06-03",
-      "close": 1348,
-      "adjClose": 1297.8116455078125,
-      "valueForTechnical": 1297.8116455078125
-    },
     {
       "date": "2025-06-04",
       "close": 1368,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 1195,
-      "adjClose": 1195,
-      "valueForTechnical": 1195
+      "close": 1194,
+      "adjClose": 1194,
+      "valueForTechnical": 1194
+    },
+    {
+      "date": "2026-05-08",
+      "close": 1180,
+      "adjClose": 1180,
+      "valueForTechnical": 1180
     }
   ]
 }

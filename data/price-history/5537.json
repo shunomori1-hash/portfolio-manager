@@ -1,20 +1,8 @@
 {
   "code": "5537",
   "symbol": "5537.T",
-  "lastFetchedAt": "2026-05-07T05:05:33.698Z",
+  "lastFetchedAt": "2026-05-10T04:45:38.374Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 1059,
-      "adjClose": 1059,
-      "valueForTechnical": 1059
-    },
-    {
-      "date": "2025-06-03",
-      "close": 1059,
-      "adjClose": 1059,
-      "valueForTechnical": 1059
-    },
     {
       "date": "2025-06-04",
       "close": 1059,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 2158,
-      "adjClose": 2158,
-      "valueForTechnical": 2158
+      "close": 2161,
+      "adjClose": 2161,
+      "valueForTechnical": 2161
+    },
+    {
+      "date": "2026-05-08",
+      "close": 2166,
+      "adjClose": 2166,
+      "valueForTechnical": 2166
     }
   ]
 }

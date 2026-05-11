@@ -1,31 +1,19 @@
 {
   "code": "6779",
   "symbol": "6779.T",
-  "lastFetchedAt": "2026-05-07T05:05:29.869Z",
+  "lastFetchedAt": "2026-05-10T04:45:34.327Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 712,
-      "adjClose": 692.5562744140625,
-      "valueForTechnical": 692.5562744140625
-    },
-    {
-      "date": "2025-06-03",
-      "close": 701,
-      "adjClose": 681.8566284179688,
-      "valueForTechnical": 681.8566284179688
-    },
     {
       "date": "2025-06-04",
       "close": 702,
-      "adjClose": 682.8292846679688,
-      "valueForTechnical": 682.8292846679688
+      "adjClose": 682.829345703125,
+      "valueForTechnical": 682.829345703125
     },
     {
       "date": "2025-06-05",
       "close": 712,
-      "adjClose": 692.5562744140625,
-      "valueForTechnical": 692.5562744140625
+      "adjClose": 692.5562133789062,
+      "valueForTechnical": 692.5562133789062
     },
     {
       "date": "2025-06-06",
@@ -36,14 +24,14 @@
     {
       "date": "2025-06-09",
       "close": 703,
-      "adjClose": 683.8020629882812,
-      "valueForTechnical": 683.8020629882812
+      "adjClose": 683.802001953125,
+      "valueForTechnical": 683.802001953125
     },
     {
       "date": "2025-06-10",
       "close": 702,
-      "adjClose": 682.8292846679688,
-      "valueForTechnical": 682.8292846679688
+      "adjClose": 682.829345703125,
+      "valueForTechnical": 682.829345703125
     },
     {
       "date": "2025-06-11",
@@ -60,8 +48,8 @@
     {
       "date": "2025-06-13",
       "close": 704,
-      "adjClose": 684.7747192382812,
-      "valueForTechnical": 684.7747192382812
+      "adjClose": 684.774658203125,
+      "valueForTechnical": 684.774658203125
     },
     {
       "date": "2025-06-16",
@@ -132,14 +120,14 @@
     {
       "date": "2025-07-01",
       "close": 737,
-      "adjClose": 716.87353515625,
-      "valueForTechnical": 716.87353515625
+      "adjClose": 716.8734741210938,
+      "valueForTechnical": 716.8734741210938
     },
     {
       "date": "2025-07-02",
       "close": 737,
-      "adjClose": 716.87353515625,
-      "valueForTechnical": 716.87353515625
+      "adjClose": 716.8734741210938,
+      "valueForTechnical": 716.8734741210938
     },
     {
       "date": "2025-07-03",
@@ -210,26 +198,26 @@
     {
       "date": "2025-07-18",
       "close": 761,
-      "adjClose": 740.2180786132812,
-      "valueForTechnical": 740.2180786132812
+      "adjClose": 740.2181396484375,
+      "valueForTechnical": 740.2181396484375
     },
     {
       "date": "2025-07-22",
       "close": 766,
-      "adjClose": 745.08154296875,
-      "valueForTechnical": 745.08154296875
+      "adjClose": 745.0816040039062,
+      "valueForTechnical": 745.0816040039062
     },
     {
       "date": "2025-07-23",
       "close": 831,
-      "adjClose": 808.3065185546875,
-      "valueForTechnical": 808.3065185546875
+      "adjClose": 808.3064575195312,
+      "valueForTechnical": 808.3064575195312
     },
     {
       "date": "2025-07-24",
       "close": 844,
-      "adjClose": 820.9515380859375,
-      "valueForTechnical": 820.9515380859375
+      "adjClose": 820.9514770507812,
+      "valueForTechnical": 820.9514770507812
     },
     {
       "date": "2025-07-25",
@@ -246,8 +234,8 @@
     {
       "date": "2025-07-29",
       "close": 852,
-      "adjClose": 828.7329711914062,
-      "valueForTechnical": 828.7329711914062
+      "adjClose": 828.7330322265625,
+      "valueForTechnical": 828.7330322265625
     },
     {
       "date": "2025-07-30",
@@ -270,8 +258,8 @@
     {
       "date": "2025-08-04",
       "close": 852,
-      "adjClose": 828.7329711914062,
-      "valueForTechnical": 828.7329711914062
+      "adjClose": 828.7330322265625,
+      "valueForTechnical": 828.7330322265625
     },
     {
       "date": "2025-08-05",
@@ -300,8 +288,8 @@
     {
       "date": "2025-08-12",
       "close": 879,
-      "adjClose": 854.9957275390625,
-      "valueForTechnical": 854.9957275390625
+      "adjClose": 854.9956665039062,
+      "valueForTechnical": 854.9956665039062
     },
     {
       "date": "2025-08-13",
@@ -318,8 +306,8 @@
     {
       "date": "2025-08-15",
       "close": 911,
-      "adjClose": 886.1217651367188,
-      "valueForTechnical": 886.1217651367188
+      "adjClose": 886.121826171875,
+      "valueForTechnical": 886.121826171875
     },
     {
       "date": "2025-08-18",
@@ -336,8 +324,8 @@
     {
       "date": "2025-08-20",
       "close": 899,
-      "adjClose": 874.449462890625,
-      "valueForTechnical": 874.449462890625
+      "adjClose": 874.4495239257812,
+      "valueForTechnical": 874.4495239257812
     },
     {
       "date": "2025-08-21",
@@ -360,8 +348,8 @@
     {
       "date": "2025-08-26",
       "close": 917,
-      "adjClose": 891.9580078125,
-      "valueForTechnical": 891.9580078125
+      "adjClose": 891.9579467773438,
+      "valueForTechnical": 891.9579467773438
     },
     {
       "date": "2025-08-27",
@@ -372,8 +360,8 @@
     {
       "date": "2025-08-28",
       "close": 933,
-      "adjClose": 907.52099609375,
-      "valueForTechnical": 907.52099609375
+      "adjClose": 907.5210571289062,
+      "valueForTechnical": 907.5210571289062
     },
     {
       "date": "2025-08-29",
@@ -414,8 +402,8 @@
     {
       "date": "2025-09-08",
       "close": 935,
-      "adjClose": 909.4664306640625,
-      "valueForTechnical": 909.4664306640625
+      "adjClose": 909.4663696289062,
+      "valueForTechnical": 909.4663696289062
     },
     {
       "date": "2025-09-09",
@@ -438,14 +426,14 @@
     {
       "date": "2025-09-12",
       "close": 935,
-      "adjClose": 909.4664306640625,
-      "valueForTechnical": 909.4664306640625
+      "adjClose": 909.4663696289062,
+      "valueForTechnical": 909.4663696289062
     },
     {
       "date": "2025-09-16",
       "close": 960,
-      "adjClose": 933.78369140625,
-      "valueForTechnical": 933.78369140625
+      "adjClose": 933.7836303710938,
+      "valueForTechnical": 933.7836303710938
     },
     {
       "date": "2025-09-17",
@@ -486,8 +474,8 @@
     {
       "date": "2025-09-26",
       "close": 946,
-      "adjClose": 920.1659545898438,
-      "valueForTechnical": 920.1659545898438
+      "adjClose": 920.166015625,
+      "valueForTechnical": 920.166015625
     },
     {
       "date": "2025-09-29",
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 2115,
-      "adjClose": 2115,
-      "valueForTechnical": 2115
+      "close": 2101,
+      "adjClose": 2101,
+      "valueForTechnical": 2101
+    },
+    {
+      "date": "2026-05-08",
+      "close": 2188,
+      "adjClose": 2188,
+      "valueForTechnical": 2188
     }
   ]
 }

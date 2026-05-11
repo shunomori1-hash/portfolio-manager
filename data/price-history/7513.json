@@ -1,20 +1,8 @@
 {
   "code": "7513",
   "symbol": "7513.T",
-  "lastFetchedAt": "2026-05-07T05:05:44.662Z",
+  "lastFetchedAt": "2026-05-10T04:45:48.737Z",
   "prices": [
-    {
-      "date": "2025-06-02",
-      "close": 1049,
-      "adjClose": 1030.114501953125,
-      "valueForTechnical": 1030.114501953125
-    },
-    {
-      "date": "2025-06-03",
-      "close": 1042,
-      "adjClose": 1023.2406005859375,
-      "valueForTechnical": 1023.2406005859375
-    },
     {
       "date": "2025-06-04",
       "close": 1045,
@@ -1355,9 +1343,15 @@
     },
     {
       "date": "2026-05-07",
-      "close": 1174,
-      "adjClose": 1174,
-      "valueForTechnical": 1174
+      "close": 1176,
+      "adjClose": 1176,
+      "valueForTechnical": 1176
+    },
+    {
+      "date": "2026-05-08",
+      "close": 1172,
+      "adjClose": 1172,
+      "valueForTechnical": 1172
     }
   ]
 }
